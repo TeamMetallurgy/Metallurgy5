@@ -1,0 +1,158 @@
+buildscript {
+    repositories {
+        jcenter()
+        maven { url = "https://files.minecraftforge.net/maven" }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+    }
+}
+
+apply plugin: 'net.minecraftforge.gradle.forge'
+
+version = "1.0"
+group = "com.teammetallurgy.m5"
+archivesBaseName = "m5"
+
+sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
+compileJava {
+    sourceCompatibility = targetCompatibility = '1.8'
+}
+
+minecraft {
+    version = "${minecraft_version}-${forge_version}"
+    mappings = "${mappings_version}"
+    runDir = "run"
+    mappings = "stable_39"
+    
+    // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
+}
+
+dependencies {
+    // you may put jars on which you depend on in ./libs
+    // or you may define them like so..
+    //compile "some.group:artifact:version:classifier"
+    //compile "some.group:artifact:version"
+      
+    // real examples
+    //compile 'com.mod-buildcraft:buildcraft:6.0.8:dev'  // adds buildcraft to the dev env
+    //compile 'com.googlecode.efficient-java-matrix-library:ejml:0.24' // adds ejml to the dev env
+
+    // the 'provided' configuration is for optional dependencies that exist at compile-time but might not at runtime.
+    //provided 'com.mod-buildcraft:buildcraft:6.0.8:dev'
+
+    // the deobf configurations:  'deobfCompile' and 'deobfProvided' are the same as the normal compile and provided,
+    // except that these dependencies get remapped to your current MCP mappings
+    //deobfCompile 'com.mod-buildcraft:buildcraft:6.0.8:dev'
+    //deobfProvided 'com.mod-buildcraft:buildcraft:6.0.8:dev'
+
+    // for more info...
+    // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
+    // http://www.gradle.org/docs/current/userguide/dependency_management.html
+
+}
+
+
+
+
+ext.jarFile = zipTree(jar.archivePath)
+
+task coreJar(type: Jar, dependsOn: reobfJar) {
+    version = "${minecraft_version}-${base_version}"
+    appendix = "Core"
+    from(project.ext.jarFile) {
+        includes.addAll(["assets/m5/core/**", "com/teammetallurgy/m5/core/**", "LICENSE"])
+        include "core.info"
+        rename("core.info", 'mcmod.info')
+    }
+}
+
+task baseJar(type: Jar, dependsOn: reobfJar) {
+    version = "${minecraft_version}-${base_version}"
+    appendix = "Base"
+    from(project.ext.jarFile) {
+        includes.addAll(["assets/m5/base/**", "com/teammetallurgy/m5/base/**", "LICENSE"])
+        include "base.info"
+        rename("base.info", 'mcmod.info')
+    }
+}
+
+task preciousJar(type: Jar, dependsOn: reobfJar) {
+    version = "${minecraft_version}-${base_version}"
+    appendix = "Precious"
+    from(project.ext.jarFile) {
+        includes.addAll(["assets/m5/precious/**", "com/teammetallurgy/m5/precious/**", "LICENSE"])
+        include "precious.info"
+        rename("precious.info", 'mcmod.info')
+    }
+}
+
+task enderJar(type: Jar, dependsOn: reobfJar) {
+    version = "${minecraft_version}-${base_version}"
+    appendix = "Ender"
+    from(project.ext.jarFile) {
+        includes.addAll(["assets/m5/ender/**", "com/teammetallurgy/m5/ender/**", "LICENSE"])
+        include "ender.info"
+        rename("ender.info", 'mcmod.info')
+    }
+}
+
+task netherJar(type: Jar, dependsOn: reobfJar) {
+    version = "${minecraft_version}-${base_version}"
+    appendix = "Nether"
+    from(project.ext.jarFile) {
+        includes.addAll(["assets/m5/nether/**", "com/teammetallurgy/m5/nether/**", "LICENSE"])
+        include "nether.info"
+        rename("nether.info", 'mcmod.info')
+    }
+}
+
+task fantasyJar(type: Jar, dependsOn: reobfJar) {
+    version = "${minecraft_version}-${base_version}"
+    appendix = "Fantasy"
+    from(project.ext.jarFile) {
+        includes.addAll(["assets/m5/fantasy/**", "com/teammetallurgy/m5/fantasy/**", "LICENSE"])
+        include "fantasy.info"
+        rename("fantasy.info", 'mcmod.info')
+    }
+}
+
+task utilityJar(type: Jar, dependsOn: reobfJar) {
+    version = "${minecraft_version}-${base_version}"
+    appendix = "Utility"
+    from(project.ext.jarFile) {
+        includes.addAll(["assets/m5/utility/**", "com/teammetallurgy/m5/utility/**", "LICENSE"])
+        include "utility.info"
+        rename("utility.info", 'mcmod.info')
+    }
+}
+
+processResources {
+    // this will ensure that this task is redone when the versions change.
+    inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft.version
+
+    // replace stuff in mcmod.info, nothing else
+    from(sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
+                
+        // replace version and mcversion
+        expand 'version':project.version, 'mcversion':project.minecraft.version
+    }
+        
+    // copy everything else except the mcmod.info
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
+    }
+}
+
+
+artifacts {
+    archives coreJar
+    archives baseJar
+    archives preciousJar
+    archives enderJar
+    archives netherJar
+    archives fantasyJar
+    archives utilityJar
+}
