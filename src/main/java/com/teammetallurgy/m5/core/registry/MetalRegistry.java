@@ -126,13 +126,13 @@ public class MetalRegistry {
         JSONMaker.createItemJson(mod.getPrefix(), name);
 
         // CREATE ITEM HELMET
-        name = metal.name + "_helmets";
+        name = metal.name + "_helmet";
         item = new Item().setRegistryName(mod.getPrefix(), name).setTranslationKey(name).setCreativeTab(mod.getCreativeTab());
         helmets.put(metal.name, item);
         JSONMaker.createItemJson(mod.getPrefix(), name);
 
         // CREATE ITEM CHESTPLATE
-        name = metal.name + "_chestplates";
+        name = metal.name + "_chestplate";
         item = new Item().setRegistryName(mod.getPrefix(), name).setTranslationKey(name).setCreativeTab(mod.getCreativeTab());
         chestplates.put(metal.name, item);
         JSONMaker.createItemJson(mod.getPrefix(), name);
@@ -204,8 +204,8 @@ public class MetalRegistry {
             event.getRegistry().register(new ShapedOreRecipe(new ResourceLocation(metalName + "_shovel"), shovels.get(metalName), "I", "S", "S", 'I', ingot, 'S', Items.STICK).setRegistryName(metalName + "_shovel"));
             event.getRegistry().register(new ShapedOreRecipe(new ResourceLocation(metalName + "_pickaxe"), pickaxes.get(metalName), "III", " S ", " S ", 'I', ingot, 'S', Items.STICK).setRegistryName(metalName + "_pickaxe"));
 
-            event.getRegistry().register(new ShapedOreRecipe(new ResourceLocation(metalName + "_helmets"), helmets.get(metalName), "III", "I I", 'I', ingot).setRegistryName(metalName + "_helmet"));
-            event.getRegistry().register(new ShapedOreRecipe(new ResourceLocation(metalName + "_chestplates"), chestplates.get(metalName), "I I", "III", "III", 'I', ingot).setRegistryName(metalName + "_chestplate"));
+            event.getRegistry().register(new ShapedOreRecipe(new ResourceLocation(metalName + "_helmet"), helmets.get(metalName), "III", "I I", 'I', ingot).setRegistryName(metalName + "_helmet"));
+            event.getRegistry().register(new ShapedOreRecipe(new ResourceLocation(metalName + "_chestplate"), chestplates.get(metalName), "I I", "III", "III", 'I', ingot).setRegistryName(metalName + "_chestplate"));
             event.getRegistry().register(new ShapedOreRecipe(new ResourceLocation(metalName + "_leggings"), leggings.get(metalName), "III", "I I", "I I", 'I', ingot).setRegistryName(metalName + "_leggings"));
             event.getRegistry().register(new ShapedOreRecipe(new ResourceLocation(metalName + "_boots"), boots.get(metalName), "I I", "I I", 'I', ingot).setRegistryName(metalName + "_boots"));
         }
