@@ -41,9 +41,24 @@ public class MetalRegistry {
 	public static Map<String, Item> ingots = new HashMap<>();
 	public static Map<String, Item> swords = new HashMap<>();
 	public static Map<String, Item> axes = new HashMap<>();
+	public static Map<String, Item> shovels = new HashMap<>();
+	public static Map<String, Item> pickaxes = new HashMap<>();
+	public static Map<String, Item> helmets = new HashMap<>();
+	public static Map<String, Item> chestplates = new HashMap<>();
+	public static Map<String, Item> leggings = new HashMap<>();
+	public static Map<String, Item> boots = new HashMap<>();
+	
+	public static Map<String, ?>[] blockMaps = new Map[] { oreBlocks, metalBlocks, metalLargeBricks};
+	public static Map<String, ?>[] itemMaps = new Map[] { ingots, swords, axes, shovels, pickaxes, helmets, chestplates, leggings, boots };
+	
+	static {
+		
+	}
 
 	public static void registerMetal(MetalDefinition metal, MetallurgySubmod mod) {
 		MetalRegistry.registry.add(new MetalRegistryEntry(metal, mod));
+		String name;
+		Item item;
 		
 		if(metal.type == MetalDefinition.Type.ORE) {
 			Block oreBlock = new Block(Material.ROCK);
@@ -64,20 +79,72 @@ public class MetalRegistry {
 		metalLargeBrick.setRegistryName(mod.getPrefix(), metal.name + "_large_bricks");
 		metalLargeBrick.setTranslationKey(metal.name + "_large_bricks");
 		metalLargeBricks.put(metal.name, metalLargeBrick);
+		JSONMaker.createBlockJson(mod.getPrefix(), metal.name + "_large_bricks");
 		
-		Item ingot = new Item().setRegistryName(mod.getPrefix(), metal.name + "_ingot").setTranslationKey(metal.name + "_ingot").setCreativeTab(mod.getCreativeTab());
-		ingots.put(metal.name, ingot);
+		// CREATE ITEM INGOT
+		name = metal.name + "_ingot";
+		item = new Item().setRegistryName(mod.getPrefix(), name).setTranslationKey(name).setCreativeTab(mod.getCreativeTab());
+		ingots.put(metal.name, item);
+		JSONMaker.createItemJson(mod.getPrefix(), name);
 		
-		Item sword = new Item().setRegistryName(mod.getPrefix(), metal.name + "_sword").setTranslationKey(metal.name + "_sword").setCreativeTab(mod.getCreativeTab());
-		swords.put(metal.name, sword);
-		JSONMaker.createItemJson(mod.getPrefix(), metal.name + "_sword");
+		// CREATE ITEM SWORD
+		name = metal.name + "_sword";
+		item = new Item().setRegistryName(mod.getPrefix(), name).setTranslationKey(name).setCreativeTab(mod.getCreativeTab());
+		swords.put(metal.name, item);
+		JSONMaker.createItemJson(mod.getPrefix(), name);
 		
-		Item axe = new Item().setRegistryName(mod.getPrefix(), metal.name + "_axe").setTranslationKey(metal.name + "_axe").setCreativeTab(mod.getCreativeTab());
-		axes.put(metal.name, axe);
+		// CREATE ITEM AXE
+		name = metal.name + "_axe";
+		item = new Item().setRegistryName(mod.getPrefix(), name).setTranslationKey(name).setCreativeTab(mod.getCreativeTab());
+		axes.put(metal.name, item);
+		JSONMaker.createItemJson(mod.getPrefix(), name);
+		
+		// CREATE ITEM SHOVEL
+		name = metal.name + "_shovel";
+		item = new Item().setRegistryName(mod.getPrefix(), name).setTranslationKey(name).setCreativeTab(mod.getCreativeTab());
+		shovels.put(metal.name, item);
+		JSONMaker.createItemJson(mod.getPrefix(), name);
+		
+		// CREATE ITEM PICKAXE
+		name = metal.name + "_pickaxe";
+		item = new Item().setRegistryName(mod.getPrefix(), name).setTranslationKey(name).setCreativeTab(mod.getCreativeTab());
+		pickaxes.put(metal.name, item);
+		JSONMaker.createItemJson(mod.getPrefix(), name);
+		
+		// CREATE ITEM HELMET
+		name = metal.name + "_helmets";
+		item = new Item().setRegistryName(mod.getPrefix(), name).setTranslationKey(name).setCreativeTab(mod.getCreativeTab());
+		helmets.put(metal.name, item);
+		JSONMaker.createItemJson(mod.getPrefix(), name);
+		
+		// CREATE ITEM CHESTPLATE
+		name = metal.name + "_chestplates";
+		item = new Item().setRegistryName(mod.getPrefix(), name).setTranslationKey(name).setCreativeTab(mod.getCreativeTab());
+		chestplates.put(metal.name, item);
+		JSONMaker.createItemJson(mod.getPrefix(), name);
+		
+		// CREATE ITEM LEGS
+		name = metal.name + "_leggings";
+		item = new Item().setRegistryName(mod.getPrefix(), name).setTranslationKey(name).setCreativeTab(mod.getCreativeTab());
+		leggings.put(metal.name, item);
+		JSONMaker.createItemJson(mod.getPrefix(), name);
+		
+		// CREATE ITEM BOOTS
+		name = metal.name + "_boots";
+		item = new Item().setRegistryName(mod.getPrefix(), name).setTranslationKey(name).setCreativeTab(mod.getCreativeTab());
+		boots.put(metal.name, item);
+		JSONMaker.createItemJson(mod.getPrefix(), name);
 	}
 
 	@SubscribeEvent
 	public static void registerItems(RegistryEvent.Register<Item> event) {
+		for(Map<String, ?> blocks : blockMaps) {
+			registerItemBlocks((Map<String, Block>) blocks, event.getRegistry());
+		}
+		for(Map<String, ?> items : itemMaps) {
+			registerItems((Map<String, Item>) items, event.getRegistry());
+		}
+		/*
 		registerItemBlocks(oreBlocks, event.getRegistry());
 		registerItemBlocks(metalBlocks, event.getRegistry());
 		registerItemBlocks(metalLargeBricks, event.getRegistry());
@@ -85,19 +152,31 @@ public class MetalRegistry {
 		registerItems(ingots, event.getRegistry());
 		registerItems(swords, event.getRegistry());
 		registerItems(axes, event.getRegistry());
-		
+		*/
 		OreDictionary.registerOre("copper_axe", axes.get("copper"));
 		OreDictionary.registerOre("copper_block", metalBlocks.get("copper"));
 	}
 
 	@SubscribeEvent
 	public static void registerBlocks(RegistryEvent.Register<Block> event) {
+		for(Map<String, ?> blocks : blockMaps) {
+			registerBlocks((Map<String, Block>) blocks, event.getRegistry());
+		}
+		/*
 		registerBlocks(oreBlocks, event.getRegistry());
 		registerBlocks(metalBlocks, event.getRegistry());
+		*/
 	}
 
 	@SubscribeEvent
 	public static void registerRenders(ModelRegistryEvent event) {
+		for(Map<String, ?> blocks : blockMaps) {
+			registerBlockRenderers((Map<String, Block>) blocks);
+		}
+		for(Map<String, ?> items : itemMaps) {
+			registerItemRenderers((Map<String, Item>) items);
+		}
+		/*
 		registerBlockRenderers(oreBlocks);
 		registerBlockRenderers(metalBlocks);
 		registerBlockRenderers(metalLargeBricks);
@@ -105,6 +184,7 @@ public class MetalRegistry {
 		registerItemRenderers(ingots);
 		registerItemRenderers(swords);
 		registerItemRenderers(axes);
+		*/
 	}
 
 	@SubscribeEvent
@@ -112,15 +192,27 @@ public class MetalRegistry {
 		IForgeRegistryModifiable<IRecipe> recipes = (IForgeRegistryModifiable<IRecipe>) event.getRegistry();
 
 		for (MetalRegistryEntry entry : registry) {
+			String metalName = entry.metal.name;
+			String modid = entry.mod.getPrefix();
+			
 			if (entry.metal.type == MetalDefinition.Type.ORE) {
-				Block ore = oreBlocks.get(entry.metal.name);
-				Item ingot = ingots.get(entry.metal.name);
+				Block ore = oreBlocks.get(metalName);
+				Item ingot = ingots.get(metalName);
 				GameRegistry.addSmelting(ore, new ItemStack(ingot), 0);
 			}
 			
-			Block metalBlock = metalBlocks.get(entry.metal.name);
-			event.getRegistry().register(new ShapedOreRecipe(new ResourceLocation(entry.metal.name + "_block"), metalBlock, "III", "III", "III", 'I', ingots.get(entry.metal.name)).setRegistryName(entry.metal.name + "_block"));
-			event.getRegistry().register(new ShapedOreRecipe(new ResourceLocation(entry.metal.name + "_axe"), axes.get(entry.metal.name), "III", " S ", " S ", 'I', ingots.get(entry.metal.name), 'S', Items.STICK).setRegistryName(entry.metal.name + "_axe"));
+			Block metalBlock = metalBlocks.get(metalName);
+			Item ingot = ingots.get(metalName);
+			event.getRegistry().register(new ShapedOreRecipe(new ResourceLocation(metalName + "_block"), metalBlock, "III", "III", "III", 'I', ingot).setRegistryName(metalName + "_block"));
+			event.getRegistry().register(new ShapedOreRecipe(new ResourceLocation(metalName + "_sword"),   swords.get(metalName),   "I",   "I",   "S",   'I', ingot, 'S', Items.STICK).setRegistryName(metalName + "_sword"));
+			event.getRegistry().register(new ShapedOreRecipe(new ResourceLocation(metalName + "_axe"),     axes.get(metalName),     "II",  "SI",  "S ",  'I', ingot, 'S', Items.STICK).setRegistryName(metalName + "_axe"));
+			event.getRegistry().register(new ShapedOreRecipe(new ResourceLocation(metalName + "_shovel"),  shovels.get(metalName),  "I",   "S",   "S",   'I', ingot, 'S', Items.STICK).setRegistryName(metalName + "_shovel"));
+			event.getRegistry().register(new ShapedOreRecipe(new ResourceLocation(metalName + "_pickaxe"), pickaxes.get(metalName), "III", " S ", " S ", 'I', ingot, 'S', Items.STICK).setRegistryName(metalName + "_pickaxe"));
+
+			event.getRegistry().register(new ShapedOreRecipe(new ResourceLocation(metalName + "_helmets"),     helmets.get(metalName),     "III", "I I",        'I', ingot).setRegistryName(metalName + "_helmet"));
+			event.getRegistry().register(new ShapedOreRecipe(new ResourceLocation(metalName + "_chestplates"), chestplates.get(metalName), "I I", "III", "III", 'I', ingot).setRegistryName(metalName + "_chestplate"));
+			event.getRegistry().register(new ShapedOreRecipe(new ResourceLocation(metalName + "_leggings"),    leggings.get(metalName),    "III", "I I", "I I", 'I', ingot).setRegistryName(metalName + "_leggings"));
+			event.getRegistry().register(new ShapedOreRecipe(new ResourceLocation(metalName + "_boots"),       boots.get(metalName),       "I I", "I I",        'I', ingot).setRegistryName(metalName + "_boots"));
 		}
 	}
 
