@@ -39,6 +39,8 @@ public class MetalRegistry {
     public static Map<String, Block> metalBlocks = new HashMap<>();
     public static Map<String, Block> metalLargeBricks = new HashMap<>();
     public static Map<String, Item> ingots = new HashMap<>();
+    public static Map<String, Item> nuggets = new HashMap<>();
+    public static Map<String, Item> dusts = new HashMap<>();
     public static Map<String, Item> swords = new HashMap<>();
     public static Map<String, Item> axes = new HashMap<>();
     public static Map<String, Item> shovels = new HashMap<>();
@@ -49,7 +51,7 @@ public class MetalRegistry {
     public static Map<String, Item> boots = new HashMap<>();
 
     public static Map<String, ?>[] blockMaps = new Map[] { oreBlocks, metalBlocks, metalLargeBricks };
-    public static Map<String, ?>[] itemMaps = new Map[] { ingots, swords, axes, shovels, pickaxes, helmets, chestplates, leggings, boots };
+    public static Map<String, ?>[] itemMaps = new Map[] { ingots, nuggets, dusts, swords, axes, shovels, pickaxes, helmets, chestplates, leggings, boots };
 
     static {
 
@@ -85,6 +87,18 @@ public class MetalRegistry {
         name = metal.name + "_ingot";
         item = new Item().setRegistryName(mod.getPrefix(), name).setTranslationKey(name).setCreativeTab(mod.getCreativeTab());
         ingots.put(metal.name, item);
+        JSONMaker.createItemJson(mod.getPrefix(), name);
+
+        // CREATE ITEM NUGGET
+        name = metal.name + "_nugget";
+        item = new Item().setRegistryName(mod.getPrefix(), name).setTranslationKey(name).setCreativeTab(mod.getCreativeTab());
+        nuggets.put(metal.name, item);
+        JSONMaker.createItemJson(mod.getPrefix(), name);
+        
+        // CREATE ITEM DUST
+        name = metal.name + "_dust";
+        item = new Item().setRegistryName(mod.getPrefix(), name).setTranslationKey(name).setCreativeTab(mod.getCreativeTab());
+        dusts.put(metal.name, item);
         JSONMaker.createItemJson(mod.getPrefix(), name);
 
         // CREATE ITEM SWORD
@@ -182,6 +196,8 @@ public class MetalRegistry {
 
             Block metalBlock = metalBlocks.get(metalName);
             Item ingot = ingots.get(metalName);
+            event.getRegistry().register(new ShapedOreRecipe(new ResourceLocation(metalName + "_nugget"), new ItemStack(nuggets.get(metalName), 9), "I", 'I', ingot).setRegistryName(metalName + "_nugget"));
+            event.getRegistry().register(new ShapedOreRecipe(new ResourceLocation(metalName + "_ingot"), ingot, "NNN", "NNN", "NNN", 'N', nuggets.get(metalName)).setRegistryName(metalName + "_ingot"));
             event.getRegistry().register(new ShapedOreRecipe(new ResourceLocation(metalName + "_block"), metalBlock, "III", "III", "III", 'I', ingot).setRegistryName(metalName + "_block"));
             event.getRegistry().register(new ShapedOreRecipe(new ResourceLocation(metalName + "_sword"), swords.get(metalName), "I", "I", "S", 'I', ingot, 'S', Items.STICK).setRegistryName(metalName + "_sword"));
             event.getRegistry().register(new ShapedOreRecipe(new ResourceLocation(metalName + "_axe"), axes.get(metalName), "II", "SI", "S ", 'I', ingot, 'S', Items.STICK).setRegistryName(metalName + "_axe"));
