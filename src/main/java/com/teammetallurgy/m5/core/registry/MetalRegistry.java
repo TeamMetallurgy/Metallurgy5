@@ -12,6 +12,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -23,6 +24,7 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryModifiable;
@@ -37,6 +39,7 @@ public class MetalRegistry {
 	public static Map<String, Block> metalBlocks = new HashMap<>();
 	public static Map<String, Item> metalItemBlocks = new HashMap<>();
 	public static Map<String, Item> ingots = new HashMap<>();
+	public static Map<String, Item> axes = new HashMap<>();
 
 	public static void registerMetal(MetalDefinition metal, MetallurgySubmod mod) {
 		MetalRegistry.registry.add(new MetalRegistryEntry(metal, mod));
@@ -61,6 +64,9 @@ public class MetalRegistry {
 		
 		Item ingot = new Item().setRegistryName(mod.getPrefix(), metal.name + "_ingot").setTranslationKey(metal.name + "_ingot").setCreativeTab(mod.getCreativeTab());
 		ingots.put(metal.name, ingot);
+		
+		Item axe = new Item().setRegistryName(mod.getPrefix(), metal.name + "_axe").setTranslationKey(metal.name + "_axe").setCreativeTab(mod.getCreativeTab());
+		axes.put(metal.name, axe);
 	}
 
 	@SubscribeEvent
@@ -68,6 +74,10 @@ public class MetalRegistry {
 		registerItems(oreItemBlocks, event.getRegistry());
 		registerItems(metalItemBlocks, event.getRegistry());
 		registerItems(ingots, event.getRegistry());
+		registerItems(axes, event.getRegistry());
+		
+		OreDictionary.registerOre("copper_axe", axes.get("copper"));
+		OreDictionary.registerOre("copper_block", metalBlocks.get("copper"));
 	}
 
 	public static void registerItems(Map<String, Item> items, IForgeRegistry<Item> registry) {
@@ -89,27 +99,11 @@ public class MetalRegistry {
 	}
 
 	@SubscribeEvent
-	public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
-		IForgeRegistryModifiable<IRecipe> recipes = (IForgeRegistryModifiable<IRecipe>) event.getRegistry();
-
-		for (MetalRegistryEntry entry : registry) {
-			if (entry.metal.type == MetalDefinition.Type.ORE) {
-				Block ore = oreBlocks.get(entry.metal.name);
-				Item ingot = ingots.get(entry.metal.name);
-				GameRegistry.addSmelting(ore, new ItemStack(ingot), 0);
-			}
-			
-			Item metalBlock = metalItemBlocks.get(entry.metal.name);
-			
-			//event.getRegistry().register(new ShapedOreRecipe(new ResourceLocation(entry.metal.name + "_block"), new ItemStack(metalBlock), "III", "III", "III", 'I', new ItemStack(ingots.get(entry.metal.name))));
-		}
-	}
-
-	@SubscribeEvent
 	public static void registerRenders(ModelRegistryEvent event) {
 		registerBlockRenderers(oreBlocks);
 		registerBlockRenderers(metalBlocks);
 		registerItemRenderers(ingots);
+		registerItemRenderers(axes);
 	}
 
 	public static void registerItemRenderers(Map<String, Item> items) {
@@ -124,6 +118,23 @@ public class MetalRegistry {
 			Item item = Item.getItemFromBlock(block);
 			ModelLoader.setCustomModelResourceLocation(item, 0,
 					new ModelResourceLocation(item.getRegistryName(), "inventory"));
+		}
+	}
+
+	@SubscribeEvent
+	public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
+		IForgeRegistryModifiable<IRecipe> recipes = (IForgeRegistryModifiable<IRecipe>) event.getRegistry();
+
+		for (MetalRegistryEntry entry : registry) {
+			if (entry.metal.type == MetalDefinition.Type.ORE) {
+				Block ore = oreBlocks.get(entry.metal.name);
+				Item ingot = ingots.get(entry.metal.name);
+				GameRegistry.addSmelting(ore, new ItemStack(ingot), 0);
+			}
+			
+			Item metalBlock = metalItemBlocks.get(entry.metal.name);
+			event.getRegistry().register(new ShapedOreRecipe(new ResourceLocation(entry.metal.name + "_block"), metalBlock, "III", "III", "III", 'I', ingots.get(entry.metal.name)).setRegistryName(entry.metal.name + "_block"));
+			event.getRegistry().register(new ShapedOreRecipe(new ResourceLocation(entry.metal.name + "_axe"), axes.get(entry.metal.name), "III", " S ", " S ", 'I', ingots.get(entry.metal.name), 'S', Items.STICK).setRegistryName(entry.metal.name + "_axe"));
 		}
 	}
 }
