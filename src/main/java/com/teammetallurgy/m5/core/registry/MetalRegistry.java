@@ -144,14 +144,7 @@ public class MetalRegistry {
         for (Map<String, ?> items : itemMaps) {
             registerItems((Map<String, Item>) items, event.getRegistry());
         }
-        /*
-         * registerItemBlocks(oreBlocks, event.getRegistry());
-         * registerItemBlocks(metalBlocks, event.getRegistry());
-         * registerItemBlocks(metalLargeBricks, event.getRegistry());
-         * 
-         * registerItems(ingots, event.getRegistry()); registerItems(swords,
-         * event.getRegistry()); registerItems(axes, event.getRegistry());
-         */
+
         OreDictionary.registerOre("copper_axe", axes.get("copper"));
         OreDictionary.registerOre("copper_block", metalBlocks.get("copper"));
     }
@@ -161,10 +154,6 @@ public class MetalRegistry {
         for (Map<String, ?> blocks : blockMaps) {
             registerBlocks((Map<String, Block>) blocks, event.getRegistry());
         }
-        /*
-         * registerBlocks(oreBlocks, event.getRegistry()); registerBlocks(metalBlocks,
-         * event.getRegistry());
-         */
     }
 
     @SubscribeEvent
@@ -175,13 +164,6 @@ public class MetalRegistry {
         for (Map<String, ?> items : itemMaps) {
             registerItemRenderers((Map<String, Item>) items);
         }
-        /*
-         * registerBlockRenderers(oreBlocks); registerBlockRenderers(metalBlocks);
-         * registerBlockRenderers(metalLargeBricks);
-         * 
-         * registerItemRenderers(ingots); registerItemRenderers(swords);
-         * registerItemRenderers(axes);
-         */
     }
 
     @SubscribeEvent
