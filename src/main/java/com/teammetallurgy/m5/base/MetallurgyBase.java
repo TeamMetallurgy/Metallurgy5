@@ -28,14 +28,15 @@ public class MetallurgyBase {
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-    	MetalDefinition copper = new MetalDefinition().name("copper").resource_name("copper").tier(1).type(MetalDefinition.Type.ORE);
-    	
-    	MetalRegistry.registerMetal(copper, MetallurgyBaseSubmod.instance);
+        MetalDefinition copper = new MetalDefinition().name("copper").resource_name("copper").tier(1).type(MetalDefinition.Type.ORE);
+
+        MetalRegistry.registerMetal(copper, MetallurgyBaseSubmod.instance);
     }
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
         proxy.init();
-        //NetworkRegistry.INSTANCE.registerGuiHandler(Atum.instance, new AtumGuiHandler());
+        // NetworkRegistry.INSTANCE.registerGuiHandler(Atum.instance, new
+        // AtumGuiHandler());
     }
 }

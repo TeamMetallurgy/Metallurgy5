@@ -26,13 +26,14 @@ public class MetallurgyCore {
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-    	
+
     }
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
         proxy.init();
-        //NetworkRegistry.INSTANCE.registerGuiHandler(Atum.instance, new AtumGuiHandler());
+        // NetworkRegistry.INSTANCE.registerGuiHandler(Atum.instance, new
+        // AtumGuiHandler());
     }
 
 }

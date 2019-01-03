@@ -13,8 +13,8 @@ import org.apache.commons.lang3.text.WordUtils;
 public class AtumUtils {
 
     /**
-     * Turns a registry name into a unlocalized name.
-     * Can also turn getTranslationKey() into a unlocalized name without mod prefix.
+     * Turns a registry name into a unlocalized name. Can also turn
+     * getTranslationKey() into a unlocalized name without mod prefix.
      * <p>
      * Example: Turns example_name into exampleName
      *

@@ -7,16 +7,16 @@ import net.minecraft.creativetab.CreativeTabs;
 
 public class MetallurgyBaseSubmod extends MetallurgySubmod {
 
-	public static MetallurgyBaseSubmod instance = new MetallurgyBaseSubmod();
-	
-	@Override
-	public String getPrefix() {
-		return Constants.MOD_ID;
-	}
+    public static MetallurgyBaseSubmod instance = new MetallurgyBaseSubmod();
 
-	@Override
-	public CreativeTabs getCreativeTab() {
-		return MetallurgyBase.CREATIVE_TAB;
-	}
-	
+    @Override
+    public String getPrefix() {
+        return Constants.MOD_ID;
+    }
+
+    @Override
+    public CreativeTabs getCreativeTab() {
+        return MetallurgyBase.CREATIVE_TAB;
+    }
+
 }

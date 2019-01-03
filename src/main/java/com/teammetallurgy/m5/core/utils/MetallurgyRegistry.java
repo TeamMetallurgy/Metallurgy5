@@ -39,20 +39,24 @@ public class MetallurgyRegistry {
     private static final NonNullList<EntityEntry> ENTITIES = NonNullList.create();
     private static final NonNullList<SoundEvent> SOUNDS = NonNullList.create();
     public static final NonNullList<ItemStack> HIDE_LIST = NonNullList.create();
-    //Entity tracking values
+    // Entity tracking values
     private static HashMap<ResourceLocation, Integer> trackingRange = new HashMap<>();
     private static HashMap<ResourceLocation, Integer> updateFrequency = new HashMap<>();
     private static HashMap<ResourceLocation, Boolean> sendsVelocityUpdates = new HashMap<>();
 
     /**
-     * Same as {@link AtumRegistry#registerItem(Item, String, CreativeTabs, String)}, but have CreativeTab set null by default and easy way to set OreDictionary name
+     * Same as
+     * {@link AtumRegistry#registerItem(Item, String, CreativeTabs, String)}, but
+     * have CreativeTab set null by default and easy way to set OreDictionary name
      */
     public static Item registerItem(@Nonnull Item item, @Nonnull String name, @Nullable String oreDictName) {
         return registerItem(item, name, null, oreDictName);
     }
 
     /**
-     * Same as {@link AtumRegistry#registerItem(Item, String, CreativeTabs, String)}, but have CreativeTab set null by default
+     * Same as
+     * {@link AtumRegistry#registerItem(Item, String, CreativeTabs, String)}, but
+     * have CreativeTab set null by default
      */
     public static Item registerItem(@Nonnull Item item, @Nonnull String name) {
         return registerItem(item, name, null, null);
@@ -91,21 +95,27 @@ public class MetallurgyRegistry {
     }
 
     /**
-     * Same as {@link AtumRegistry#registerBlock(Block, Item, String, CreativeTabs)}, but have a basic ItemBlock and CreativeTab set null by default
+     * Same as
+     * {@link AtumRegistry#registerBlock(Block, Item, String, CreativeTabs)}, but
+     * have a basic ItemBlock and CreativeTab set null by default
      */
     public static Block registerBlock(@Nonnull Block block, @Nonnull String name) {
         return registerBlock(block, new ItemBlock(block), name, null);
     }
 
     /**
-     * Same as {@link AtumRegistry#registerBlock(Block, Item, String, CreativeTabs)}, but have a basic ItemBlock set by default
+     * Same as
+     * {@link AtumRegistry#registerBlock(Block, Item, String, CreativeTabs)}, but
+     * have a basic ItemBlock set by default
      */
     public static Block registerBlock(@Nonnull Block block, @Nonnull String name, @Nullable CreativeTabs tab) {
         return registerBlock(block, new ItemBlock(block), name, tab);
     }
 
     /**
-     * Same as {@link AtumRegistry#registerBlock(Block, Item, String, CreativeTabs)}, but have CreativeTab set by default
+     * Same as
+     * {@link AtumRegistry#registerBlock(Block, Item, String, CreativeTabs)}, but
+     * have CreativeTab set by default
      */
     public static Block registerBlock(@Nonnull Block block, @Nonnull Item itemBlock, @Nonnull String name) {
         return registerBlock(block, itemBlock, name, null);
@@ -134,12 +144,13 @@ public class MetallurgyRegistry {
             OreDictHelper.entries.add(entry);
         }
 
-        //if (block instanceof IRenderMapper && FMLCommonHandler.instance().getSide() == Side.CLIENT) {
-        //    ClientProxy.ignoreRenderProperty(block);
-        //}
+        // if (block instanceof IRenderMapper && FMLCommonHandler.instance().getSide()
+        // == Side.CLIENT) {
+        // ClientProxy.ignoreRenderProperty(block);
+        // }
         return block;
     }
-    
+
     public static SoundEvent registerSound(String name) {
         ResourceLocation resourceLocation = new ResourceLocation(Constants.MOD_ID, name);
         SoundEvent sound = new SoundEvent(resourceLocation);
@@ -149,7 +160,8 @@ public class MetallurgyRegistry {
     }
 
     /**
-     * Makes it easier to register a new recipe. Should be called in the RegistryEvent.Register event
+     * Makes it easier to register a new recipe. Should be called in the
+     * RegistryEvent.Register event
      *
      * @param registryName the unique name for the recipe
      * @param entry        the recipe
@@ -174,15 +186,15 @@ public class MetallurgyRegistry {
 
     @SubscribeEvent
     public static void registerItems(RegistryEvent.Register<Item> event) {
-        //AtumItems.registerItems();
-        //AtumItems.setItemInfo();
-        //OreDictHelper.register();
+        // AtumItems.registerItems();
+        // AtumItems.setItemInfo();
+        // OreDictHelper.register();
     }
 
     @SubscribeEvent
     public static void registerBlocks(RegistryEvent.Register<Block> event) {
-        //AtumBlocks.registerBlocks();
-        //AtumBlocks.setBlockInfo();
-        //AtumBlocks.registerTileEntities();
+        // AtumBlocks.registerBlocks();
+        // AtumBlocks.setBlockInfo();
+        // AtumBlocks.registerTileEntities();
     }
 }

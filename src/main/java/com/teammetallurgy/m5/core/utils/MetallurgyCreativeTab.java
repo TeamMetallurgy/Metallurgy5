@@ -10,16 +10,16 @@ import net.minecraft.item.ItemStack;
 
 public class MetallurgyCreativeTab extends CreativeTabs {
 
-	private Item icon;
-	
-	public MetallurgyCreativeTab(String id) {
+    private Item icon;
+
+    public MetallurgyCreativeTab(String id) {
         super(id);
         this.setBackgroundImageName("item_search.png");
     }
-	
-	public void setIcom(Item item) {
-		this.icon = item;
-	}
+
+    public void setIcom(Item item) {
+        this.icon = item;
+    }
 
     @Override
     @Nonnull
