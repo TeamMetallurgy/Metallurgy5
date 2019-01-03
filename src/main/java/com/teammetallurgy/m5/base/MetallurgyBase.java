@@ -29,8 +29,14 @@ public class MetallurgyBase {
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         MetalDefinition copper = new MetalDefinition().name("copper").resource_name("copper").tier(1).type(MetalDefinition.Type.ORE);
+        MetalDefinition tin = new MetalDefinition().name("tin").resource_name("tin").tier(1).type(MetalDefinition.Type.ORE);
+        MetalDefinition bronze = new MetalDefinition().name("bronze").resource_name("bronze").tier(1).type(MetalDefinition.Type.ALLOY);
+        MetalDefinition lead = new MetalDefinition().name("lead").resource_name("lead").tier(1).type(MetalDefinition.Type.ORE);
 
         MetalRegistry.registerMetal(copper, MetallurgyBaseSubmod.instance);
+        MetalRegistry.registerMetal(tin, MetallurgyBaseSubmod.instance);
+        MetalRegistry.registerMetal(bronze, MetallurgyBaseSubmod.instance);
+        MetalRegistry.registerMetal(lead, MetallurgyBaseSubmod.instance);
     }
 
     @Mod.EventHandler

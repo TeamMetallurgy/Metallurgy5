@@ -70,6 +70,7 @@ public class MetalRegistry {
             oreBlock.setTranslationKey(metal.name + "_ore");
             oreBlocks.put(metal.name, oreBlock);
             OreDictionary.registerOre("ore" + MetallurgyUtils.capitalize(metal.name), oreBlock);
+            JSONMaker.createBlockJson(mod.getPrefix(), metal.name + "_ore");
         }
 
         Block metalBlock = new Block(Material.ROCK);
@@ -78,6 +79,7 @@ public class MetalRegistry {
         metalBlock.setTranslationKey(metal.name + "_block");
         metalBlocks.put(metal.name, metalBlock);
         OreDictionary.registerOre("block" + MetallurgyUtils.capitalize(metal.name), metalBlock);
+        JSONMaker.createBlockJson(mod.getPrefix(), metal.name + "_block");
 
         Block metalLargeBrick = new Block(Material.ROCK);
         metalLargeBrick.setCreativeTab(mod.getCreativeTab());

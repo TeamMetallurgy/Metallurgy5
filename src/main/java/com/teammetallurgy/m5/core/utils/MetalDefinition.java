@@ -2,7 +2,7 @@ package com.teammetallurgy.m5.core.utils;
 
 public class MetalDefinition {
     public enum Type {
-        ORE, CATALYST, OTHER
+        ORE, CATALYST, OTHER, ALLOY
     }
 
     public String name;
