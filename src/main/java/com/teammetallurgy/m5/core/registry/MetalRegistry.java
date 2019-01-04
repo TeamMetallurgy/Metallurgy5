@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.teammetallurgy.m5.core.MetallurgySubmod;
+import com.teammetallurgy.m5.core.tools.ItemMetalSword;
 import com.teammetallurgy.m5.core.utils.JSONMaker;
 import com.teammetallurgy.m5.core.utils.MetalDefinition;
 import com.teammetallurgy.m5.core.utils.MetallurgyUtils;
@@ -113,7 +114,7 @@ public class MetalRegistry {
 
         // CREATE ITEM SWORD
         name = metal.name + "_sword";
-        item = new Item().setRegistryName(mod.getPrefix(), name).setTranslationKey(name).setCreativeTab(mod.getCreativeTab());
+        item = new ItemMetalSword(metal).setRegistryName(mod.getPrefix(), name).setTranslationKey(name).setCreativeTab(mod.getCreativeTab());
         swords.put(metal.name, item);
         OreDictionary.registerOre("sword" + MetallurgyUtils.capitalize(metal.name), item);
         JSONMaker.createItemJson(mod.getPrefix(), name);

@@ -10,6 +10,11 @@ public class MetalDefinition {
     public int tier;
 
     public String resource_name;
+    
+    public int toolDurability;
+    public int enchantability;
+    public int swordDamage;
+    public float swordSwingSpeed;
 
     public MetalDefinition name(String name) {
         this.name = name;

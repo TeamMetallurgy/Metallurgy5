@@ -29,6 +29,11 @@ public class MetallurgyBase {
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         MetalDefinition copper = new MetalDefinition().name("copper").resource_name("copper").tier(1).type(MetalDefinition.Type.ORE);
+        copper.toolDurability = 180;
+        copper.enchantability = 8;
+        copper.swordDamage = 4;
+        copper.swordSwingSpeed = 1.6f;
+        
         MetalDefinition tin = new MetalDefinition().name("tin").resource_name("tin").tier(1).type(MetalDefinition.Type.ORE);
         MetalDefinition bronze = new MetalDefinition().name("bronze").resource_name("bronze").tier(1).type(MetalDefinition.Type.ALLOY);
         MetalDefinition lead = new MetalDefinition().name("lead").resource_name("lead").tier(1).type(MetalDefinition.Type.ORE);
