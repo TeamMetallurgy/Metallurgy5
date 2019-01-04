@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.teammetallurgy.m5.core.MetallurgySubmod;
+import com.teammetallurgy.m5.core.tools.ItemMetalPickaxe;
 import com.teammetallurgy.m5.core.tools.ItemMetalSword;
 import com.teammetallurgy.m5.core.utils.JSONMaker;
-import com.teammetallurgy.m5.core.utils.MetalDefinition;
 import com.teammetallurgy.m5.core.utils.MetallurgyUtils;
 
 import net.minecraft.block.Block;
@@ -65,27 +65,30 @@ public class MetalRegistry {
         Item item;
 
         if (metal.type == MetalDefinition.Type.ORE) {
-            Block oreBlock = new Block(Material.ROCK);
+            Block oreBlock = new Block(Material.ROCK).setHardness(3.0F).setResistance(5.0F);
             oreBlock.setCreativeTab(mod.getCreativeTab());
             oreBlock.setRegistryName(mod.getPrefix(), metal.name + "_ore");
             oreBlock.setTranslationKey(metal.name + "_ore");
+            oreBlock.setHarvestLevel("pickaxe", 1);
             oreBlocks.put(metal.name, oreBlock);
             OreDictionary.registerOre("ore" + MetallurgyUtils.capitalize(metal.name), oreBlock);
             JSONMaker.createBlockJson(mod.getPrefix(), metal.name + "_ore");
         }
 
-        Block metalBlock = new Block(Material.ROCK);
+        Block metalBlock = new Block(Material.ROCK).setHardness(5.0F).setResistance(10.0F);
         metalBlock.setCreativeTab(mod.getCreativeTab());
         metalBlock.setRegistryName(mod.getPrefix(), metal.name + "_block");
         metalBlock.setTranslationKey(metal.name + "_block");
+        metalBlock.setHarvestLevel("pickaxe", 1);
         metalBlocks.put(metal.name, metalBlock);
         OreDictionary.registerOre("block" + MetallurgyUtils.capitalize(metal.name), metalBlock);
         JSONMaker.createBlockJson(mod.getPrefix(), metal.name + "_block");
 
-        Block metalLargeBrick = new Block(Material.ROCK);
+        Block metalLargeBrick = new Block(Material.ROCK).setHardness(5.0F).setResistance(10.0F);
         metalLargeBrick.setCreativeTab(mod.getCreativeTab());
         metalLargeBrick.setRegistryName(mod.getPrefix(), metal.name + "_large_bricks");
         metalLargeBrick.setTranslationKey(metal.name + "_large_bricks");
+        metalLargeBrick.setHarvestLevel("pickaxe", 1);
         metalLargeBricks.put(metal.name, metalLargeBrick);
         OreDictionary.registerOre("largeBrick" + MetallurgyUtils.capitalize(metal.name), metalLargeBrick);
         JSONMaker.createBlockJson(mod.getPrefix(), metal.name + "_large_bricks");
@@ -103,7 +106,7 @@ public class MetalRegistry {
         nuggets.put(metal.name, item);
         OreDictionary.registerOre("nugget" + MetallurgyUtils.capitalize(metal.name), item);
         JSONMaker.createItemJson(mod.getPrefix(), name);
-        
+
         // CREATE ITEM DUST
         name = metal.name + "_dust";
         item = new Item().setRegistryName(mod.getPrefix(), name).setTranslationKey(name).setCreativeTab(mod.getCreativeTab());
@@ -135,7 +138,7 @@ public class MetalRegistry {
 
         // CREATE ITEM PICKAXE
         name = metal.name + "_pickaxe";
-        item = new Item().setRegistryName(mod.getPrefix(), name).setTranslationKey(name).setCreativeTab(mod.getCreativeTab());
+        item = new ItemMetalPickaxe(metal).setRegistryName(mod.getPrefix(), name).setTranslationKey(name).setCreativeTab(mod.getCreativeTab());
         pickaxes.put(metal.name, item);
         OreDictionary.registerOre("pickaxe" + MetallurgyUtils.capitalize(metal.name), item);
         JSONMaker.createItemJson(mod.getPrefix(), name);

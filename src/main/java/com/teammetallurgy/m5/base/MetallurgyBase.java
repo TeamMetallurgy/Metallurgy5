@@ -5,9 +5,9 @@ import org.apache.logging.log4j.Logger;
 
 import com.teammetallurgy.m5.base.proxy.CommonProxy;
 import com.teammetallurgy.m5.base.utils.Constants;
+import com.teammetallurgy.m5.core.registry.MetalDefinition;
 import com.teammetallurgy.m5.core.registry.MetalRegistry;
 import com.teammetallurgy.m5.core.utils.MetallurgyCreativeTab;
-import com.teammetallurgy.m5.core.utils.MetalDefinition;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraftforge.fml.common.Mod;
@@ -31,8 +31,13 @@ public class MetallurgyBase {
         MetalDefinition copper = new MetalDefinition().name("copper").resource_name("copper").tier(1).type(MetalDefinition.Type.ORE);
         copper.toolDurability = 180;
         copper.enchantability = 8;
+        copper.miningSpeed = 6.0f;
+        copper.harvestLevel = 2;
         copper.swordDamage = 4;
-        copper.swordSwingSpeed = 1.6f;
+        copper.pickaxeDamage = 3;
+        
+        copper.swordSwingSpeed = 4;
+        copper.pickaxeSwingSpeed = 4;
         
         MetalDefinition tin = new MetalDefinition().name("tin").resource_name("tin").tier(1).type(MetalDefinition.Type.ORE);
         MetalDefinition bronze = new MetalDefinition().name("bronze").resource_name("bronze").tier(1).type(MetalDefinition.Type.ALLOY);

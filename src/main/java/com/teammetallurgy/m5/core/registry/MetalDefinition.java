@@ -1,4 +1,4 @@
-package com.teammetallurgy.m5.core.utils;
+package com.teammetallurgy.m5.core.registry;
 
 public class MetalDefinition {
     public enum Type {
@@ -10,11 +10,17 @@ public class MetalDefinition {
     public int tier;
 
     public String resource_name;
-    
+
+    public int harvestLevel;
     public int toolDurability;
     public int enchantability;
-    public int swordDamage;
-    public float swordSwingSpeed;
+    public float miningSpeed = 2.0f;
+    
+    public int swordDamage = 1;
+    public float swordSwingSpeed = -2.4f;
+    
+    public int pickaxeDamage = 1;
+    public float pickaxeSwingSpeed = -2.8f;
 
     public MetalDefinition name(String name) {
         this.name = name;
