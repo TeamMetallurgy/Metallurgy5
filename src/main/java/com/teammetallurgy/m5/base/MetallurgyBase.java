@@ -35,9 +35,7 @@ public class MetallurgyBase {
         copper.harvestLevel = 2;
         copper.swordDamage = 4;
         copper.pickaxeDamage = 3;
-        
-        copper.swordSwingSpeed = 4;
-        copper.pickaxeSwingSpeed = 4;
+        copper.shovelDamage = 3.5f;
         
         MetalDefinition tin = new MetalDefinition().name("tin").resource_name("tin").tier(1).type(MetalDefinition.Type.ORE);
         MetalDefinition bronze = new MetalDefinition().name("bronze").resource_name("bronze").tier(1).type(MetalDefinition.Type.ALLOY);

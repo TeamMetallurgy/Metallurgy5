@@ -16,11 +16,17 @@ public class MetalDefinition {
     public int enchantability;
     public float miningSpeed = 2.0f;
     
-    public int swordDamage = 1;
-    public float swordSwingSpeed = -2.4f;
+    public float swordDamage = 1;
+    public float swordSwingSpeed = 1.6f;
     
-    public int pickaxeDamage = 1;
-    public float pickaxeSwingSpeed = -2.8f;
+    public float pickaxeDamage = 1;
+    public float pickaxeSwingSpeed = 1.2f;
+    public float shovelDamage = 1;
+    public float shovelSwingSpeed = 1f;
+    public float hoeDamage = 1;
+    public float hoeSwingSpeed = 1;
+    public float axeDamage = 7;
+    public float axeSwingSpeed = 0.8f;
 
     public MetalDefinition name(String name) {
         this.name = name;
