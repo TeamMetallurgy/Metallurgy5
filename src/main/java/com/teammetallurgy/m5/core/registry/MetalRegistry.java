@@ -13,6 +13,7 @@ import com.teammetallurgy.m5.core.tools.ItemMetalShovel;
 import com.teammetallurgy.m5.core.tools.ItemMetalSword;
 import com.teammetallurgy.m5.core.utils.JSONMaker;
 import com.teammetallurgy.m5.core.utils.MetallurgyUtils;
+import com.teammetallurgy.m5.core.utils.RecipeHelper;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -30,6 +31,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryModifiable;
 
@@ -73,7 +75,6 @@ public class MetalRegistry {
             oreBlock.setTranslationKey(metal.name + "_ore");
             oreBlock.setHarvestLevel("pickaxe", 1);
             oreBlocks.put(metal.name, oreBlock);
-            OreDictionary.registerOre("ore" + MetallurgyUtils.capitalize(metal.name), oreBlock);
             JSONMaker.createBlockJson(mod.getPrefix(), metal.name + "_ore");
         }
 
@@ -83,7 +84,6 @@ public class MetalRegistry {
         metalBlock.setTranslationKey(metal.name + "_block");
         metalBlock.setHarvestLevel("pickaxe", 1);
         metalBlocks.put(metal.name, metalBlock);
-        OreDictionary.registerOre("block" + MetallurgyUtils.capitalize(metal.name), metalBlock);
         JSONMaker.createBlockJson(mod.getPrefix(), metal.name + "_block");
 
         Block metalLargeBrick = new Block(Material.ROCK).setHardness(5.0F).setResistance(10.0F);
@@ -92,43 +92,36 @@ public class MetalRegistry {
         metalLargeBrick.setTranslationKey(metal.name + "_large_bricks");
         metalLargeBrick.setHarvestLevel("pickaxe", 1);
         metalLargeBricks.put(metal.name, metalLargeBrick);
-        OreDictionary.registerOre("largeBrick" + MetallurgyUtils.capitalize(metal.name), metalLargeBrick);
         JSONMaker.createBlockJson(mod.getPrefix(), metal.name + "_large_bricks");
 
         // CREATE ITEM INGOT
         name = metal.name + "_ingot";
         item = new Item().setRegistryName(mod.getPrefix(), name).setTranslationKey(name).setCreativeTab(mod.getCreativeTab());
         ingots.put(metal.name, item);
-        OreDictionary.registerOre("ingot" + MetallurgyUtils.capitalize(metal.name), item);
         JSONMaker.createItemJson(mod.getPrefix(), name);
 
         // CREATE ITEM NUGGET
         name = metal.name + "_nugget";
         item = new Item().setRegistryName(mod.getPrefix(), name).setTranslationKey(name).setCreativeTab(mod.getCreativeTab());
         nuggets.put(metal.name, item);
-        OreDictionary.registerOre("nugget" + MetallurgyUtils.capitalize(metal.name), item);
         JSONMaker.createItemJson(mod.getPrefix(), name);
 
         // CREATE ITEM DUST
         name = metal.name + "_dust";
         item = new Item().setRegistryName(mod.getPrefix(), name).setTranslationKey(name).setCreativeTab(mod.getCreativeTab());
         dusts.put(metal.name, item);
-        OreDictionary.registerOre("dust" + MetallurgyUtils.capitalize(metal.name), item);
-        OreDictionary.registerOre("itemDust" + MetallurgyUtils.capitalize(metal.name), item);
         JSONMaker.createItemJson(mod.getPrefix(), name);
 
         // CREATE ITEM SWORD
         name = metal.name + "_sword";
         item = new ItemMetalSword(metal).setRegistryName(mod.getPrefix(), name).setTranslationKey(name).setCreativeTab(mod.getCreativeTab());
         swords.put(metal.name, item);
-        OreDictionary.registerOre("sword" + MetallurgyUtils.capitalize(metal.name), item);
         JSONMaker.createItemJson(mod.getPrefix(), name);
 
         // CREATE ITEM AXE
         name = metal.name + "_axe";
         item = new ItemMetalAxe(metal).setRegistryName(mod.getPrefix(), name).setTranslationKey(name).setCreativeTab(mod.getCreativeTab());
         axes.put(metal.name, item);
-        OreDictionary.registerOre("axe" + MetallurgyUtils.capitalize(metal.name), item);
         JSONMaker.createItemJson(mod.getPrefix(), name);
 
         // CREATE ITEM SHOVEL
@@ -142,43 +135,59 @@ public class MetalRegistry {
         name = metal.name + "_pickaxe";
         item = new ItemMetalPickaxe(metal).setRegistryName(mod.getPrefix(), name).setTranslationKey(name).setCreativeTab(mod.getCreativeTab());
         pickaxes.put(metal.name, item);
-        OreDictionary.registerOre("pickaxe" + MetallurgyUtils.capitalize(metal.name), item);
         JSONMaker.createItemJson(mod.getPrefix(), name);
         
         // CREATE ITEM HOE
         name = metal.name + "_hoe";
         item = new ItemMetalHoe(metal).setRegistryName(mod.getPrefix(), name).setTranslationKey(name).setCreativeTab(mod.getCreativeTab());
         hoes.put(metal.name, item);
-        OreDictionary.registerOre("hoe" + MetallurgyUtils.capitalize(metal.name), item);
         JSONMaker.createItemJson(mod.getPrefix(), name);
 
         // CREATE ITEM HELMET
         name = metal.name + "_helmet";
         item = new Item().setRegistryName(mod.getPrefix(), name).setTranslationKey(name).setCreativeTab(mod.getCreativeTab());
         helmets.put(metal.name, item);
-        OreDictionary.registerOre("helmet" + MetallurgyUtils.capitalize(metal.name), item);
         JSONMaker.createItemJson(mod.getPrefix(), name);
 
         // CREATE ITEM CHESTPLATE
         name = metal.name + "_chestplate";
         item = new Item().setRegistryName(mod.getPrefix(), name).setTranslationKey(name).setCreativeTab(mod.getCreativeTab());
         chestplates.put(metal.name, item);
-        OreDictionary.registerOre("chestplate" + MetallurgyUtils.capitalize(metal.name), item);
         JSONMaker.createItemJson(mod.getPrefix(), name);
 
         // CREATE ITEM LEGS
         name = metal.name + "_leggings";
         item = new Item().setRegistryName(mod.getPrefix(), name).setTranslationKey(name).setCreativeTab(mod.getCreativeTab());
         leggings.put(metal.name, item);
-        OreDictionary.registerOre("leggings" + MetallurgyUtils.capitalize(metal.name), item);
         JSONMaker.createItemJson(mod.getPrefix(), name);
 
         // CREATE ITEM BOOTS
         name = metal.name + "_boots";
         item = new Item().setRegistryName(mod.getPrefix(), name).setTranslationKey(name).setCreativeTab(mod.getCreativeTab());
         boots.put(metal.name, item);
-        OreDictionary.registerOre("boots" + MetallurgyUtils.capitalize(metal.name), item);
         JSONMaker.createItemJson(mod.getPrefix(), name);
+    }
+    
+    public static void registerOreDict() {
+        for(MetalRegistryEntry entry : registry)
+        {
+            MetalDefinition metal = entry.metal;
+            OreDictionary.registerOre("ore" + MetallurgyUtils.capitalize(metal.name), Item.getItemFromBlock(oreBlocks.get(metal.name)));
+            OreDictionary.registerOre("block" + MetallurgyUtils.capitalize(metal.name), Item.getItemFromBlock(metalBlocks.get(metal.name)));
+            OreDictionary.registerOre("largeBrick" + MetallurgyUtils.capitalize(metal.name), Item.getItemFromBlock(metalLargeBricks.get(metal.name)));
+            OreDictionary.registerOre("ingot" + MetallurgyUtils.capitalize(metal.name), ingots.get(metal.name));
+            OreDictionary.registerOre("nugget" + MetallurgyUtils.capitalize(metal.name), nuggets.get(metal.name));
+            OreDictionary.registerOre("dust" + MetallurgyUtils.capitalize(metal.name), dusts.get(metal.name));
+            OreDictionary.registerOre("itemDust" + MetallurgyUtils.capitalize(metal.name), dusts.get(metal.name));
+            OreDictionary.registerOre("sword" + MetallurgyUtils.capitalize(metal.name), swords.get(metal.name));
+            OreDictionary.registerOre("axe" + MetallurgyUtils.capitalize(metal.name), axes.get(metal.name));
+            OreDictionary.registerOre("pickaxe" + MetallurgyUtils.capitalize(metal.name), pickaxes.get(metal.name));
+            OreDictionary.registerOre("hoe" + MetallurgyUtils.capitalize(metal.name), hoes.get(metal.name));
+            OreDictionary.registerOre("helmet" + MetallurgyUtils.capitalize(metal.name), helmets.get(metal.name));
+            OreDictionary.registerOre("chestplate" + MetallurgyUtils.capitalize(metal.name), chestplates.get(metal.name));
+            OreDictionary.registerOre("leggings" + MetallurgyUtils.capitalize(metal.name), leggings.get(metal.name));
+            OreDictionary.registerOre("boots" + MetallurgyUtils.capitalize(metal.name), boots.get(metal.name));
+        }
     }
 
     @SubscribeEvent
@@ -190,8 +199,7 @@ public class MetalRegistry {
             registerItems((Map<String, Item>) items, event.getRegistry());
         }
 
-        OreDictionary.registerOre("copper_axe", axes.get("copper"));
-        OreDictionary.registerOre("copper_block", metalBlocks.get("copper"));
+        registerOreDict();
     }
 
     @SubscribeEvent
@@ -219,34 +227,36 @@ public class MetalRegistry {
             String metalName = entry.metal.name;
             String modid = entry.mod.getPrefix();
 
-            if (entry.metal.type == MetalDefinition.Type.ORE) {
-                Block ore = oreBlocks.get(metalName);
-                Item ingot = ingots.get(metalName);
-                GameRegistry.addSmelting(ore, new ItemStack(ingot), 0);
-            }
-
             Block metalBlock = metalBlocks.get(metalName);
             Item ingot = ingots.get(metalName);
             Item nugget = nuggets.get(metalName);
+            Item dust = dusts.get(metalName);
             String oreIngot = "ingot" + MetallurgyUtils.capitalize(metalName);
             String oreNugget = "nugget" + MetallurgyUtils.capitalize(metalName);
             String oreDust = "nugget" + MetallurgyUtils.capitalize(metalName);
             String oreBlock = "block" + MetallurgyUtils.capitalize(metalName);
-            
-            event.getRegistry().register(new ShapedOreRecipe(new ResourceLocation(metalName + "_nugget"), new ItemStack(nugget, 9), "I", 'I', oreIngot).setRegistryName(metalName + "_nugget"));
-            event.getRegistry().register(new ShapedOreRecipe(new ResourceLocation(metalName + "_ingot"), ingot, "NNN", "NNN", "NNN", 'N', oreNugget).setRegistryName(metalName + "_ingot"));
-            event.getRegistry().register(new ShapedOreRecipe(new ResourceLocation(metalName + "_block"), metalBlock, "III", "III", "III", 'I', oreIngot).setRegistryName(metalName + "_block"));
-            event.getRegistry().register(new ShapedOreRecipe(new ResourceLocation(metalName + "_block_to_ingot"), new ItemStack(ingot, 9), "B", 'B', oreBlock).setRegistryName(metalName + "_block_to_ingot"));
-            event.getRegistry().register(new ShapedOreRecipe(new ResourceLocation(metalName + "_sword"), swords.get(metalName), "I", "I", "S", 'I', oreIngot, 'S', "stickWood").setRegistryName(metalName + "_sword"));
-            event.getRegistry().register(new ShapedOreRecipe(new ResourceLocation(metalName + "_axe"), axes.get(metalName), "II", "SI", "S ", 'I', oreIngot, 'S', "stickWood").setRegistryName(metalName + "_axe"));
-            event.getRegistry().register(new ShapedOreRecipe(new ResourceLocation(metalName + "_shovel"), shovels.get(metalName), "I", "S", "S", 'I', oreIngot, 'S', "stickWood").setRegistryName(metalName + "_shovel"));
-            event.getRegistry().register(new ShapedOreRecipe(new ResourceLocation(metalName + "_pickaxe"), pickaxes.get(metalName), "III", " S ", " S ", 'I', oreIngot, 'S', "stickWood").setRegistryName(metalName + "_pickaxe"));
-            event.getRegistry().register(new ShapedOreRecipe(new ResourceLocation(metalName + "_hoe"), hoes.get(metalName), "II", "S ", "S ", 'I', oreIngot, 'S', "stickWood").setRegistryName(metalName + "_hoe"));
 
-            event.getRegistry().register(new ShapedOreRecipe(new ResourceLocation(metalName + "_helmet"), helmets.get(metalName), "III", "I I", 'I', oreIngot).setRegistryName(metalName + "_helmet"));
-            event.getRegistry().register(new ShapedOreRecipe(new ResourceLocation(metalName + "_chestplate"), chestplates.get(metalName), "I I", "III", "III", 'I', oreIngot).setRegistryName(metalName + "_chestplate"));
-            event.getRegistry().register(new ShapedOreRecipe(new ResourceLocation(metalName + "_leggings"), leggings.get(metalName), "III", "I I", "I I", 'I', oreIngot).setRegistryName(metalName + "_leggings"));
-            event.getRegistry().register(new ShapedOreRecipe(new ResourceLocation(metalName + "_boots"), boots.get(metalName), "I I", "I I", 'I', oreIngot).setRegistryName(metalName + "_boots"));
+            if (entry.metal.type == MetalDefinition.Type.ORE) {
+                Block ore = oreBlocks.get(metalName);
+                GameRegistry.addSmelting(ore, new ItemStack(ingot), 0);
+            }
+            
+            GameRegistry.addSmelting(dust, new ItemStack(ingot), 0);
+            
+            RecipeHelper.shapelessRecipe(event.getRegistry(), metalName + "_nugget", new ItemStack(nugget, 9), oreIngot);
+            RecipeHelper.shapedRecipe(event.getRegistry(), metalName + "_ingot", ingot, "NNN", "NNN", "NNN", 'N', oreNugget);
+            RecipeHelper.shapedRecipe(event.getRegistry(), metalName + "_block", metalBlock, "III", "III", "III", 'I', oreIngot);
+            RecipeHelper.shapelessRecipe(event.getRegistry(), metalName + "_block_to_ingot", new ItemStack(ingot, 9), oreBlock);
+            RecipeHelper.shapedRecipe(event.getRegistry(), metalName + "_sword", swords.get(metalName), "I", "I", "S", 'I', oreIngot, 'S', "stickWood");
+            RecipeHelper.shapedRecipe(event.getRegistry(), metalName + "_axe", axes.get(metalName), "II", "SI", "S ", 'I', oreIngot, 'S', "stickWood");
+            RecipeHelper.shapedRecipe(event.getRegistry(), metalName + "_shovel", shovels.get(metalName), "I", "S", "S", 'I', oreIngot, 'S', "stickWood");
+            RecipeHelper.shapedRecipe(event.getRegistry(), metalName + "_pickaxe", pickaxes.get(metalName), "III", " S ", " S ", 'I', oreIngot, 'S', "stickWood");
+            RecipeHelper.shapedRecipe(event.getRegistry(), metalName + "_hoe", hoes.get(metalName), "II", "S ", "S ", 'I', oreIngot, 'S', "stickWood");
+
+            RecipeHelper.shapedRecipe(event.getRegistry(), metalName + "_helmet", helmets.get(metalName), "III", "I I", 'I', oreIngot);
+            RecipeHelper.shapedRecipe(event.getRegistry(), metalName + "_chestplate", chestplates.get(metalName), "I I", "III", "III", 'I', oreIngot);
+            RecipeHelper.shapedRecipe(event.getRegistry(), metalName + "_leggings", leggings.get(metalName), "III", "I I", "I I", 'I', oreIngot);
+            RecipeHelper.shapedRecipe(event.getRegistry(), metalName + "_boots", boots.get(metalName), "I I", "I I", 'I', oreIngot);
         }
     }
 
