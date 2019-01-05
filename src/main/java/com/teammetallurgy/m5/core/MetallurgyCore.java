@@ -24,6 +24,8 @@ public class MetallurgyCore {
     public static final Logger LOG = LogManager.getLogger(Constants.MOD_NAME);
     public static final CreativeTabs CREATIVE_TAB = new MetallurgyCreativeTab(Constants.MOD_ID);
 
+    public static boolean overrideConfigs = true;
+    
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
 

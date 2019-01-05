@@ -1,4 +1,4 @@
-package com.teammetallurgy.m5.core.tools;
+package com.teammetallurgy.m5.core.items.tools;
 
 import com.google.common.collect.Multimap;
 import com.teammetallurgy.m5.core.registry.MetalDefinition;

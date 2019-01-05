@@ -1,0 +1,41 @@
+{
+    "name": "tin",
+    "type": "ORE",
+    "world": {
+        "tier": 1,
+        "height_min": 52,
+        "height_max": 128,
+        "veins_per_chunk": 12,
+        "ore_per_vein": [ 6, 10 ]
+    },
+    "tools": {
+        "harvest_level": 2,
+        "durability": 180,
+        "sword": {
+            "damage": 4,
+            "swing_speed": 1.6
+        },
+        "pickaxe": {
+            "damage": 3,
+            "swing_speed": 1.2
+        },
+        "axe": {
+            "damage": 7,
+            "swing_speed": 0.8
+        },
+        "shovel": {
+            "damage": 3.5,
+            "swing_speed": 3.5
+        },
+        "hoe": {
+            "damage": 1,
+            "swing_speed": 1
+        }
+    },
+    "armor": {
+        "enchantability": 15, 
+        "durability_multiplier": 3,
+        "damage_reduction": [ 2, 4, 2, 2 ],
+        "toughness": 0
+    }
+}

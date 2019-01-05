@@ -6,11 +6,12 @@ import java.util.List;
 import java.util.Map;
 
 import com.teammetallurgy.m5.core.MetallurgySubmod;
-import com.teammetallurgy.m5.core.tools.ItemMetalAxe;
-import com.teammetallurgy.m5.core.tools.ItemMetalHoe;
-import com.teammetallurgy.m5.core.tools.ItemMetalPickaxe;
-import com.teammetallurgy.m5.core.tools.ItemMetalShovel;
-import com.teammetallurgy.m5.core.tools.ItemMetalSword;
+import com.teammetallurgy.m5.core.items.armor.ItemMetalArmor;
+import com.teammetallurgy.m5.core.items.tools.ItemMetalAxe;
+import com.teammetallurgy.m5.core.items.tools.ItemMetalHoe;
+import com.teammetallurgy.m5.core.items.tools.ItemMetalPickaxe;
+import com.teammetallurgy.m5.core.items.tools.ItemMetalShovel;
+import com.teammetallurgy.m5.core.items.tools.ItemMetalSword;
 import com.teammetallurgy.m5.core.utils.JSONMaker;
 import com.teammetallurgy.m5.core.utils.MetallurgyUtils;
 import com.teammetallurgy.m5.core.utils.RecipeHelper;
@@ -18,11 +19,11 @@ import com.teammetallurgy.m5.core.utils.RecipeHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
@@ -30,8 +31,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
-import net.minecraftforge.oredict.ShapedOreRecipe;
-import net.minecraftforge.oredict.ShapelessOreRecipe;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryModifiable;
 
@@ -63,7 +62,8 @@ public class MetalRegistry {
 
     }
 
-    public static void registerMetal(MetalDefinition metal, MetallurgySubmod mod) {
+    public static void registerMetal(MetalDefinition metal) {
+        MetallurgySubmod mod = metal.mod;
         MetalRegistry.registry.add(new MetalRegistryEntry(metal, mod));
         String name;
         Item item;
@@ -128,7 +128,6 @@ public class MetalRegistry {
         name = metal.name + "_shovel";
         item = new ItemMetalShovel(metal).setRegistryName(mod.getPrefix(), name).setTranslationKey(name).setCreativeTab(mod.getCreativeTab());
         shovels.put(metal.name, item);
-        OreDictionary.registerOre("shovel" + MetallurgyUtils.capitalize(metal.name), item);
         JSONMaker.createItemJson(mod.getPrefix(), name);
 
         // CREATE ITEM PICKAXE
@@ -145,25 +144,25 @@ public class MetalRegistry {
 
         // CREATE ITEM HELMET
         name = metal.name + "_helmet";
-        item = new Item().setRegistryName(mod.getPrefix(), name).setTranslationKey(name).setCreativeTab(mod.getCreativeTab());
+        item = new ItemMetalArmor(metal, EntityEquipmentSlot.HEAD).setRegistryName(mod.getPrefix(), name).setTranslationKey(name).setCreativeTab(mod.getCreativeTab());
         helmets.put(metal.name, item);
         JSONMaker.createItemJson(mod.getPrefix(), name);
 
         // CREATE ITEM CHESTPLATE
         name = metal.name + "_chestplate";
-        item = new Item().setRegistryName(mod.getPrefix(), name).setTranslationKey(name).setCreativeTab(mod.getCreativeTab());
+        item = new ItemMetalArmor(metal, EntityEquipmentSlot.CHEST).setRegistryName(mod.getPrefix(), name).setTranslationKey(name).setCreativeTab(mod.getCreativeTab());
         chestplates.put(metal.name, item);
         JSONMaker.createItemJson(mod.getPrefix(), name);
 
         // CREATE ITEM LEGS
         name = metal.name + "_leggings";
-        item = new Item().setRegistryName(mod.getPrefix(), name).setTranslationKey(name).setCreativeTab(mod.getCreativeTab());
+        item = new ItemMetalArmor(metal, EntityEquipmentSlot.LEGS).setRegistryName(mod.getPrefix(), name).setTranslationKey(name).setCreativeTab(mod.getCreativeTab());
         leggings.put(metal.name, item);
         JSONMaker.createItemJson(mod.getPrefix(), name);
 
         // CREATE ITEM BOOTS
         name = metal.name + "_boots";
-        item = new Item().setRegistryName(mod.getPrefix(), name).setTranslationKey(name).setCreativeTab(mod.getCreativeTab());
+        item = new ItemMetalArmor(metal, EntityEquipmentSlot.FEET).setRegistryName(mod.getPrefix(), name).setTranslationKey(name).setCreativeTab(mod.getCreativeTab());
         boots.put(metal.name, item);
         JSONMaker.createItemJson(mod.getPrefix(), name);
     }
@@ -181,6 +180,7 @@ public class MetalRegistry {
             OreDictionary.registerOre("itemDust" + MetallurgyUtils.capitalize(metal.name), dusts.get(metal.name));
             OreDictionary.registerOre("sword" + MetallurgyUtils.capitalize(metal.name), swords.get(metal.name));
             OreDictionary.registerOre("axe" + MetallurgyUtils.capitalize(metal.name), axes.get(metal.name));
+            OreDictionary.registerOre("shovel" + MetallurgyUtils.capitalize(metal.name), shovels.get(metal.name));
             OreDictionary.registerOre("pickaxe" + MetallurgyUtils.capitalize(metal.name), pickaxes.get(metal.name));
             OreDictionary.registerOre("hoe" + MetallurgyUtils.capitalize(metal.name), hoes.get(metal.name));
             OreDictionary.registerOre("helmet" + MetallurgyUtils.capitalize(metal.name), helmets.get(metal.name));
@@ -244,9 +244,9 @@ public class MetalRegistry {
             GameRegistry.addSmelting(dust, new ItemStack(ingot), 0);
             
             RecipeHelper.shapelessRecipe(event.getRegistry(), metalName + "_nugget", new ItemStack(nugget, 9), oreIngot);
+            RecipeHelper.shapelessRecipe(event.getRegistry(), metalName + "_block_to_ingot", new ItemStack(ingot, 9), oreBlock);
             RecipeHelper.shapedRecipe(event.getRegistry(), metalName + "_ingot", ingot, "NNN", "NNN", "NNN", 'N', oreNugget);
             RecipeHelper.shapedRecipe(event.getRegistry(), metalName + "_block", metalBlock, "III", "III", "III", 'I', oreIngot);
-            RecipeHelper.shapelessRecipe(event.getRegistry(), metalName + "_block_to_ingot", new ItemStack(ingot, 9), oreBlock);
             RecipeHelper.shapedRecipe(event.getRegistry(), metalName + "_sword", swords.get(metalName), "I", "I", "S", 'I', oreIngot, 'S', "stickWood");
             RecipeHelper.shapedRecipe(event.getRegistry(), metalName + "_axe", axes.get(metalName), "II", "SI", "S ", 'I', oreIngot, 'S', "stickWood");
             RecipeHelper.shapedRecipe(event.getRegistry(), metalName + "_shovel", shovels.get(metalName), "I", "S", "S", 'I', oreIngot, 'S', "stickWood");

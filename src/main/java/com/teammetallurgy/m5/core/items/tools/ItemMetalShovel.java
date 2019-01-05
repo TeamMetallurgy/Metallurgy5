@@ -1,4 +1,4 @@
-package com.teammetallurgy.m5.core.tools;
+package com.teammetallurgy.m5.core.items.tools;
 
 import com.google.common.collect.Multimap;
 import com.teammetallurgy.m5.core.registry.MetalDefinition;
@@ -9,24 +9,25 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
 
-public class ItemMetalHoe extends ItemHoe {
+public class ItemMetalShovel extends ItemSpade {
 
     private MetalDefinition metal;
-    private float attackDamage;
+    private float itemDamage;
     private float swingSpeed;
     
-    public ItemMetalHoe(MetalDefinition metal) {
+    public ItemMetalShovel(MetalDefinition metal) {
         super(ToolMaterial.WOOD);
         this.metal = metal;
         this.setMaxDamage(metal.toolDurability);
-        this.attackDamage = metal.hoeDamage;
-        this.swingSpeed = metal.hoeSwingSpeed;
-        this.setHarvestLevel("hoe", metal.harvestLevel);
+        this.efficiency = metal.miningSpeed;
+        this.attackSpeed = 0;
+        this.attackDamage = metal.shovelDamage;
+        this.swingSpeed = metal.shovelSwingSpeed;
+        this.setHarvestLevel("shovel", metal.harvestLevel);
     }
 
     @Override
