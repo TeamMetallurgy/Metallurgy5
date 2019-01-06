@@ -12,21 +12,22 @@
         "harvest_level": 2,
         "durability": 180,
         "efficiency": 6.0,
+        "enchantability": 14,
         "sword": {
-            "damage": 4,
+            "damage": 6,
             "swing_speed": 1.6
         },
         "pickaxe": {
-            "damage": 3,
+            "damage": 4,
             "swing_speed": 1.2
         },
         "axe": {
-            "damage": 7,
+            "damage": 9,
             "swing_speed": 0.8
         },
         "shovel": {
-            "damage": 3.5,
-            "swing_speed": 3.5
+            "damage": 4.5,
+            "swing_speed": 4.5
         },
         "hoe": {
             "damage": 1,

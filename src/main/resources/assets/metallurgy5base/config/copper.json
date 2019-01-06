@@ -12,6 +12,7 @@
         "harvest_level": 2,
         "durability": 180,
         "efficiency": 5.0,
+        "enchantability": 8,
         "sword": {
             "damage": 4,
             "swing_speed": 1.6
