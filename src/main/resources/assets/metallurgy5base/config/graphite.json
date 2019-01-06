@@ -3,9 +3,9 @@
     "type": "CATALYST",
     "world": {
         "tier": 1,
-        "height_min": 52,
+        "height_min": 64,
         "height_max": 128,
-        "veins_per_chunk": 12,
-        "ore_per_vein": [ 6, 10 ]
+        "veins_per_chunk": 7,
+        "ore_per_vein": [ 4, 6 ]
     }
 }

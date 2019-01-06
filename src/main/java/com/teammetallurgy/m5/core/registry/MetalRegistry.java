@@ -16,6 +16,7 @@ import com.teammetallurgy.m5.core.items.tools.ItemMetalSword;
 import com.teammetallurgy.m5.core.utils.JSONMaker;
 import com.teammetallurgy.m5.core.utils.MetallurgyUtils;
 import com.teammetallurgy.m5.core.utils.RecipeHelper;
+import com.teammetallurgy.m5.core.world.WorldGenMetalOre;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -292,6 +293,16 @@ public class MetalRegistry {
             RecipeHelper.shapedRecipe(event.getRegistry(), metalName + "_chestplate", chestplates.get(metalName), "I I", "III", "III", 'I', oreIngot);
             RecipeHelper.shapedRecipe(event.getRegistry(), metalName + "_leggings", leggings.get(metalName), "III", "I I", "I I", 'I', oreIngot);
             RecipeHelper.shapedRecipe(event.getRegistry(), metalName + "_boots", boots.get(metalName), "I I", "I I", 'I', oreIngot);
+        }
+    }
+    
+    public static void registerWorldGen() {
+        for(MetalRegistryEntry entry : registry) {
+            MetalDefinition metal = entry.metal;
+            if(!oreBlocks.containsKey(metal.name))
+                continue;
+            Block oreBlock = oreBlocks.get(metal.name);
+            GameRegistry.registerWorldGenerator(new WorldGenMetalOre(metal, oreBlock.getDefaultState(), metal.orePerVein), 1);
         }
     }
 

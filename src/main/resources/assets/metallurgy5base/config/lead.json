@@ -3,8 +3,8 @@
     "type": "ORE",
     "world": {
         "tier": 1,
-        "height_min": 52,
-        "height_max": 128,
+        "height_min": 1,
+        "height_max": 64,
         "veins_per_chunk": 12,
         "ore_per_vein": [ 6, 10 ]
     },

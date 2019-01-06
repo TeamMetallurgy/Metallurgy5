@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.teammetallurgy.m5.core.proxy.CommonProxy;
+import com.teammetallurgy.m5.core.registry.MetalRegistry;
 import com.teammetallurgy.m5.core.utils.Constants;
 import com.teammetallurgy.m5.core.utils.MetallurgyCreativeTab;
 
@@ -34,6 +35,7 @@ public class MetallurgyCore {
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
         proxy.init();
+        MetalRegistry.registerWorldGen();
         // NetworkRegistry.INSTANCE.registerGuiHandler(Atum.instance, new
         // AtumGuiHandler());
     }

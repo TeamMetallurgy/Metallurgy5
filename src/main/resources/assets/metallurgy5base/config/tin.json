@@ -4,9 +4,9 @@
     "world": {
         "tier": 1,
         "height_min": 52,
-        "height_max": 128,
-        "veins_per_chunk": 12,
-        "ore_per_vein": [ 6, 10 ]
+        "height_max": 96,
+        "veins_per_chunk": 10,
+        "ore_per_vein": [ 6, 8 ]
     },
     "tools": {
         "harvest_level": 2,

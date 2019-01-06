@@ -25,7 +25,14 @@ public class MetalDefinition {
     public String name;
     public Type type;
     public int tier;
-
+    
+    //World Gen
+    public int veinsPerChunk;
+    public int orePerVein;
+    public int minY;
+    public int maxY;
+    
+    // Tools
     public int harvestLevel;
     public int toolDurability;
     public int toolEnchantability;
@@ -43,6 +50,7 @@ public class MetalDefinition {
     public float axeDamage = 7;
     public float axeSwingSpeed = 0.8f;
     
+    // Armors
     private ArmorMaterial armorMaterial;
     public int armorEnchantability;
     public int armorDurability;
@@ -65,8 +73,14 @@ public class MetalDefinition {
         String typeString = root.get("type").getAsString();
         this.type = MetalDefinition.Type.valueOf(typeString);
         
-        if(type != Type.CATALYST)
-        {
+        if (type == Type.CATALYST || type == Type.ORE) {
+            this.veinsPerChunk = root.getAsJsonObject("world").get("veins_per_chunk").getAsInt();
+            this.orePerVein = root.getAsJsonObject("world").get("ore_per_vein").getAsJsonArray().get(1).getAsInt();
+            this.minY = root.getAsJsonObject("world").get("height_min").getAsInt();
+            this.maxY = root.getAsJsonObject("world").get("height_max").getAsInt();
+        }
+        
+        if (type != Type.CATALYST) {
             // TOOLS
             this.harvestLevel = root.getAsJsonObject("tools").get("harvest_level").getAsInt();
             this.toolDurability = root.getAsJsonObject("tools").get("durability").getAsInt();
@@ -89,8 +103,7 @@ public class MetalDefinition {
             this.armorToughness = root.get("armor").getAsJsonObject().get("toughness").getAsInt();
         }
         
-        if(type == Type.ALLOY)
-        {
+        if (type == Type.ALLOY) {
             this.alloyEfficiency = root.getAsJsonObject("alloy").get("efficiency").getAsFloat();
             JsonObject alloyIngredientJson = root.getAsJsonObject("alloy").getAsJsonObject("ingredients");
             for(Entry<String, JsonElement> entry : alloyIngredientJson.entrySet()) {
