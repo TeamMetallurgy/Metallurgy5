@@ -1,13 +1,18 @@
 package com.teammetallurgy.m5.core.registry;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.teammetallurgy.m5.base.MetallurgyBaseSubmod;
 import com.teammetallurgy.m5.core.MetallurgySubmod;
 
 import net.minecraft.init.SoundEvents;
-import net.minecraft.item.Item.ToolMaterial;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraftforge.common.util.EnumHelper;
 
@@ -44,34 +49,54 @@ public class MetalDefinition {
     public int[] armorDamageReduction = { 0, 0, 0, 0 };
     public float armorToughness = 0;
     
+    // Alloy Info
+    public float alloyEfficiency;
+    public Item alloyCatalyst;
+    public Map<String, Integer> ingredients = new HashMap<>();
+    
     public MetalDefinition(MetallurgyBaseSubmod mod) {
         this.mod = mod;
     }
 
     public void loadFromJson(String json) {
-        JsonElement root = new JsonParser().parse(json);
+        JsonObject root = new JsonParser().parse(json).getAsJsonObject();
 
-        this.name = root.getAsJsonObject().get("name").getAsString();
-        String typeString = root.getAsJsonObject().get("type").getAsString();
+        this.name = root.get("name").getAsString();
+        String typeString = root.get("type").getAsString();
         this.type = MetalDefinition.Type.valueOf(typeString);
-        this.harvestLevel = root.getAsJsonObject().get("tools").getAsJsonObject().get("harvest_level").getAsInt();
-        this.toolDurability = root.getAsJsonObject().get("tools").getAsJsonObject().get("durability").getAsInt();
-        this.swordDamage = root.getAsJsonObject().get("tools").getAsJsonObject().get("sword").getAsJsonObject().get("damage").getAsFloat();
-        this.swordSwingSpeed = root.getAsJsonObject().get("tools").getAsJsonObject().get("sword").getAsJsonObject().get("swing_speed").getAsFloat();
-        this.pickaxeDamage = root.getAsJsonObject().get("tools").getAsJsonObject().get("pickaxe").getAsJsonObject().get("damage").getAsFloat();
-        this.pickaxeSwingSpeed = root.getAsJsonObject().get("tools").getAsJsonObject().get("pickaxe").getAsJsonObject().get("swing_speed").getAsFloat();
-        this.axeDamage = root.getAsJsonObject().get("tools").getAsJsonObject().get("axe").getAsJsonObject().get("damage").getAsFloat();
-        this.axeSwingSpeed = root.getAsJsonObject().get("tools").getAsJsonObject().get("axe").getAsJsonObject().get("swing_speed").getAsFloat();
-        this.shovelDamage = root.getAsJsonObject().get("tools").getAsJsonObject().get("shovel").getAsJsonObject().get("damage").getAsFloat();
-        this.shovelSwingSpeed = root.getAsJsonObject().get("tools").getAsJsonObject().get("shovel").getAsJsonObject().get("swing_speed").getAsFloat();
-        this.hoeDamage = root.getAsJsonObject().get("tools").getAsJsonObject().get("hoe").getAsJsonObject().get("damage").getAsFloat();
-        this.hoeSwingSpeed = root.getAsJsonObject().get("tools").getAsJsonObject().get("hoe").getAsJsonObject().get("swing_speed").getAsFloat();
-
-        this.armorEnchantability = root.getAsJsonObject().get("armor").getAsJsonObject().get("enchantability").getAsInt();
-        this.armorDurability = root.getAsJsonObject().get("armor").getAsJsonObject().get("durability_multiplier").getAsInt();
-        JsonArray array = root.getAsJsonObject().get("armor").getAsJsonObject().get("damage_reduction").getAsJsonArray();
-        this.armorDamageReduction = new int[] { array.get(0).getAsInt(), array.get(1).getAsInt(), array.get(2).getAsInt(), array.get(3).getAsInt() };
-        this.armorToughness = root.getAsJsonObject().get("armor").getAsJsonObject().get("toughness").getAsInt();        
+        
+        if(type != Type.CATALYST)
+        {
+            // TOOLS
+            this.harvestLevel = root.getAsJsonObject("tools").get("harvest_level").getAsInt();
+            this.toolDurability = root.getAsJsonObject("tools").get("durability").getAsInt();
+            this.swordDamage = root.getAsJsonObject("tools").getAsJsonObject("sword").get("damage").getAsFloat();
+            this.swordSwingSpeed = root.getAsJsonObject("tools").getAsJsonObject("sword").get("swing_speed").getAsFloat();
+            this.pickaxeDamage = root.getAsJsonObject("tools").getAsJsonObject("pickaxe").get("damage").getAsFloat();
+            this.pickaxeSwingSpeed = root.getAsJsonObject("tools").getAsJsonObject("pickaxe").get("swing_speed").getAsFloat();
+            this.axeDamage = root.getAsJsonObject("tools").getAsJsonObject("axe").get("damage").getAsFloat();
+            this.axeSwingSpeed = root.getAsJsonObject("tools").getAsJsonObject("axe").get("swing_speed").getAsFloat();
+            this.shovelDamage = root.getAsJsonObject("tools").getAsJsonObject("shovel").get("damage").getAsFloat();
+            this.shovelSwingSpeed = root.getAsJsonObject("tools").getAsJsonObject("shovel").get("swing_speed").getAsFloat();
+            this.hoeDamage = root.getAsJsonObject("tools").getAsJsonObject("hoe").get("damage").getAsFloat();
+            this.hoeSwingSpeed = root.getAsJsonObject("tools").getAsJsonObject("hoe").get("swing_speed").getAsFloat();
+    
+            // ARMOR
+            this.armorEnchantability = root.getAsJsonObject("armor").get("enchantability").getAsInt();
+            this.armorDurability = root.getAsJsonObject("armor").get("durability_multiplier").getAsInt();
+            JsonArray array = root.getAsJsonObject("armor").getAsJsonArray("damage_reduction");
+            this.armorDamageReduction = new int[] { array.get(0).getAsInt(), array.get(1).getAsInt(), array.get(2).getAsInt(), array.get(3).getAsInt() };
+            this.armorToughness = root.get("armor").getAsJsonObject().get("toughness").getAsInt();
+        }
+        
+        if(type == Type.ALLOY)
+        {
+            this.alloyEfficiency = root.getAsJsonObject("alloy").get("efficiency").getAsFloat();
+            JsonObject alloyIngredientJson = root.getAsJsonObject("alloy").getAsJsonObject("ingredients");
+            for(Entry<String, JsonElement> entry : alloyIngredientJson.entrySet()) {
+                ingredients.put(entry.getKey(), entry.getValue().getAsInt());
+            }
+        }
     }
     
     public ArmorMaterial armorMaterial() {

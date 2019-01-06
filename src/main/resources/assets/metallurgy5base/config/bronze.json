@@ -37,5 +37,13 @@
         "durability_multiplier": 3,
         "damage_reduction": [ 2, 4, 2, 2 ],
         "toughness": 0
+    },
+    "alloy": {
+        "efficiency": 0.5,
+        "ingredients": {
+            "copper": 3,
+            "tin": 1
+        },
+        "catalyst": "graphite"
     }
 }

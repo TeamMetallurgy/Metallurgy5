@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.google.common.collect.Lists;
 import com.teammetallurgy.m5.core.MetallurgySubmod;
 import com.teammetallurgy.m5.core.items.armor.ItemMetalArmor;
 import com.teammetallurgy.m5.core.items.tools.ItemMetalAxe;
@@ -57,10 +58,6 @@ public class MetalRegistry {
 
     public static Map<String, ?>[] blockMaps = new Map[] { oreBlocks, metalBlocks, metalLargeBricks };
     public static Map<String, ?>[] itemMaps = new Map[] { ingots, nuggets, dusts, swords, axes, shovels, pickaxes, hoes, helmets, chestplates, leggings, boots };
-
-    static {
-
-    }
 
     public static void registerMetal(MetalDefinition metal) {
         MetallurgySubmod mod = metal.mod;
@@ -239,6 +236,17 @@ public class MetalRegistry {
             if (entry.metal.type == MetalDefinition.Type.ORE) {
                 Block ore = oreBlocks.get(metalName);
                 GameRegistry.addSmelting(ore, new ItemStack(ingot), 0);
+            }
+            else if (entry.metal.type == MetalDefinition.Type.ALLOY) {
+                List<String> recipe = new ArrayList<>();
+                for(String ingredient : entry.metal.ingredients.keySet()) {
+                    for(int i = 0; i < entry.metal.ingredients.get(ingredient); i++)
+                        recipe.add("dust" + MetallurgyUtils.capitalize(ingredient));
+                }
+                
+                int craftingAmount = Math.round(recipe.size() * entry.metal.alloyEfficiency);
+                RecipeHelper.shapelessRecipe(event.getRegistry(), metalName + "_alloy", new ItemStack(dust, craftingAmount), recipe.toArray(new Object[recipe.size()]));
+                
             }
             
             GameRegistry.addSmelting(dust, new ItemStack(ingot), 0);
