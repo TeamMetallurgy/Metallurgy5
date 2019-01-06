@@ -23,7 +23,7 @@ public class ItemMetalShovel extends ItemSpade {
         super(ToolMaterial.WOOD);
         this.metal = metal;
         this.setMaxDamage(metal.toolDurability);
-        this.efficiency = metal.miningSpeed;
+        this.efficiency = metal.efficiency;
         this.attackSpeed = 0;
         this.attackDamage = metal.shovelDamage;
         this.swingSpeed = metal.shovelSwingSpeed;

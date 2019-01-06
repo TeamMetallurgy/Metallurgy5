@@ -24,7 +24,7 @@ public class ItemMetalAxe extends ItemAxe {
         super(ToolMaterial.WOOD);
         this.metal = metal;
         this.setMaxDamage(metal.toolDurability);
-        this.efficiency = metal.miningSpeed;
+        this.efficiency = metal.efficiency;
         this.attackSpeed = 0;
         this.attackDamage = metal.axeDamage;
         this.swingSpeed = metal.axeSwingSpeed;

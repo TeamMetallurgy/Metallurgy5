@@ -11,6 +11,7 @@
     "tools": {
         "harvest_level": 2,
         "durability": 180,
+        "efficiency": 4.0,
         "sword": {
             "damage": 4,
             "swing_speed": 1.6

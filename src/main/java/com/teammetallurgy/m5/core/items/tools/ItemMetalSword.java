@@ -53,7 +53,8 @@ public class ItemMetalSword extends ItemSword {
     public Multimap<String, AttributeModifier> getItemAttributeModifiers(EntityEquipmentSlot equipmentSlot)
     {
         Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(equipmentSlot);
-        multimap.clear();
+        multimap.removeAll(SharedMonsterAttributes.ATTACK_DAMAGE.getName());
+        multimap.removeAll(SharedMonsterAttributes.ATTACK_SPEED.getName());
 
         if (equipmentSlot == EntityEquipmentSlot.MAINHAND)
         {

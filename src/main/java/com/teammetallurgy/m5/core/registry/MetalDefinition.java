@@ -37,7 +37,7 @@ public class MetalDefinition {
     public int harvestLevel;
     public int toolDurability;
     public int toolEnchantability;
-    public float miningSpeed = 2.0f;
+    public float efficiency = 2.0f;
     
     public float swordDamage = 1;
     public float swordSwingSpeed = 1.6f;
@@ -86,6 +86,8 @@ public class MetalDefinition {
             // TOOLS
             this.harvestLevel = root.getAsJsonObject("tools").get("harvest_level").getAsInt();
             this.toolDurability = root.getAsJsonObject("tools").get("durability").getAsInt();
+            this.efficiency = root.getAsJsonObject("tools").get("efficiency").getAsFloat();
+            
             this.swordDamage = root.getAsJsonObject("tools").getAsJsonObject("sword").get("damage").getAsFloat();
             this.swordSwingSpeed = root.getAsJsonObject("tools").getAsJsonObject("sword").get("swing_speed").getAsFloat();
             this.pickaxeDamage = root.getAsJsonObject("tools").getAsJsonObject("pickaxe").get("damage").getAsFloat();
