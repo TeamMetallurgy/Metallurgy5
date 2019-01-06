@@ -29,7 +29,7 @@ public class ItemMetalSword extends ItemSword {
     @Override
     public int getItemEnchantability()
     {
-        return metal.enchantability;
+        return metal.toolEnchantability;
     }
 
     @Override

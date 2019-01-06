@@ -1,10 +1,5 @@
 package com.teammetallurgy.m5.core.registry;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
@@ -12,6 +7,7 @@ import com.teammetallurgy.m5.base.MetallurgyBaseSubmod;
 import com.teammetallurgy.m5.core.MetallurgySubmod;
 
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraftforge.common.util.EnumHelper;
 
