@@ -302,7 +302,7 @@ public class MetalRegistry {
             if(!oreBlocks.containsKey(metal.name))
                 continue;
             Block oreBlock = oreBlocks.get(metal.name);
-            GameRegistry.registerWorldGenerator(new WorldGenMetalOre(metal, oreBlock.getDefaultState(), metal.orePerVein), 1);
+            GameRegistry.registerWorldGenerator(new WorldGenMetalOre(metal, oreBlock.getDefaultState(), metal.orePerVeinMin, metal.orePerVeinMax), 1);
         }
     }
 

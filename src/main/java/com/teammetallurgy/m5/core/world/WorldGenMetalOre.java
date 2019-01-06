@@ -21,30 +21,34 @@ public class WorldGenMetalOre extends WorldGenerator implements IWorldGenerator 
     private final MetalDefinition metal;
     private final IBlockState oreBlock;
     /** The number of blocks to generate. */
-    private final int numberOfBlocks;
+    private final int minBlocks;
+    private final int maxBlocks;
+    private int numberOfBlocks;
     private final Predicate<IBlockState> predicate;
 
-    public WorldGenMetalOre(MetalDefinition metal, IBlockState state, int blockCount)
+    public WorldGenMetalOre(MetalDefinition metal, IBlockState state, int minBlockCount, int maxBlockCount)
     {
-        this(metal, state, blockCount, new WorldGenMetalOre.StonePredicate());
+        this(metal, state, minBlockCount, maxBlockCount, new WorldGenMetalOre.StonePredicate());
     }
 
-    public WorldGenMetalOre(MetalDefinition metal, IBlockState state, int blockCount, Predicate<IBlockState> p_i45631_3_)
+    public WorldGenMetalOre(MetalDefinition metal, IBlockState state, int minBlockCount, int maxBlockCount, Predicate<IBlockState> p_i45631_3_)
     {
         this.metal = metal;
         this.oreBlock = state;
-        this.numberOfBlocks = blockCount;
+        this.minBlocks = minBlockCount;
+        this.maxBlocks = maxBlockCount;
         this.predicate = p_i45631_3_;
     }
 
     @Override
     public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
         random.setSeed(random.nextLong() ^ metal.name.hashCode());
-        for(int i = 0; i < metal.veinsPerChunk; i++) {
-            int x = chunkX * 16 + random.nextInt(16) + 0;
+        this.numberOfBlocks = random.nextInt(maxBlocks - minBlocks + 1) + minBlocks;
+        for (int i = 0; i < metal.veinsPerChunk; i++) {
+            int x = chunkX * 16 + random.nextInt(16);
             int y = random.nextInt(metal.maxY - metal.minY + 1) + metal.minY;
-            int z = chunkZ * 16 + random.nextInt(16) + 0;
-            
+            int z = chunkZ * 16 + random.nextInt(16);
+
             generate(world, random, new BlockPos(x, y, z));
         }
     }

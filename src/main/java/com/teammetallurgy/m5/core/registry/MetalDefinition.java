@@ -28,7 +28,8 @@ public class MetalDefinition {
     
     //World Gen
     public int veinsPerChunk;
-    public int orePerVein;
+    public int orePerVeinMin;
+    public int orePerVeinMax;
     public int minY;
     public int maxY;
     
@@ -75,7 +76,8 @@ public class MetalDefinition {
         
         if (type == Type.CATALYST || type == Type.ORE) {
             this.veinsPerChunk = root.getAsJsonObject("world").get("veins_per_chunk").getAsInt();
-            this.orePerVein = root.getAsJsonObject("world").get("ore_per_vein").getAsJsonArray().get(1).getAsInt();
+            this.orePerVeinMin = root.getAsJsonObject("world").get("ore_per_vein").getAsJsonArray().get(0).getAsInt();
+            this.orePerVeinMax = root.getAsJsonObject("world").get("ore_per_vein").getAsJsonArray().get(1).getAsInt();
             this.minY = root.getAsJsonObject("world").get("height_min").getAsInt();
             this.maxY = root.getAsJsonObject("world").get("height_max").getAsInt();
         }
