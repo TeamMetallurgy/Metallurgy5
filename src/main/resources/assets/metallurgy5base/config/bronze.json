@@ -44,6 +44,6 @@
             "copper": 3,
             "tin": 1
         },
-        "catalyst": "graphite"
+        "catalyst": "metallurgy5base:graphite_item"
     }
 }

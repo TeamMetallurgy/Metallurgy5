@@ -51,7 +51,7 @@ public class MetalDefinition {
     
     // Alloy Info
     public float alloyEfficiency;
-    public Item alloyCatalyst;
+    public String alloyCatalyst;
     public Map<String, Integer> ingredients = new HashMap<>();
     
     public MetalDefinition(MetallurgyBaseSubmod mod) {
@@ -96,6 +96,7 @@ public class MetalDefinition {
             for(Entry<String, JsonElement> entry : alloyIngredientJson.entrySet()) {
                 ingredients.put(entry.getKey(), entry.getValue().getAsInt());
             }
+            this.alloyCatalyst = root.getAsJsonObject("alloy").get("catalyst").getAsString();
         }
     }
     
