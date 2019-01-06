@@ -63,14 +63,16 @@ public class MetalDefinition {
     public String alloyCatalyst;
     public Map<String, Integer> ingredients = new HashMap<>();
     
-    public MetalDefinition(MetallurgyBaseSubmod mod) {
+    public MetalDefinition(String name, MetallurgyBaseSubmod mod) {
+        this.name = name;
         this.mod = mod;
     }
 
     public void loadFromJson(String json) {
         JsonObject root = new JsonParser().parse(json).getAsJsonObject();
 
-        this.name = root.get("name").getAsString();
+        if(this.name == null)
+            this.name = root.get("name").getAsString();
         String typeString = root.get("type").getAsString();
         this.type = MetalDefinition.Type.valueOf(typeString);
         

@@ -16,15 +16,15 @@ import com.teammetallurgy.m5.core.registry.MetalDefinition;
 
 public class MetallurgyConfig {
 
-    public static void loadConfig(String name, String configPath, MetalDefinition metal) {
+    public static void loadConfig(String configPath, MetalDefinition metal) {
         try {
             File dir = new File(configPath);
             if(!dir.exists())
                 dir.mkdirs();
             
-            File file = new File(configPath + "/" + name + ".json");
+            File file = new File(configPath + "/" + metal.name + ".json");
             if(!file.exists() || MetallurgyCore.overrideConfigs) {
-                URL inputUrl = metal.mod.getClass().getClassLoader().getResource("assets/" + Constants.MOD_ID + "/config/" + name + ".json");
+                URL inputUrl = metal.mod.getClass().getClassLoader().getResource("assets/" + Constants.MOD_ID + "/config/" + metal.name + ".json");
                 try { FileUtils.copyURLToFile(inputUrl, file); }
                 catch (IOException e)
                 {

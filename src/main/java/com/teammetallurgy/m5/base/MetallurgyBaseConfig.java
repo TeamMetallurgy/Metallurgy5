@@ -6,28 +6,22 @@ import com.teammetallurgy.m5.core.utils.MetallurgyConfig;
 
 public class MetallurgyBaseConfig extends MetallurgyConfig {
     
-    public static MetalDefinition COPPER = new MetalDefinition(MetallurgyBaseSubmod.instance);
-    public static MetalDefinition TIN = new MetalDefinition(MetallurgyBaseSubmod.instance);
-    public static MetalDefinition BRONZE = new MetalDefinition(MetallurgyBaseSubmod.instance);
-    public static MetalDefinition NICKEL = new MetalDefinition(MetallurgyBaseSubmod.instance);
-    public static MetalDefinition LEAD = new MetalDefinition(MetallurgyBaseSubmod.instance);
-    public static MetalDefinition GRAPHITE = new MetalDefinition(MetallurgyBaseSubmod.instance);
+    public static MetalDefinition COPPER = new MetalDefinition("copper", MetallurgyBaseSubmod.instance);
+    public static MetalDefinition TIN = new MetalDefinition("tin", MetallurgyBaseSubmod.instance);
+    public static MetalDefinition BRONZE = new MetalDefinition("bronze", MetallurgyBaseSubmod.instance);
+    public static MetalDefinition NICKEL = new MetalDefinition("nickel", MetallurgyBaseSubmod.instance);
+    public static MetalDefinition LEAD = new MetalDefinition("lead", MetallurgyBaseSubmod.instance);
+    public static MetalDefinition GRAPHITE = new MetalDefinition("graphite", MetallurgyBaseSubmod.instance);
+    
+    public static MetalDefinition[] metals = { COPPER, TIN, BRONZE, NICKEL, LEAD, GRAPHITE };
     
     public static void load(String configPath) {
-        loadConfig("copper", configPath, COPPER);
-        loadConfig("tin", configPath, TIN);
-        loadConfig("bronze", configPath, BRONZE);
-        loadConfig("nickel", configPath, NICKEL);
-        loadConfig("lead", configPath, LEAD);
-        loadConfig("graphite", configPath, GRAPHITE);
+        for(MetalDefinition metal : metals)
+            loadConfig(configPath, metal);
     }
     
     public static void register() {
-        MetalRegistry.registerMetal(MetallurgyBaseConfig.BRONZE);
-        MetalRegistry.registerMetal(MetallurgyBaseConfig.NICKEL);
-        MetalRegistry.registerMetal(MetallurgyBaseConfig.COPPER);
-        MetalRegistry.registerMetal(MetallurgyBaseConfig.LEAD);
-        MetalRegistry.registerMetal(MetallurgyBaseConfig.TIN);
-        MetalRegistry.registerMetal(MetallurgyBaseConfig.GRAPHITE);
+        for(MetalDefinition metal : metals)
+            MetalRegistry.registerMetal(metal);
     }
 }
