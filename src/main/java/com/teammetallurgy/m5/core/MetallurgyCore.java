@@ -30,7 +30,7 @@ public class MetallurgyCore {
     
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-
+        
     }
 
     @Mod.EventHandler

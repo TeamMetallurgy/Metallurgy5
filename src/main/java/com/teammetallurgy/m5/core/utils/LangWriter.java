@@ -31,10 +31,6 @@ public class LangWriter {
     }
     
     public static String capitalize(String string) {
-        String[] split = string.split("_");
-        for(int i = 0; i < split.length; i++) {
-            split[i] = MetallurgyUtils.capitalize(split[i]);
-        }
-        return String.join(" ", split);
+        return MetallurgyUtils.capitalize(string);
     }
 }

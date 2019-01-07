@@ -60,7 +60,7 @@ public class MetalRegistry {
 
     public static Map<String, ?>[] blockMaps = new Map[] { oreBlocks, metalBlocks, metalLargeBricks };
     public static Map<String, ?>[] itemMaps = new Map[] { ingots, nuggets, dusts, swords, axes, shovels, pickaxes, hoes, helmets, chestplates, leggings, boots, catalysts };
-
+    
     public static void registerMetal(MetalDefinition metal) {
         registry.add(metal);
         
@@ -102,29 +102,29 @@ public class MetalRegistry {
         for(MetalDefinition metal : registry)
         {
             if(metal.type == MetalDefinition.Type.CATALYST || metal.type == MetalDefinition.Type.CATALYST)
-                OreDictionary.registerOre("ore" + MetallurgyUtils.capitalize(metal.name), Item.getItemFromBlock(oreBlocks.get(metal.name)));
+                OreDictionary.registerOre("ore" + MetallurgyUtils.capitalize(metal.name).replace(" ", ""), Item.getItemFromBlock(oreBlocks.get(metal.name)));
             
             if(metal.type == MetalDefinition.Type.ALLOY || metal.type == MetalDefinition.Type.ORE)
             {
-                OreDictionary.registerOre("block" + MetallurgyUtils.capitalize(metal.name), Item.getItemFromBlock(metalBlocks.get(metal.name)));
-                OreDictionary.registerOre("largeBrick" + MetallurgyUtils.capitalize(metal.name), Item.getItemFromBlock(metalLargeBricks.get(metal.name)));
-                OreDictionary.registerOre("ingot" + MetallurgyUtils.capitalize(metal.name), ingots.get(metal.name));
-                OreDictionary.registerOre("nugget" + MetallurgyUtils.capitalize(metal.name), nuggets.get(metal.name));
-                OreDictionary.registerOre("dust" + MetallurgyUtils.capitalize(metal.name), dusts.get(metal.name));
-                OreDictionary.registerOre("itemDust" + MetallurgyUtils.capitalize(metal.name), dusts.get(metal.name));
-                OreDictionary.registerOre("sword" + MetallurgyUtils.capitalize(metal.name), swords.get(metal.name));
-                OreDictionary.registerOre("axe" + MetallurgyUtils.capitalize(metal.name), axes.get(metal.name));
-                OreDictionary.registerOre("shovel" + MetallurgyUtils.capitalize(metal.name), shovels.get(metal.name));
-                OreDictionary.registerOre("pickaxe" + MetallurgyUtils.capitalize(metal.name), pickaxes.get(metal.name));
-                OreDictionary.registerOre("hoe" + MetallurgyUtils.capitalize(metal.name), hoes.get(metal.name));
-                OreDictionary.registerOre("helmet" + MetallurgyUtils.capitalize(metal.name), helmets.get(metal.name));
-                OreDictionary.registerOre("chestplate" + MetallurgyUtils.capitalize(metal.name), chestplates.get(metal.name));
-                OreDictionary.registerOre("leggings" + MetallurgyUtils.capitalize(metal.name), leggings.get(metal.name));
-                OreDictionary.registerOre("boots" + MetallurgyUtils.capitalize(metal.name), boots.get(metal.name));
+                OreDictionary.registerOre("block" + MetallurgyUtils.capitalize(metal.name).replace(" ", ""), Item.getItemFromBlock(metalBlocks.get(metal.name)));
+                OreDictionary.registerOre("largeBrick" + MetallurgyUtils.capitalize(metal.name).replace(" ", ""), Item.getItemFromBlock(metalLargeBricks.get(metal.name)));
+                OreDictionary.registerOre("ingot" + MetallurgyUtils.capitalize(metal.name).replace(" ", ""), ingots.get(metal.name));
+                OreDictionary.registerOre("nugget" + MetallurgyUtils.capitalize(metal.name).replace(" ", ""), nuggets.get(metal.name));
+                OreDictionary.registerOre("dust" + MetallurgyUtils.capitalize(metal.name).replace(" ", ""), dusts.get(metal.name));
+                OreDictionary.registerOre("itemDust" + MetallurgyUtils.capitalize(metal.name).replace(" ", ""), dusts.get(metal.name));
+                OreDictionary.registerOre("sword" + MetallurgyUtils.capitalize(metal.name).replace(" ", ""), swords.get(metal.name));
+                OreDictionary.registerOre("axe" + MetallurgyUtils.capitalize(metal.name).replace(" ", ""), axes.get(metal.name));
+                OreDictionary.registerOre("shovel" + MetallurgyUtils.capitalize(metal.name).replace(" ", ""), shovels.get(metal.name));
+                OreDictionary.registerOre("pickaxe" + MetallurgyUtils.capitalize(metal.name).replace(" ", ""), pickaxes.get(metal.name));
+                OreDictionary.registerOre("hoe" + MetallurgyUtils.capitalize(metal.name).replace(" ", ""), hoes.get(metal.name));
+                OreDictionary.registerOre("helmet" + MetallurgyUtils.capitalize(metal.name).replace(" ", ""), helmets.get(metal.name));
+                OreDictionary.registerOre("chestplate" + MetallurgyUtils.capitalize(metal.name).replace(" ", ""), chestplates.get(metal.name));
+                OreDictionary.registerOre("leggings" + MetallurgyUtils.capitalize(metal.name).replace(" ", ""), leggings.get(metal.name));
+                OreDictionary.registerOre("boots" + MetallurgyUtils.capitalize(metal.name).replace(" ", ""), boots.get(metal.name));
             }
             
             if(metal.type == MetalDefinition.Type.CATALYST) {
-                OreDictionary.registerOre("item" + MetallurgyUtils.capitalize(metal.name), catalysts.get(metal.name));
+                OreDictionary.registerOre("item" + MetallurgyUtils.capitalize(metal.name).replace(" ", ""), catalysts.get(metal.name));
             }
         }
     }
@@ -183,7 +183,7 @@ public class MetalRegistry {
                 List<Object> recipe = new ArrayList<>();
                 for(String ingredient : metal.ingredients.keySet()) {
                     for(int i = 0; i < metal.ingredients.get(ingredient); i++)
-                        recipe.add("dust" + MetallurgyUtils.capitalize(ingredient));
+                        recipe.add("dust" + MetallurgyUtils.capitalize(ingredient).replaceAll(" ", ""));
                 }
                 int craftingAmount = Math.round(recipe.size() * metal.alloyEfficiency);
                 recipe.add(Item.getByNameOrId(metal.alloyCatalyst));
@@ -192,22 +192,24 @@ public class MetalRegistry {
                 
             }
             
-            GameRegistry.addSmelting(dust, new ItemStack(ingot), 0);
-            
-            RecipeHelper.shapelessRecipe(event.getRegistry(), metalName + "_nugget", new ItemStack(nugget, 9), oreIngot);
-            RecipeHelper.shapelessRecipe(event.getRegistry(), metalName + "_block_to_ingot", new ItemStack(ingot, 9), oreBlock);
-            RecipeHelper.shapedRecipe(event.getRegistry(), metalName + "_ingot", ingot, "NNN", "NNN", "NNN", 'N', oreNugget);
-            RecipeHelper.shapedRecipe(event.getRegistry(), metalName + "_block", metalBlock, "III", "III", "III", 'I', oreIngot);
-            RecipeHelper.shapedRecipe(event.getRegistry(), metalName + "_sword", swords.get(metalName), "I", "I", "S", 'I', oreIngot, 'S', "stickWood");
-            RecipeHelper.shapedRecipe(event.getRegistry(), metalName + "_axe", axes.get(metalName), "II", "SI", "S ", 'I', oreIngot, 'S', "stickWood");
-            RecipeHelper.shapedRecipe(event.getRegistry(), metalName + "_shovel", shovels.get(metalName), "I", "S", "S", 'I', oreIngot, 'S', "stickWood");
-            RecipeHelper.shapedRecipe(event.getRegistry(), metalName + "_pickaxe", pickaxes.get(metalName), "III", " S ", " S ", 'I', oreIngot, 'S', "stickWood");
-            RecipeHelper.shapedRecipe(event.getRegistry(), metalName + "_hoe", hoes.get(metalName), "II", "S ", "S ", 'I', oreIngot, 'S', "stickWood");
-
-            RecipeHelper.shapedRecipe(event.getRegistry(), metalName + "_helmet", helmets.get(metalName), "III", "I I", 'I', oreIngot);
-            RecipeHelper.shapedRecipe(event.getRegistry(), metalName + "_chestplate", chestplates.get(metalName), "I I", "III", "III", 'I', oreIngot);
-            RecipeHelper.shapedRecipe(event.getRegistry(), metalName + "_leggings", leggings.get(metalName), "III", "I I", "I I", 'I', oreIngot);
-            RecipeHelper.shapedRecipe(event.getRegistry(), metalName + "_boots", boots.get(metalName), "I I", "I I", 'I', oreIngot);
+            if (metal.type != MetalDefinition.Type.CATALYST) {
+                GameRegistry.addSmelting(dust, new ItemStack(ingot), 0);
+                
+                RecipeHelper.shapelessRecipe(event.getRegistry(), metalName + "_nugget", new ItemStack(nugget, 9), oreIngot);
+                RecipeHelper.shapelessRecipe(event.getRegistry(), metalName + "_block_to_ingot", new ItemStack(ingot, 9), oreBlock);
+                RecipeHelper.shapedRecipe(event.getRegistry(), metalName + "_ingot", ingot, "NNN", "NNN", "NNN", 'N', oreNugget);
+                RecipeHelper.shapedRecipe(event.getRegistry(), metalName + "_block", metalBlock, "III", "III", "III", 'I', oreIngot);
+                RecipeHelper.shapedRecipe(event.getRegistry(), metalName + "_sword", swords.get(metalName), "I", "I", "S", 'I', oreIngot, 'S', "stickWood");
+                RecipeHelper.shapedRecipe(event.getRegistry(), metalName + "_axe", axes.get(metalName), "II", "SI", "S ", 'I', oreIngot, 'S', "stickWood");
+                RecipeHelper.shapedRecipe(event.getRegistry(), metalName + "_shovel", shovels.get(metalName), "I", "S", "S", 'I', oreIngot, 'S', "stickWood");
+                RecipeHelper.shapedRecipe(event.getRegistry(), metalName + "_pickaxe", pickaxes.get(metalName), "III", " S ", " S ", 'I', oreIngot, 'S', "stickWood");
+                RecipeHelper.shapedRecipe(event.getRegistry(), metalName + "_hoe", hoes.get(metalName), "II", "S ", "S ", 'I', oreIngot, 'S', "stickWood");
+    
+                RecipeHelper.shapedRecipe(event.getRegistry(), metalName + "_helmet", helmets.get(metalName), "III", "I I", 'I', oreIngot);
+                RecipeHelper.shapedRecipe(event.getRegistry(), metalName + "_chestplate", chestplates.get(metalName), "I I", "III", "III", 'I', oreIngot);
+                RecipeHelper.shapedRecipe(event.getRegistry(), metalName + "_leggings", leggings.get(metalName), "III", "I I", "I I", 'I', oreIngot);
+                RecipeHelper.shapedRecipe(event.getRegistry(), metalName + "_boots", boots.get(metalName), "I I", "I I", 'I', oreIngot);
+            }
         }
     }
     
