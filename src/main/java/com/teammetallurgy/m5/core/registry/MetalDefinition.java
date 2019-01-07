@@ -10,8 +10,19 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.teammetallurgy.m5.base.MetallurgyBaseSubmod;
 import com.teammetallurgy.m5.core.MetallurgySubmod;
+import com.teammetallurgy.m5.core.blocks.BlockCatalystOre;
+import com.teammetallurgy.m5.core.items.armor.ItemMetalArmor;
+import com.teammetallurgy.m5.core.items.tools.ItemMetalAxe;
+import com.teammetallurgy.m5.core.items.tools.ItemMetalHoe;
+import com.teammetallurgy.m5.core.items.tools.ItemMetalPickaxe;
+import com.teammetallurgy.m5.core.items.tools.ItemMetalShovel;
+import com.teammetallurgy.m5.core.items.tools.ItemMetalSword;
+import com.teammetallurgy.m5.core.utils.JSONMaker;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraftforge.common.util.EnumHelper;
@@ -20,6 +31,24 @@ public class MetalDefinition {
     public enum Type {
         ORE, CATALYST, OTHER, ALLOY
     }
+    
+    public Block ORE;
+    public Block METAL_BLOCK;
+    public Block METAL_LARGE_BRICKS;
+    public Item INGOT;
+    public Item DUST;
+    public Item NUGGET;
+    public ItemMetalSword SWORD;
+    public ItemMetalPickaxe PICKAXE;
+    public ItemMetalAxe AXE;
+    public ItemMetalShovel SHOVEL;
+    public ItemMetalHoe HOE;
+    public ItemMetalArmor HELMET;
+    public ItemMetalArmor CHESTPLATE;
+    public ItemMetalArmor LEGGINGS;
+    public ItemMetalArmor BOOTS;
+    public Item CATALYST;
+    
 
     public MetallurgySubmod mod;
     public String name;
@@ -117,6 +146,100 @@ public class MetalDefinition {
             }
             this.alloyCatalyst = root.getAsJsonObject("alloy").get("catalyst").getAsString();
         }
+        
+        createItems();
+    }
+    
+    private void createItems() {
+        if (type == Type.ORE || type == Type.CATALYST) {
+            if(type == MetalDefinition.Type.CATALYST)
+                ORE = new BlockCatalystOre(this);
+            else
+                ORE = new Block(Material.ROCK);
+            ORE.setHardness(3.0F)
+               .setResistance(5.0F)
+               .setCreativeTab(mod.getCreativeTab())
+               .setRegistryName(mod.getPrefix(), name + "_ore")
+               .setTranslationKey(name + "_ore")
+               .setHarvestLevel("pickaxe", 1);
+            JSONMaker.createBlockJson(mod.getPrefix(), name + "_ore");
+        }
+
+        if (type == MetalDefinition.Type.CATALYST)
+        {
+            CATALYST = new Item().setRegistryName(mod.getPrefix(), name + "_item")
+                                 .setTranslationKey(name + "_item")
+                                 .setCreativeTab(mod.getCreativeTab());
+            JSONMaker.createItemJson(mod.getPrefix(), name + "_item");
+        }
+
+        if (type != MetalDefinition.Type.CATALYST)
+        {
+            METAL_BLOCK = new Block(Material.ROCK);
+            METAL_BLOCK.setHardness(5.0F).setResistance(10.0F)
+                .setCreativeTab(mod.getCreativeTab())
+                .setRegistryName(mod.getPrefix(), name + "_block")
+                .setTranslationKey(name + "_block")
+                .setHarvestLevel("pickaxe", 1);
+            JSONMaker.createBlockJson(mod.getPrefix(), name + "_block");
+    
+            METAL_LARGE_BRICKS = new Block(Material.ROCK);
+            METAL_LARGE_BRICKS.setHardness(5.0F).setResistance(10.0F)
+                .setCreativeTab(mod.getCreativeTab())
+                .setRegistryName(mod.getPrefix(), name + "_large_bricks")
+                .setTranslationKey(name + "_large_bricks")
+                .setHarvestLevel("pickaxe", 1);
+            JSONMaker.createBlockJson(mod.getPrefix(), name + "_large_bricks");
+    
+            // CREATE ITEM INGOT
+            INGOT = new Item().setRegistryName(mod.getPrefix(), name + "_ingot").setTranslationKey(name + "_ingot").setCreativeTab(mod.getCreativeTab());
+            JSONMaker.createItemJson(mod.getPrefix(), name + "_ingot");
+    
+            // CREATE ITEM NUGGET
+            NUGGET = new Item().setRegistryName(mod.getPrefix(), name + "_nugget").setTranslationKey(name + "_nugget").setCreativeTab(mod.getCreativeTab());
+            JSONMaker.createItemJson(mod.getPrefix(), name + "_nugget");
+    
+            // CREATE ITEM DUST
+            DUST = new Item().setRegistryName(mod.getPrefix(), name + "_dust").setTranslationKey(name + "_dust").setCreativeTab(mod.getCreativeTab());
+            JSONMaker.createItemJson(mod.getPrefix(), name + "_dust");
+    
+            // CREATE ITEM SWORD
+            SWORD = (ItemMetalSword) new ItemMetalSword(this).setRegistryName(mod.getPrefix(), name + "_sword").setTranslationKey(name + "_sword").setCreativeTab(mod.getCreativeTab());
+            JSONMaker.createItemJson(mod.getPrefix(), name + "_sword");
+    
+            // CREATE ITEM AXE
+            AXE = (ItemMetalAxe) new ItemMetalAxe(this).setRegistryName(mod.getPrefix(), name + "_axe").setTranslationKey(name + "_axe").setCreativeTab(mod.getCreativeTab());
+            JSONMaker.createItemJson(mod.getPrefix(), name + "_axe");
+    
+            // CREATE ITEM SHOVEL
+            SHOVEL = (ItemMetalShovel) new ItemMetalShovel(this).setRegistryName(mod.getPrefix(), name + "_shovel").setTranslationKey(name + "_shovel").setCreativeTab(mod.getCreativeTab());
+            JSONMaker.createItemJson(mod.getPrefix(), name + "_shovel");
+    
+            // CREATE ITEM PICKAXE
+            PICKAXE = (ItemMetalPickaxe) new ItemMetalPickaxe(this).setRegistryName(mod.getPrefix(), name + "_pickaxe").setTranslationKey(name + "_pickaxe").setCreativeTab(mod.getCreativeTab());
+            JSONMaker.createItemJson(mod.getPrefix(), name + "_pickaxe");
+            
+            // CREATE ITEM HOE
+            HOE = (ItemMetalHoe) new ItemMetalHoe(this).setRegistryName(mod.getPrefix(), name + "_hoe").setTranslationKey(name + "_hoe").setCreativeTab(mod.getCreativeTab());
+            JSONMaker.createItemJson(mod.getPrefix(), name + "_hoe");
+    
+            // CREATE ITEM HELMET
+            HELMET = (ItemMetalArmor) new ItemMetalArmor(this, EntityEquipmentSlot.HEAD).setRegistryName(mod.getPrefix(), name + "_helmet").setTranslationKey(name + "_helmet").setCreativeTab(mod.getCreativeTab());
+            JSONMaker.createItemJson(mod.getPrefix(), name + "_helmet");
+    
+            // CREATE ITEM CHESTPLATE
+            CHESTPLATE = (ItemMetalArmor) new ItemMetalArmor(this, EntityEquipmentSlot.CHEST).setRegistryName(mod.getPrefix(), name + "_chestplate").setTranslationKey(name + "_chestplate").setCreativeTab(mod.getCreativeTab());
+            JSONMaker.createItemJson(mod.getPrefix(), name + "_chestplate");
+    
+            // CREATE ITEM LEGS
+            LEGGINGS = (ItemMetalArmor) new ItemMetalArmor(this, EntityEquipmentSlot.LEGS).setRegistryName(mod.getPrefix(), name + "_leggings").setTranslationKey(name + "_leggings").setCreativeTab(mod.getCreativeTab());
+            JSONMaker.createItemJson(mod.getPrefix(), name + "_leggings");
+    
+            // CREATE ITEM BOOTS
+            BOOTS = (ItemMetalArmor) new ItemMetalArmor(this, EntityEquipmentSlot.FEET).setRegistryName(mod.getPrefix(), name + "_boots").setTranslationKey(name + "_boots").setCreativeTab(mod.getCreativeTab());
+            JSONMaker.createItemJson(mod.getPrefix(), name + "_boots");
+        }
+        
     }
     
     public ArmorMaterial armorMaterial() {
