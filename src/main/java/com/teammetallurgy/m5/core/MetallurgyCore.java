@@ -26,6 +26,7 @@ public class MetallurgyCore {
     public static final CreativeTabs CREATIVE_TAB = new MetallurgyCreativeTab(Constants.MOD_ID);
 
     public static boolean overrideConfigs = true;
+    public static boolean createLang = true;
     
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
