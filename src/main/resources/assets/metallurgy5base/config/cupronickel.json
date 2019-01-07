@@ -1,0 +1,44 @@
+{
+    "name": "cupronickel",
+    "type": "ALLOY",
+    "tools": {
+        "harvest_level": 2,
+        "durability": 350,
+        "efficiency": 8.0,
+        "enchantability": 14,
+        "sword": {
+            "damage": 7,
+            "swing_speed": 1.6
+        },
+        "pickaxe": {
+            "damage": 4,
+            "swing_speed": 1.2
+        },
+        "axe": {
+            "damage": 10,
+            "swing_speed": 0.9
+        },
+        "shovel": {
+            "damage": 4.5,
+            "swing_speed": 4.5
+        },
+        "hoe": {
+            "damage": 1,
+            "swing_speed": 3
+        }
+    },
+    "armor": {
+        "enchantability": 11, 
+        "durability_multiplier": 13,
+        "damage_reduction": [ 2, 6, 5, 2 ],
+        "toughness": 0
+    },
+    "alloy": {
+        "efficiency": 0.5,
+        "ingredients": {
+            "copper": 3,
+            "nickel": 1
+        },
+        "catalyst": "metallurgy5base:graphite_item"
+    }
+}

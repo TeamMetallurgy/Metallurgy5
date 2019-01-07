@@ -1,0 +1,43 @@
+{
+    "name": "manganese",
+    "type": "ORE",
+    "world": {
+        "tier": 3,
+        "height_min": 1,
+        "height_max": 48,
+        "veins_per_chunk": 4,
+        "ore_per_vein": [ 3, 8 ]
+    },
+    "tools": {
+        "harvest_level": 3,
+        "durability": 250,
+        "efficiency": 10.0,
+        "enchantability": 16,
+        "sword": {
+            "damage": 6,
+            "swing_speed": 1.6
+        },
+        "axe": {
+            "damage": 9,
+            "swing_speed": 0.9
+        },
+        "hoe": {
+            "damage": 1,
+            "swing_speed": 3
+        },
+        "shovel": {
+            "damage": 5,
+            "swing_speed": 5
+        },
+        "pickaxe": {
+            "damage": 4.5,
+            "swing_speed": 1.2
+        }
+    },
+    "armor": {
+        "enchantability": 18, 
+        "durability_multiplier": 9,
+        "damage_reduction": [ 3, 7, 5, 3 ],
+        "toughness": 0
+    }
+}

@@ -1,0 +1,44 @@
+{
+    "name": "heavy_steel",
+    "type": "ALLOY",
+    "tools": {
+        "harvest_level": 4,
+        "durability": 1800,
+        "efficiency": 10.0,
+        "enchantability": 14,
+        "sword": {
+            "damage": 8,
+            "swing_speed": 1.6
+        },
+        "axe": {
+            "damage": 11,
+            "swing_speed": 1.0
+        },
+        "hoe": {
+            "damage": 1,
+            "swing_speed": 4
+        },
+        "shovel": {
+            "damage": 5.5,
+            "swing_speed": 5.5
+        },
+        "pickaxe": {
+            "damage": 5,
+            "swing_speed": 1.2
+        }
+    },
+    "armor": {
+        "enchantability": 9, 
+        "durability_multiplier": 65,
+        "damage_reduction": [ 3, 8, 6, 3 ],
+        "toughness": 3
+    },
+    "alloy": {
+        "efficiency": 0.5,
+        "ingredients": {
+            "iron": 1,
+            "lead": 3
+        },
+        "catalyst": "minecraft:diamond"
+    }
+}

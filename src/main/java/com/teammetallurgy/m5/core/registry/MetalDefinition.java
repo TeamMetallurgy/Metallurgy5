@@ -165,7 +165,7 @@ public class MetalDefinition {
                .setTranslationKey(name + "_ore")
                .setHarvestLevel("pickaxe", 1);
             JSONMaker.createBlockJson(mod.getPrefix(), name + "_ore");
-            LangWriter.addItem(mod.getPrefix(), ORE.getTranslationKey() + ".name", MetallurgyUtils.capitalize(name) + " Ore");
+            LangWriter.addItem(mod.getPrefix(), ORE.getTranslationKey() + ".name", LangWriter.capitalize(name) + " Ore");
         }
 
         if (type == MetalDefinition.Type.CATALYST) {
@@ -173,7 +173,7 @@ public class MetalDefinition {
                                  .setTranslationKey(name + "_item")
                                  .setCreativeTab(mod.getCreativeTab());
             JSONMaker.createItemJson(mod.getPrefix(), name + "_item");
-            LangWriter.addItem(mod.getPrefix(), CATALYST.getTranslationKey() + ".name", MetallurgyUtils.capitalize(name));
+            LangWriter.addItem(mod.getPrefix(), CATALYST.getTranslationKey() + ".name", LangWriter.capitalize(name));
         }
 
         if (type != MetalDefinition.Type.CATALYST) {
@@ -184,7 +184,7 @@ public class MetalDefinition {
                 .setTranslationKey(name + "_block")
                 .setHarvestLevel("pickaxe", 1);
             JSONMaker.createBlockJson(mod.getPrefix(), name + "_block");
-            LangWriter.addItem(mod.getPrefix(), METAL_BLOCK.getTranslationKey() + ".name", MetallurgyUtils.capitalize(name) + " Block");
+            LangWriter.addItem(mod.getPrefix(), METAL_BLOCK.getTranslationKey() + ".name", LangWriter.capitalize(name) + " Block");
     
             METAL_LARGE_BRICKS = new Block(Material.ROCK);
             METAL_LARGE_BRICKS.setHardness(5.0F).setResistance(10.0F)
@@ -193,67 +193,67 @@ public class MetalDefinition {
                 .setTranslationKey(name + "_large_bricks")
                 .setHarvestLevel("pickaxe", 1);
             JSONMaker.createBlockJson(mod.getPrefix(), name + "_large_bricks");
-            LangWriter.addItem(mod.getPrefix(), METAL_LARGE_BRICKS.getTranslationKey() + ".name", "Large " + MetallurgyUtils.capitalize(name) + " Bricks");
+            LangWriter.addItem(mod.getPrefix(), METAL_LARGE_BRICKS.getTranslationKey() + ".name", "Large " + LangWriter.capitalize(name) + " Bricks");
     
             // CREATE ITEM INGOT
             INGOT = new Item().setRegistryName(mod.getPrefix(), name + "_ingot").setTranslationKey(name + "_ingot").setCreativeTab(mod.getCreativeTab());
             JSONMaker.createItemJson(mod.getPrefix(), name + "_ingot");
-            LangWriter.addItem(mod.getPrefix(), INGOT.getTranslationKey() + ".name", MetallurgyUtils.capitalize(name) + " Ingot");
+            LangWriter.addItem(mod.getPrefix(), INGOT.getTranslationKey() + ".name", LangWriter.capitalize(name) + " Ingot");
     
             // CREATE ITEM NUGGET
             NUGGET = new Item().setRegistryName(mod.getPrefix(), name + "_nugget").setTranslationKey(name + "_nugget").setCreativeTab(mod.getCreativeTab());
             JSONMaker.createItemJson(mod.getPrefix(), name + "_nugget");
-            LangWriter.addItem(mod.getPrefix(), NUGGET.getTranslationKey() + ".name", MetallurgyUtils.capitalize(name) + " Nugget");
+            LangWriter.addItem(mod.getPrefix(), NUGGET.getTranslationKey() + ".name", LangWriter.capitalize(name) + " Nugget");
     
             // CREATE ITEM DUST
             DUST = new Item().setRegistryName(mod.getPrefix(), name + "_dust").setTranslationKey(name + "_dust").setCreativeTab(mod.getCreativeTab());
             JSONMaker.createItemJson(mod.getPrefix(), name + "_dust");
-            LangWriter.addItem(mod.getPrefix(), DUST.getTranslationKey() + ".name", MetallurgyUtils.capitalize(name) + " Dust");
+            LangWriter.addItem(mod.getPrefix(), DUST.getTranslationKey() + ".name", LangWriter.capitalize(name) + " Dust");
     
             // CREATE ITEM SWORD
             SWORD = (ItemMetalSword) new ItemMetalSword(this).setRegistryName(mod.getPrefix(), name + "_sword").setTranslationKey(name + "_sword").setCreativeTab(mod.getCreativeTab());
             JSONMaker.createItemJson(mod.getPrefix(), name + "_sword");
-            LangWriter.addItem(mod.getPrefix(), SWORD.getTranslationKey() + ".name", MetallurgyUtils.capitalize(name) + " Sword");
+            LangWriter.addItem(mod.getPrefix(), SWORD.getTranslationKey() + ".name", LangWriter.capitalize(name) + " Sword");
     
             // CREATE ITEM AXE
             AXE = (ItemMetalAxe) new ItemMetalAxe(this).setRegistryName(mod.getPrefix(), name + "_axe").setTranslationKey(name + "_axe").setCreativeTab(mod.getCreativeTab());
             JSONMaker.createItemJson(mod.getPrefix(), name + "_axe");
-            LangWriter.addItem(mod.getPrefix(), AXE.getTranslationKey() + ".name", MetallurgyUtils.capitalize(name) + " Axe");
+            LangWriter.addItem(mod.getPrefix(), AXE.getTranslationKey() + ".name", LangWriter.capitalize(name) + " Axe");
     
             // CREATE ITEM SHOVEL
             SHOVEL = (ItemMetalShovel) new ItemMetalShovel(this).setRegistryName(mod.getPrefix(), name + "_shovel").setTranslationKey(name + "_shovel").setCreativeTab(mod.getCreativeTab());
             JSONMaker.createItemJson(mod.getPrefix(), name + "_shovel");
-            LangWriter.addItem(mod.getPrefix(), SHOVEL.getTranslationKey() + ".name", MetallurgyUtils.capitalize(name) + " Shovel");
+            LangWriter.addItem(mod.getPrefix(), SHOVEL.getTranslationKey() + ".name", LangWriter.capitalize(name) + " Shovel");
     
             // CREATE ITEM PICKAXE
             PICKAXE = (ItemMetalPickaxe) new ItemMetalPickaxe(this).setRegistryName(mod.getPrefix(), name + "_pickaxe").setTranslationKey(name + "_pickaxe").setCreativeTab(mod.getCreativeTab());
             JSONMaker.createItemJson(mod.getPrefix(), name + "_pickaxe");
-            LangWriter.addItem(mod.getPrefix(), PICKAXE.getTranslationKey() + ".name", MetallurgyUtils.capitalize(name) + " Pickaxe");
+            LangWriter.addItem(mod.getPrefix(), PICKAXE.getTranslationKey() + ".name", LangWriter.capitalize(name) + " Pickaxe");
             
             // CREATE ITEM HOE
             HOE = (ItemMetalHoe) new ItemMetalHoe(this).setRegistryName(mod.getPrefix(), name + "_hoe").setTranslationKey(name + "_hoe").setCreativeTab(mod.getCreativeTab());
             JSONMaker.createItemJson(mod.getPrefix(), name + "_hoe");
-            LangWriter.addItem(mod.getPrefix(), HOE.getTranslationKey() + ".name", MetallurgyUtils.capitalize(name) + " Hoe");
+            LangWriter.addItem(mod.getPrefix(), HOE.getTranslationKey() + ".name", LangWriter.capitalize(name) + " Hoe");
     
             // CREATE ITEM HELMET
             HELMET = (ItemMetalArmor) new ItemMetalArmor(this, EntityEquipmentSlot.HEAD).setRegistryName(mod.getPrefix(), name + "_helmet").setTranslationKey(name + "_helmet").setCreativeTab(mod.getCreativeTab());
             JSONMaker.createItemJson(mod.getPrefix(), name + "_helmet");
-            LangWriter.addItem(mod.getPrefix(), HELMET.getTranslationKey() + ".name", MetallurgyUtils.capitalize(name) + " Helmet");
+            LangWriter.addItem(mod.getPrefix(), HELMET.getTranslationKey() + ".name", LangWriter.capitalize(name) + " Helmet");
     
             // CREATE ITEM CHESTPLATE
             CHESTPLATE = (ItemMetalArmor) new ItemMetalArmor(this, EntityEquipmentSlot.CHEST).setRegistryName(mod.getPrefix(), name + "_chestplate").setTranslationKey(name + "_chestplate").setCreativeTab(mod.getCreativeTab());
             JSONMaker.createItemJson(mod.getPrefix(), name + "_chestplate");
-            LangWriter.addItem(mod.getPrefix(), CHESTPLATE.getTranslationKey() + ".name", MetallurgyUtils.capitalize(name) + " Chestplate");
+            LangWriter.addItem(mod.getPrefix(), CHESTPLATE.getTranslationKey() + ".name", LangWriter.capitalize(name) + " Chestplate");
     
             // CREATE ITEM LEGS
             LEGGINGS = (ItemMetalArmor) new ItemMetalArmor(this, EntityEquipmentSlot.LEGS).setRegistryName(mod.getPrefix(), name + "_leggings").setTranslationKey(name + "_leggings").setCreativeTab(mod.getCreativeTab());
             JSONMaker.createItemJson(mod.getPrefix(), name + "_leggings");
-            LangWriter.addItem(mod.getPrefix(), LEGGINGS.getTranslationKey() + ".name", MetallurgyUtils.capitalize(name) + " Leggings");
+            LangWriter.addItem(mod.getPrefix(), LEGGINGS.getTranslationKey() + ".name", LangWriter.capitalize(name) + " Leggings");
     
             // CREATE ITEM BOOTS
             BOOTS = (ItemMetalArmor) new ItemMetalArmor(this, EntityEquipmentSlot.FEET).setRegistryName(mod.getPrefix(), name + "_boots").setTranslationKey(name + "_boots").setCreativeTab(mod.getCreativeTab());
             JSONMaker.createItemJson(mod.getPrefix(), name + "_boots");
-            LangWriter.addItem(mod.getPrefix(), BOOTS.getTranslationKey() + ".name", MetallurgyUtils.capitalize(name) + " Boots");
+            LangWriter.addItem(mod.getPrefix(), BOOTS.getTranslationKey() + ".name", LangWriter.capitalize(name) + " Boots");
         }
     }
     
