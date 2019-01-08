@@ -43,10 +43,13 @@ import net.minecraftforge.registries.IForgeRegistryModifiable;
 public class VanillaItems {
 
     public static Item ironDust = new Item();
+    public static Item goldDust = new Item();
     
     public static void registerOreDict() {
         OreDictionary.registerOre("dustIron", ironDust);
         OreDictionary.registerOre("itemDustIron", ironDust);
+        OreDictionary.registerOre("dustGold", goldDust);
+        OreDictionary.registerOre("itemDustGold", goldDust);
     }
 
     @SubscribeEvent
@@ -55,7 +58,12 @@ public class VanillaItems {
         JSONMaker.createItemJson("metallurgy5base", "iron_dust");
         LangWriter.addItem("metallurgy5base", ironDust.getTranslationKey() + ".name", "Iron Dust");
         
+        goldDust = new Item().setRegistryName("metallurgy5base", "gold_dust").setTranslationKey("gold_dust").setCreativeTab(MetallurgyCore.CREATIVE_TAB);
+        JSONMaker.createItemJson("metallurgy5base", "gold_dust");
+        LangWriter.addItem("metallurgy5base", goldDust.getTranslationKey() + ".name", "Gold Dust");
+        
         event.getRegistry().register(ironDust);
+        event.getRegistry().register(goldDust);
         registerOreDict();
     }
 
@@ -67,6 +75,7 @@ public class VanillaItems {
     @SubscribeEvent
     public static void registerRenders(ModelRegistryEvent event) {
         ModelLoader.setCustomModelResourceLocation(ironDust, 0, new ModelResourceLocation(ironDust.getRegistryName(), "inventory"));
+        ModelLoader.setCustomModelResourceLocation(goldDust, 0, new ModelResourceLocation(goldDust.getRegistryName(), "inventory"));
     }
 
     @SubscribeEvent

@@ -1,0 +1,6 @@
+{
+    "parent": "block/cube_all",
+    "textures": {
+        "all": "metallurgy5base:blocks/hepatizon_large_bricks"
+    }
+}

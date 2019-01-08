@@ -22,8 +22,12 @@ public class MetallurgyBaseConfig extends MetallurgyConfig {
     public static MetalDefinition MANGANESE_STEEL = new MetalDefinition("manganese_steel", MetallurgyBaseSubmod.instance);
     public static MetalDefinition NICKEL_STEEL = new MetalDefinition("nickel_steel", MetallurgyBaseSubmod.instance);
     public static MetalDefinition WOVEN_STEEL = new MetalDefinition("woven_steel", MetallurgyBaseSubmod.instance);
+    public static MetalDefinition CROWN_GOLD = new MetalDefinition("crown_gold", MetallurgyBaseSubmod.instance);
+    public static MetalDefinition WHITE_GOLD = new MetalDefinition("white_gold", MetallurgyBaseSubmod.instance);
+    public static MetalDefinition HEPATIZON = new MetalDefinition("hepatizon", MetallurgyBaseSubmod.instance);
+    public static MetalDefinition ANGMALLEN = new MetalDefinition("angmallen", MetallurgyBaseSubmod.instance);
     
-    public static MetalDefinition[] metals = { COPPER, TIN, BRONZE, NICKEL, LEAD, CUPRONICKEL, MONEL, PEWTER, MOLYBDOCHALKOS, MANGANESE, HEAVY_STEEL, DAMASCUS_STEEL, MANGANESE_STEEL, NICKEL_STEEL, WOVEN_STEEL, GRAPHITE };
+    public static MetalDefinition[] metals = { COPPER, TIN, BRONZE, NICKEL, LEAD, CUPRONICKEL, MONEL, PEWTER, MOLYBDOCHALKOS, MANGANESE, HEAVY_STEEL, DAMASCUS_STEEL, MANGANESE_STEEL, NICKEL_STEEL, WOVEN_STEEL, CROWN_GOLD, WHITE_GOLD, HEPATIZON, ANGMALLEN, GRAPHITE };
     
     public static void load(String configPath) {
         for(MetalDefinition metal : metals)
