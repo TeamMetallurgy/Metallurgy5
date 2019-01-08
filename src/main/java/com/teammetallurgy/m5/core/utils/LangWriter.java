@@ -29,8 +29,4 @@ public class LangWriter {
             e.printStackTrace();
         }
     }
-    
-    public static String capitalize(String string) {
-        return MetallurgyUtils.capitalize(string);
-    }
 }

@@ -102,29 +102,29 @@ public class MetalRegistry {
         for(MetalDefinition metal : registry)
         {
             if(metal.type == MetalDefinition.Type.CATALYST || metal.type == MetalDefinition.Type.CATALYST)
-                OreDictionary.registerOre("ore" + MetallurgyUtils.capitalize(metal.name).replace(" ", ""), Item.getItemFromBlock(oreBlocks.get(metal.name)));
+                OreDictionary.registerOre("ore" + MetallurgyUtils.capitalize(metal.name, false), Item.getItemFromBlock(oreBlocks.get(metal.name)));
             
             if(metal.type == MetalDefinition.Type.ALLOY || metal.type == MetalDefinition.Type.ORE)
             {
-                OreDictionary.registerOre("block" + MetallurgyUtils.capitalize(metal.name).replace(" ", ""), Item.getItemFromBlock(metalBlocks.get(metal.name)));
-                OreDictionary.registerOre("largeBrick" + MetallurgyUtils.capitalize(metal.name).replace(" ", ""), Item.getItemFromBlock(metalLargeBricks.get(metal.name)));
-                OreDictionary.registerOre("ingot" + MetallurgyUtils.capitalize(metal.name).replace(" ", ""), ingots.get(metal.name));
-                OreDictionary.registerOre("nugget" + MetallurgyUtils.capitalize(metal.name).replace(" ", ""), nuggets.get(metal.name));
-                OreDictionary.registerOre("dust" + MetallurgyUtils.capitalize(metal.name).replace(" ", ""), dusts.get(metal.name));
-                OreDictionary.registerOre("itemDust" + MetallurgyUtils.capitalize(metal.name).replace(" ", ""), dusts.get(metal.name));
-                OreDictionary.registerOre("sword" + MetallurgyUtils.capitalize(metal.name).replace(" ", ""), swords.get(metal.name));
-                OreDictionary.registerOre("axe" + MetallurgyUtils.capitalize(metal.name).replace(" ", ""), axes.get(metal.name));
-                OreDictionary.registerOre("shovel" + MetallurgyUtils.capitalize(metal.name).replace(" ", ""), shovels.get(metal.name));
-                OreDictionary.registerOre("pickaxe" + MetallurgyUtils.capitalize(metal.name).replace(" ", ""), pickaxes.get(metal.name));
-                OreDictionary.registerOre("hoe" + MetallurgyUtils.capitalize(metal.name).replace(" ", ""), hoes.get(metal.name));
-                OreDictionary.registerOre("helmet" + MetallurgyUtils.capitalize(metal.name).replace(" ", ""), helmets.get(metal.name));
-                OreDictionary.registerOre("chestplate" + MetallurgyUtils.capitalize(metal.name).replace(" ", ""), chestplates.get(metal.name));
-                OreDictionary.registerOre("leggings" + MetallurgyUtils.capitalize(metal.name).replace(" ", ""), leggings.get(metal.name));
-                OreDictionary.registerOre("boots" + MetallurgyUtils.capitalize(metal.name).replace(" ", ""), boots.get(metal.name));
+                OreDictionary.registerOre("block" + MetallurgyUtils.capitalize(metal.name, false), Item.getItemFromBlock(metalBlocks.get(metal.name)));
+                OreDictionary.registerOre("largeBrick" + MetallurgyUtils.capitalize(metal.name, false), Item.getItemFromBlock(metalLargeBricks.get(metal.name)));
+                OreDictionary.registerOre("ingot" + MetallurgyUtils.capitalize(metal.name, false), ingots.get(metal.name));
+                OreDictionary.registerOre("nugget" + MetallurgyUtils.capitalize(metal.name, false), nuggets.get(metal.name));
+                OreDictionary.registerOre("dust" + MetallurgyUtils.capitalize(metal.name, false), dusts.get(metal.name));
+                OreDictionary.registerOre("itemDust" + MetallurgyUtils.capitalize(metal.name, false), dusts.get(metal.name));
+                OreDictionary.registerOre("sword" + MetallurgyUtils.capitalize(metal.name, false), swords.get(metal.name));
+                OreDictionary.registerOre("axe" + MetallurgyUtils.capitalize(metal.name, false), axes.get(metal.name));
+                OreDictionary.registerOre("shovel" + MetallurgyUtils.capitalize(metal.name, false), shovels.get(metal.name));
+                OreDictionary.registerOre("pickaxe" + MetallurgyUtils.capitalize(metal.name, false), pickaxes.get(metal.name));
+                OreDictionary.registerOre("hoe" + MetallurgyUtils.capitalize(metal.name, false), hoes.get(metal.name));
+                OreDictionary.registerOre("helmet" + MetallurgyUtils.capitalize(metal.name, false), helmets.get(metal.name));
+                OreDictionary.registerOre("chestplate" + MetallurgyUtils.capitalize(metal.name, false), chestplates.get(metal.name));
+                OreDictionary.registerOre("leggings" + MetallurgyUtils.capitalize(metal.name, false), leggings.get(metal.name));
+                OreDictionary.registerOre("boots" + MetallurgyUtils.capitalize(metal.name, false), boots.get(metal.name));
             }
             
             if(metal.type == MetalDefinition.Type.CATALYST) {
-                OreDictionary.registerOre("item" + MetallurgyUtils.capitalize(metal.name).replace(" ", ""), catalysts.get(metal.name));
+                OreDictionary.registerOre("item" + MetallurgyUtils.capitalize(metal.name, false), catalysts.get(metal.name));
             }
         }
     }
@@ -170,10 +170,10 @@ public class MetalRegistry {
             Item ingot = ingots.get(metalName);
             Item nugget = nuggets.get(metalName);
             Item dust = dusts.get(metalName);
-            String oreIngot = "ingot" + MetallurgyUtils.capitalize(metalName);
-            String oreNugget = "nugget" + MetallurgyUtils.capitalize(metalName);
-            String oreDust = "nugget" + MetallurgyUtils.capitalize(metalName);
-            String oreBlock = "block" + MetallurgyUtils.capitalize(metalName);
+            String oreIngot = "ingot" + MetallurgyUtils.capitalize(metalName, false);
+            String oreNugget = "nugget" + MetallurgyUtils.capitalize(metalName, false);
+            String oreDust = "nugget" + MetallurgyUtils.capitalize(metalName, false);
+            String oreBlock = "block" + MetallurgyUtils.capitalize(metalName, false);
 
             if (metal.type == MetalDefinition.Type.ORE) {
                 Block ore = oreBlocks.get(metalName);
@@ -183,7 +183,7 @@ public class MetalRegistry {
                 List<Object> recipe = new ArrayList<>();
                 for(String ingredient : metal.ingredients.keySet()) {
                     for(int i = 0; i < metal.ingredients.get(ingredient); i++)
-                        recipe.add("dust" + MetallurgyUtils.capitalize(ingredient).replaceAll(" ", ""));
+                        recipe.add("dust" + MetallurgyUtils.capitalize(ingredient, false));
                 }
                 int craftingAmount = Math.round(recipe.size() * metal.alloyEfficiency);
                 recipe.add(Item.getByNameOrId(metal.alloyCatalyst));
