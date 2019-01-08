@@ -94,7 +94,7 @@ public class MetalDefinition {
     public String alloyCatalyst;
     public Map<String, Integer> ingredients = new HashMap<>();
     
-    public MetalDefinition(String name, MetallurgyBaseSubmod mod) {
+    public MetalDefinition(String name, MetallurgySubmod mod) {
         this.name = name;
         this.mod = mod;
     }
