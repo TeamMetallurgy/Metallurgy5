@@ -1,14 +1,14 @@
 [
 {
-  "modid": "examplemod",
-  "name": "Example Mod",
+  "modid": "metallurgy5precious",
+  "name": "Metallurgy 5 Precious",
   "description": "Example placeholder mod.",
-  "version": "${version}",
+  "version": "${precious_version}",
   "mcversion": "${mcversion}",
   "url": "",
   "updateUrl": "",
-  "authorList": ["ExampleDude"],
-  "credits": "The Forge and FML guys, for making this example",
+  "authorList": ["Shadowclaimer", "RebelKeithy"],
+  "credits": "Glassmaker, lclc98, Girafi",
   "logoFile": "",
   "screenshots": [],
   "dependencies": []

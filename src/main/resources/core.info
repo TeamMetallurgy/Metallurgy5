@@ -1,14 +1,14 @@
 [
 {
   "modid": "metallurgy5core",
-  "name": "Example Mod",
+  "name": "Metallurgy 5 Core",
   "description": "Example placeholder mod.",
-  "version": "${version}",
+  "version": "${core_version}",
   "mcversion": "${mcversion}",
   "url": "",
   "updateUrl": "",
-  "authorList": ["ExampleDude"],
-  "credits": "The Forge and FML guys, for making this example",
+  "authorList": ["Shadowclaimer", "RebelKeithy"],
+  "credits": "Glassmaker, lclc98, Girafi",
   "logoFile": "",
   "screenshots": [],
   "dependencies": []

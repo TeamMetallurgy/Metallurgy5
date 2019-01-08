@@ -25,6 +25,15 @@ minecraft {
     runDir = "run"
     mappings = "stable_39"
     
+    replace "@CORE_VERSION@", project.core_version
+    replaceIn "Constants.java"
+    
+    replace "@BASE_VERSION@", project.base_version
+    replaceIn "Constants.java"
+    
+    replace "@PRECIOUS_VERSION@", project.precious_version
+    replaceIn "Constants.java"
+    
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
 }
 
