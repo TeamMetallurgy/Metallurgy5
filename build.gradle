@@ -10,15 +10,15 @@ buildscript {
 
 apply plugin: 'net.minecraftforge.gradle.forge'
 
-core_version = "${minecraft_version}-${core_version}"
-base_version = "${minecraft_version}-${base_version}"
-ender_version = "${minecraft_version}-${ender_version}"
-fantasy_version = "${minecraft_version}-${fantasy_version}"
-nether_version = "${minecraft_version}-${nether_version}"
-precious_version = "${minecraft_version}-${precious_version}"
-utility_version = "${minecraft_version}-${utility_version}"
+core_version = "${minecraft_version}-${core_version}" + ".alpha" + getBuildNumber()
+base_version = "${minecraft_version}-${base_version}" + ".alpha" + getBuildNumber()
+ender_version = "${minecraft_version}-${ender_version}" + ".alpha" + getBuildNumber()
+fantasy_version = "${minecraft_version}-${fantasy_version}" + ".alpha" + getBuildNumber()
+nether_version = "${minecraft_version}-${nether_version}" + ".alpha" + getBuildNumber()
+precious_version = "${minecraft_version}-${precious_version}" + ".alpha" + getBuildNumber()
+utility_version = "${minecraft_version}-${utility_version}" + ".alpha" + getBuildNumber()
 group = "com.teammetallurgy.m5"
-archivesBaseName = "m5"
+archivesBaseName = "Metallurgy5"
 
 sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 compileJava {
@@ -203,8 +203,6 @@ task utilityJar(type: Jar, dependsOn: reobfJar) {
     }
 }
 
-
-
 artifacts {
     archives coreJar
     archives baseJar
@@ -213,4 +211,8 @@ artifacts {
     archives netherJar
     archives fantasyJar
     archives utilityJar
+}
+
+String getBuildNumber() {
+    return System.getenv('BUILD_NUMBER') ? System.getenv('BUILD_NUMBER') : '0';
 }
