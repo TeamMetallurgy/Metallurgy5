@@ -4,7 +4,7 @@
   "name": "Metallurgy 5 Precious",
   "description": "Example placeholder mod.",
   "version": "${precious_version}",
-  "mcversion": "${mcversion}",
+  "mcversion": "${minecraft_version}",
   "url": "",
   "updateUrl": "",
   "authorList": ["Shadowclaimer", "RebelKeithy"],

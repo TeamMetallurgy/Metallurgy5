@@ -1,9 +1,9 @@
 [
 {
-  "modid": "metallurgy5base",
-  "name": "Metallurgy 5 Base",
+  "modid": "metallurgy5utility",
+  "name": "Metallurgy 5 Utility",
   "description": "Example placeholder mod.",
-  "version": "${base_version}",
+  "version": "${utility_version}",
   "mcversion": "${minecraft_version}",
   "url": "",
   "updateUrl": "",

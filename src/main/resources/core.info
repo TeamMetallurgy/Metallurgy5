@@ -4,7 +4,7 @@
   "name": "Metallurgy 5 Core",
   "description": "Example placeholder mod.",
   "version": "${core_version}",
-  "mcversion": "${mcversion}",
+  "mcversion": "${minecraft_version}",
   "url": "",
   "updateUrl": "",
   "authorList": ["Shadowclaimer", "RebelKeithy"],

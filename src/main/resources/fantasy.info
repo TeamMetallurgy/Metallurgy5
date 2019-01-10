@@ -1,9 +1,9 @@
 [
 {
-  "modid": "metallurgy5base",
-  "name": "Metallurgy 5 Base",
+  "modid": "metallurgy5fantasy",
+  "name": "Metallurgy 5 Fantasy",
   "description": "Example placeholder mod.",
-  "version": "${base_version}",
+  "version": "${fantasy_version}",
   "mcversion": "${minecraft_version}",
   "url": "",
   "updateUrl": "",
