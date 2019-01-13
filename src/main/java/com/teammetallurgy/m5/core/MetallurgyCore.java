@@ -1,15 +1,22 @@
 package com.teammetallurgy.m5.core;
 
+import java.util.List;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.teammetallurgy.m5.core.proxy.CommonProxy;
 import com.teammetallurgy.m5.core.registry.MetalRegistry;
+import com.teammetallurgy.m5.core.registry.RegisterMetallurgySubmodEvent;
 import com.teammetallurgy.m5.core.utils.Constants;
 import com.teammetallurgy.m5.core.utils.MetallurgyCreativeTab;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.IResourcePack;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -30,6 +37,7 @@ public class MetallurgyCore {
     
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
+        MinecraftForge.EVENT_BUS.post(new RegisterMetallurgySubmodEvent(event.getModConfigurationDirectory() + "/.."));
         
     }
 
