@@ -1,6 +1,0 @@
-{
-    "parent": "block/cube_all",
-    "textures": {
-        "all": "metallurgy5base:blocks/woven_steel_block"
-    }
-}
