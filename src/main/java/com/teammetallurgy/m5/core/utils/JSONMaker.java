@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import com.teammetallurgy.m5.core.MetallurgyCore;
+
 public class JSONMaker {
 
     private static String blockstateJson = "{\r\n" + "    \"variants\": {\r\n" + "        \"normal\": { \"model\": \"%modid%:%name%\" }\r\n" + "    }\r\n" + "}";
@@ -16,15 +18,16 @@ public class JSONMaker {
     private static String itemModelJson = "{\r\n" + "    \"parent\": \"item/generated\",\r\n" + "    \"textures\": {\r\n" + "        \"layer0\": \"%modid%:items/%name%\"\r\n" + "    }\r\n" + "}";
 
     public static void createItemJson(String modid, String name) {
+        if(!MetallurgyCore.createJson)
+            return;
         String path = "../src/main/resources/assets";
         File file = new File(path + "/" + modid + "/models/item/" + name + ".json");
         if (file.exists())
             return;
 
         try {
-            // System.out.println("File Path: " + file.getCanonicalPath());
             BufferedWriter br = new BufferedWriter(new FileWriter(file));
-            br.write(itemModelJson.replace("%modid%", modid).replace("%name%", name));
+            br.write(getItemModelString(modid, name));
             br.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -32,15 +35,16 @@ public class JSONMaker {
     }
 
     public static void createBlockJson(String modid, String name) {
+        if(!MetallurgyCore.createJson)
+            return;
         String path = "../src/main/resources/assets";
         File file = new File(path + "/" + modid + "/models/block/" + name + ".json");
         if (file.exists())
             return;
 
         try {
-            // System.out.println("File Path: " + file.getCanonicalPath());
             BufferedWriter br = new BufferedWriter(new FileWriter(file));
-            br.write(blockModelJson.replace("%modid%", modid).replace("%name%", name));
+            br.write(getBlockModelString(modid, name));
             br.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -52,9 +56,8 @@ public class JSONMaker {
             return;
 
         try {
-            // System.out.println("File Path: " + file.getCanonicalPath());
             BufferedWriter br = new BufferedWriter(new FileWriter(file));
-            br.write(blockstateJson.replace("%modid%", modid).replace("%name%", name));
+            br.write(getBlockstateString(modid, name));
             br.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -66,13 +69,27 @@ public class JSONMaker {
             return;
 
         try {
-            // System.out.println("File Path: " + file.getCanonicalPath());
             BufferedWriter br = new BufferedWriter(new FileWriter(file));
-            br.write(itemblockModelJson.replace("%modid%", modid).replace("%name%", name));
+            br.write(getItemModelString(modid, name));
             br.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+    }
+    
+    public static String getItemModelString(String modid, String name) {
+        return itemModelJson.replace("%modid%", modid).replace("%name%", name);
+    }
+    
+    public static String getBlockModelString(String modid, String name) {
+        return blockModelJson.replace("%modid%", modid).replace("%name%", name);
+    }
+    
+    public static String getBlockstateString(String modid, String name) {
+        return blockstateJson.replace("%modid%", modid).replace("%name%", name);
+    }
+    
+    public static String getItemBlockModelString(String modid, String name) {
+        return itemblockModelJson.replace("%modid%", modid).replace("%name%", name);
     }
 }

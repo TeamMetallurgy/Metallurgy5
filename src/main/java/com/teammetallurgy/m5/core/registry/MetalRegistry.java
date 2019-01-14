@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.teammetallurgy.m5.core.MetalResourceLoader;
 import com.teammetallurgy.m5.core.MetallurgySubmod;
 import com.teammetallurgy.m5.core.blocks.BlockCatalystOre;
 import com.teammetallurgy.m5.core.items.armor.ItemMetalArmor;
@@ -63,6 +64,7 @@ public class MetalRegistry {
     
     public static void registerMetal(MetalDefinition metal) {
         registry.add(metal);
+        MetalResourceLoader.instance.registerDomain(metal.mod.getPrefix());
         
         if(metal.ORE != null)
             oreBlocks.put(metal.name, metal.ORE);
