@@ -8,7 +8,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.teammetallurgy.m5.base.MetallurgyBaseSubmod;
 import com.teammetallurgy.m5.core.MetallurgySubmod;
 import com.teammetallurgy.m5.core.blocks.BlockCatalystOre;
 import com.teammetallurgy.m5.core.items.armor.ItemMetalArmor;
@@ -102,65 +101,124 @@ public class MetalDefinition {
         this.mod = mod;
     }
 
-    public void loadFromJson(String json) {
+    public static MetalDefinition createFromJson(String json, MetallurgySubmod mod) {
+        JsonObject root = new JsonParser().parse(json).getAsJsonObject();
+        String name = root.get("name").getAsString();        
+        MetalDefinition metal = new MetalDefinition(name, mod);
+        metal.updateFromJson(json);
+        return metal;
+    }
+    
+    public void updateFromJson(String json) {
         JsonObject root = new JsonParser().parse(json).getAsJsonObject();
 
-        if(this.name == null)
+        if(root.has("name"))
             this.name = root.get("name").getAsString();
-        String typeString = root.get("type").getAsString();
-        this.type = MetalDefinition.Type.valueOf(typeString);
         
-        if (type == Type.CATALYST || type == Type.ORE) {
-            this.veinsPerChunk = root.getAsJsonObject("world").get("veins_per_chunk").getAsInt();
-            this.orePerVeinMin = root.getAsJsonObject("world").get("ore_per_vein").getAsJsonArray().get(0).getAsInt();
-            this.orePerVeinMax = root.getAsJsonObject("world").get("ore_per_vein").getAsJsonArray().get(1).getAsInt();
-            this.minY = root.getAsJsonObject("world").get("height_min").getAsInt();
-            this.maxY = root.getAsJsonObject("world").get("height_max").getAsInt();
+        if(root.has("type")) {
+            String typeString = root.get("type").getAsString();
+            this.type = MetalDefinition.Type.valueOf(typeString);
         }
         
-        if (type != Type.CATALYST) {
-            // TOOLS
-            this.harvestLevel = root.getAsJsonObject("tools").get("harvest_level").getAsInt();
-            this.toolDurability = root.getAsJsonObject("tools").get("durability").getAsInt();
-            this.efficiency = root.getAsJsonObject("tools").get("efficiency").getAsFloat();
-            
-            this.swordDamage = root.getAsJsonObject("tools").getAsJsonObject("sword").get("damage").getAsFloat();
-            this.swordSwingSpeed = root.getAsJsonObject("tools").getAsJsonObject("sword").get("swing_speed").getAsFloat();
-            this.pickaxeDamage = root.getAsJsonObject("tools").getAsJsonObject("pickaxe").get("damage").getAsFloat();
-            this.pickaxeSwingSpeed = root.getAsJsonObject("tools").getAsJsonObject("pickaxe").get("swing_speed").getAsFloat();
-            this.axeDamage = root.getAsJsonObject("tools").getAsJsonObject("axe").get("damage").getAsFloat();
-            this.axeSwingSpeed = root.getAsJsonObject("tools").getAsJsonObject("axe").get("swing_speed").getAsFloat();
-            this.shovelDamage = root.getAsJsonObject("tools").getAsJsonObject("shovel").get("damage").getAsFloat();
-            this.shovelSwingSpeed = root.getAsJsonObject("tools").getAsJsonObject("shovel").get("swing_speed").getAsFloat();
-            this.hoeDamage = root.getAsJsonObject("tools").getAsJsonObject("hoe").get("damage").getAsFloat();
-            this.hoeSwingSpeed = root.getAsJsonObject("tools").getAsJsonObject("hoe").get("swing_speed").getAsFloat();
-    
-            // ARMOR
-            this.armorEnchantability = root.getAsJsonObject("armor").get("enchantability").getAsInt();
-            this.armorDurability = root.getAsJsonObject("armor").get("durability_multiplier").getAsInt();
-            JsonArray array = root.getAsJsonObject("armor").getAsJsonArray("damage_reduction");
-            this.armorDamageReduction = new int[] { array.get(0).getAsInt(), array.get(1).getAsInt(), array.get(2).getAsInt(), array.get(3).getAsInt() };
-            this.armorToughness = root.get("armor").getAsJsonObject().get("toughness").getAsInt();
-        }
-        
-        if (type == Type.ALLOY) {
-            this.alloyEfficiency = root.getAsJsonObject("alloy").get("efficiency").getAsFloat();
-            JsonObject alloyIngredientJson = root.getAsJsonObject("alloy").getAsJsonObject("ingredients");
-            for(Entry<String, JsonElement> entry : alloyIngredientJson.entrySet()) {
-                ingredients.put(entry.getKey(), entry.getValue().getAsInt());
+        if (this.type == Type.CATALYST || this.type == Type.ORE) {
+            if (root.has("world")) {
+                if(root.getAsJsonObject("world").has("veins_per_chunk"))
+                    this.veinsPerChunk = root.getAsJsonObject("world").get("veins_per_chunk").getAsInt();
+                if(root.getAsJsonObject("world").has("ore_per_vein")) {
+                    this.orePerVeinMin = root.getAsJsonObject("world").get("ore_per_vein").getAsJsonArray().get(0).getAsInt();
+                    this.orePerVeinMax = root.getAsJsonObject("world").get("ore_per_vein").getAsJsonArray().get(1).getAsInt();
+                }
+                if(root.getAsJsonObject("world").has("height_min"))
+                    this.minY = root.getAsJsonObject("world").get("height_min").getAsInt();
+                if(root.getAsJsonObject("world").has("height_max"))
+                    this.maxY = root.getAsJsonObject("world").get("height_max").getAsInt();
             }
-            this.alloyCatalyst = root.getAsJsonObject("alloy").get("catalyst").getAsString();
+        }
+        
+        if (this.type != Type.CATALYST) {
+            if(root.has("tools")) {
+                JsonObject jsonTools = root.getAsJsonObject("tools");
+                if(jsonTools.has("harvest_level"))
+                    this.harvestLevel = jsonTools.get("harvest_level").getAsInt();
+                if(jsonTools.has("durability"))
+                    this.toolDurability = jsonTools.get("durability").getAsInt();
+                if(jsonTools.has("efficiency"))
+                    this.efficiency = jsonTools.get("efficiency").getAsFloat();
+                
+                if(jsonTools.has("sword")) {
+                    if(jsonTools.getAsJsonObject("sword").has("damage"))
+                        this.swordDamage = jsonTools.getAsJsonObject("sword").get("damage").getAsFloat();
+                    if(jsonTools.getAsJsonObject("sword").has("swing_speed"))
+                        this.swordSwingSpeed = jsonTools.getAsJsonObject("sword").get("swing_speed").getAsFloat();
+                }
+                if(jsonTools.has("pickaxe")) {
+                    if(jsonTools.getAsJsonObject("pickaxe").has("damage"))
+                        this.pickaxeDamage = jsonTools.getAsJsonObject("pickaxe").get("damage").getAsFloat();
+                    if(jsonTools.getAsJsonObject("pickaxe").has("swing_speed"))
+                        this.pickaxeSwingSpeed = jsonTools.getAsJsonObject("pickaxe").get("swing_speed").getAsFloat();
+                }
+                if(jsonTools.has("axe")) {
+                    if(jsonTools.getAsJsonObject("axe").has("damage"))
+                        this.axeDamage = jsonTools.getAsJsonObject("axe").get("damage").getAsFloat();
+                    if(jsonTools.getAsJsonObject("axe").has("swing_speed"))
+                        this.axeSwingSpeed = jsonTools.getAsJsonObject("axe").get("swing_speed").getAsFloat();
+                }
+                if(jsonTools.has("shovel")) {
+                    if(jsonTools.getAsJsonObject("shovel").has("damage"))
+                        this.shovelDamage = jsonTools.getAsJsonObject("shovel").get("damage").getAsFloat();
+                    if(jsonTools.getAsJsonObject("shovel").has("swing_speed"))
+                        this.shovelSwingSpeed = jsonTools.getAsJsonObject("shovel").get("swing_speed").getAsFloat();
+                }
+                if(jsonTools.has("hoe")) {
+                    if(jsonTools.getAsJsonObject("hoe").has("damage"))
+                        this.hoeDamage = jsonTools.getAsJsonObject("hoe").get("damage").getAsFloat();
+                    if(jsonTools.getAsJsonObject("hoe").has("swing_speed"))
+                        this.hoeSwingSpeed = jsonTools.getAsJsonObject("hoe").get("swing_speed").getAsFloat();
+                }
+            }
+            if (root.has("armor")) {
+                if (root.has("armor")) {
+                    JsonObject jsonArmor = root.getAsJsonObject("armor");
+                    if (jsonArmor.has("enchantability"))
+                        this.armorEnchantability = jsonArmor.get("enchantability").getAsInt();
+                    if (jsonArmor.has("durability_multiplier"))
+                        this.armorDurability = jsonArmor.get("durability_multiplier").getAsInt();
+                    if (jsonArmor.has("damage_reduction")) {
+                        JsonArray array = jsonArmor.getAsJsonArray("damage_reduction");
+                        this.armorDamageReduction = new int[] { array.get(0).getAsInt(), array.get(1).getAsInt(), array.get(2).getAsInt(), array.get(3).getAsInt() };
+                    }
+                    if (jsonArmor.has("toughness"))
+                        this.armorToughness = jsonArmor.get("toughness").getAsInt();
+                }
+            }
+        }
+        
+        if (this.type == Type.ALLOY) {
+            if(root.has("alloy")) {
+                JsonObject jsonAlloy = root.getAsJsonObject("alloy");
+                if(jsonAlloy.has("efficiency"))
+                    this.alloyEfficiency = root.getAsJsonObject("alloy").get("efficiency").getAsFloat();
+                if(jsonAlloy.has("ingredients")) {
+                    JsonObject alloyIngredientJson = root.getAsJsonObject("alloy").getAsJsonObject("ingredients");
+                    this.ingredients.clear();
+                    for(Entry<String, JsonElement> entry : alloyIngredientJson.entrySet()) {
+                        this.ingredients.put(entry.getKey(), entry.getValue().getAsInt());
+                    }
+                }
+                if(jsonAlloy.has("catalyst"))
+                    this.alloyCatalyst = root.getAsJsonObject("alloy").get("catalyst").getAsString();
+            }
         }
         
         if(root.has("color")) {
-            hue = root.getAsJsonObject("color").get("h").getAsInt();
-            saturation = root.getAsJsonObject("color").get("s").getAsInt();
+            if(root.getAsJsonObject("color").has("h"))
+                this.hue = root.getAsJsonObject("color").get("h").getAsInt();
+            if(root.getAsJsonObject("color").has("s"))
+                this.saturation = root.getAsJsonObject("color").get("s").getAsInt();
         }
-        
-        createItems();
     }
     
-    private void createItems() {
+    public void createItems() {
         if (type == Type.ORE || type == Type.CATALYST) {
             if(type == MetalDefinition.Type.CATALYST)
                 ORE = new BlockCatalystOre(this);

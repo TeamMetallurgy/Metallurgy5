@@ -40,7 +40,6 @@ public class MetallurgyBase {
     
     @SubscribeEvent
     public static void registerMetallurgySubmod(RegisterMetallurgySubmodEvent event) {
-        MetallurgyBaseConfig.load(event.getModConfigurationDirectory() + "/metallurgy/base/");
-        MetallurgyBaseConfig.register();
+        MetallurgyBaseConfig.loadAll(event.getModConfigurationDirectory() + "/metallurgy/base/", MetallurgyBaseSubmod.instance);
     }
 }

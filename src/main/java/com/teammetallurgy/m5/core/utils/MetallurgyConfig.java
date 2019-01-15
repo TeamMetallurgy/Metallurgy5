@@ -1,43 +1,58 @@
 package com.teammetallurgy.m5.core.utils;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.charset.Charset;
+import java.util.List;
 
+import org.apache.commons.io.Charsets;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 import com.teammetallurgy.m5.base.utils.Constants;
-import com.teammetallurgy.m5.core.MetallurgyCore;
+import com.teammetallurgy.m5.core.MetallurgySubmod;
 import com.teammetallurgy.m5.core.registry.MetalDefinition;
+import com.teammetallurgy.m5.core.registry.MetalRegistry;
 
 public class MetallurgyConfig {
-
-    public static void loadConfig(String configPath, MetalDefinition metal) {
-        String path = configPath + "/" + metal.name + ".json";
-        System.out.println("Opening file: " + path);
+    
+    public static void loadAll(String configPath, MetallurgySubmod mod) {
         try {
-            File dir = new File(configPath);
-            if(!dir.exists())
-                dir.mkdirs();
+            List<String> files = IOUtils.readLines(mod.getClass().getClassLoader().getResourceAsStream("assets/" + Constants.MOD_ID + "/config/"), Charsets.UTF_8);
             
-            File file = new File(path);
-            if(!file.exists() || MetallurgyCore.overrideConfigs) {
-                URL inputUrl = metal.mod.getClass().getClassLoader().getResource("assets/" + Constants.MOD_ID + "/config/" + metal.name + ".json");
-                try { FileUtils.copyURLToFile(inputUrl, file); }
-                catch (IOException e)
-                {
-                    e.printStackTrace();
+            for (String configFilePath : files) {
+                URL configUrl = mod.getClass().getClassLoader().getResource("assets/" + Constants.MOD_ID + "/config/" + configFilePath);
+                String configJson = FileUtils.readFileToString(FileUtils.toFile(configUrl), Charset.defaultCharset());
+                MetalDefinition metal = MetalDefinition.createFromJson(configJson, mod);
+                metal.createItems();
+                MetalRegistry.registerMetal(metal);
+                File file = new File(configPath + "/" + metal.name + ".json");
+                if (!file.exists()) {
+                    FileUtils.writeStringToFile(file, "{\n}", Charset.defaultCharset());
                 }
             }
-            String configJson = FileUtils.readFileToString(file);
-            metal.loadFromJson(configJson);
-        } catch (IOException e1) {
-            System.out.println("Couldn't load file: " + path);
-            e1.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        
+        File folder = new File(configPath);
+        for (File configFile : folder.listFiles()) {
+            try {
+                String configJson = FileUtils.readFileToString(configFile, Charset.defaultCharset());
+                String name = configFile.getName().split("\\.")[0];                
+                MetalDefinition metal = MetalRegistry.getMetal(name);
+                if (metal == null) {
+                    metal = MetalDefinition.createFromJson(configJson, mod);
+                } else {
+                    metal.updateFromJson(configJson);
+                }
+                metal.createItems();
+                MetalRegistry.registerMetal(metal);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        
     }
 }

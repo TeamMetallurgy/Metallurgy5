@@ -65,39 +65,51 @@ public class MetalRegistry {
     public static void registerMetal(MetalDefinition metal) {
         registry.add(metal);
         MetalResourceLoader.instance.registerDomain(metal.mod.getPrefix());
-        
-        if(metal.ORE != null)
-            oreBlocks.put(metal.name, metal.ORE);
-        if(metal.METAL_BLOCK != null)
-            metalBlocks.put(metal.name, metal.METAL_BLOCK);
-        if(metal.METAL_LARGE_BRICKS != null)
-            metalLargeBricks.put(metal.name, metal.METAL_LARGE_BRICKS);
-        if(metal.INGOT != null)
-            ingots.put(metal.name, metal.INGOT);
-        if(metal.DUST != null)
-            dusts.put(metal.name, metal.DUST);
-        if(metal.NUGGET != null)
-            nuggets.put(metal.name, metal.NUGGET);
-        if(metal.SWORD != null)
-            swords.put(metal.name, metal.SWORD);
-        if(metal.PICKAXE != null)
-            pickaxes.put(metal.name, metal.PICKAXE);
-        if(metal.AXE != null)
-            axes.put(metal.name, metal.AXE);
-        if(metal.SHOVEL != null)
-            shovels.put(metal.name, metal.SHOVEL);
-        if(metal.HOE != null)
-            hoes.put(metal.name, metal.HOE);
-        if(metal.HELMET != null)
-            helmets.put(metal.name, metal.HELMET);
-        if(metal.CHESTPLATE != null)
-            chestplates.put(metal.name, metal.CHESTPLATE);
-        if(metal.LEGGINGS != null)
-            leggings.put(metal.name, metal.LEGGINGS);
-        if(metal.BOOTS != null)
-            boots.put(metal.name, metal.BOOTS);
-        if(metal.CATALYST != null)
-            catalysts.put(metal.name, metal.CATALYST);
+    }
+
+    public static MetalDefinition getMetal(String name) {
+        for(MetalDefinition metal : registry) {
+            if(name.equals(metal.name))
+                return metal;
+        }
+        return null;
+    }
+    
+    public static void init() {
+        for(MetalDefinition metal : registry) {
+            if(metal.ORE != null)
+                oreBlocks.put(metal.name, metal.ORE);
+            if(metal.METAL_BLOCK != null)
+                metalBlocks.put(metal.name, metal.METAL_BLOCK);
+            if(metal.METAL_LARGE_BRICKS != null)
+                metalLargeBricks.put(metal.name, metal.METAL_LARGE_BRICKS);
+            if(metal.INGOT != null)
+                ingots.put(metal.name, metal.INGOT);
+            if(metal.DUST != null)
+                dusts.put(metal.name, metal.DUST);
+            if(metal.NUGGET != null)
+                nuggets.put(metal.name, metal.NUGGET);
+            if(metal.SWORD != null)
+                swords.put(metal.name, metal.SWORD);
+            if(metal.PICKAXE != null)
+                pickaxes.put(metal.name, metal.PICKAXE);
+            if(metal.AXE != null)
+                axes.put(metal.name, metal.AXE);
+            if(metal.SHOVEL != null)
+                shovels.put(metal.name, metal.SHOVEL);
+            if(metal.HOE != null)
+                hoes.put(metal.name, metal.HOE);
+            if(metal.HELMET != null)
+                helmets.put(metal.name, metal.HELMET);
+            if(metal.CHESTPLATE != null)
+                chestplates.put(metal.name, metal.CHESTPLATE);
+            if(metal.LEGGINGS != null)
+                leggings.put(metal.name, metal.LEGGINGS);
+            if(metal.BOOTS != null)
+                boots.put(metal.name, metal.BOOTS);
+            if(metal.CATALYST != null)
+                catalysts.put(metal.name, metal.CATALYST);
+        }
     }
     
     public static void registerOreDict() {
