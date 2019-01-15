@@ -98,9 +98,9 @@ public class HSLColor
      *  @param degrees - the Hue value between 0 - 360
      *  @return the RGB Color object
      */
-    public Color adjustHue(float degrees)
+    public HSLColor adjustHue(float degrees)
     {
-        return toRGB(degrees, hsl[1], hsl[2], alpha);
+        return new HSLColor(degrees, hsl[1], hsl[2]);
     }
 
     /**
@@ -110,9 +110,9 @@ public class HSLColor
      *  @param percent - the Luminance value between 0 - 100
      *  @return the RGB Color object
      */
-    public Color adjustLuminance(float percent)
+    public HSLColor adjustLuminance(float percent)
     {
-        return toRGB(hsl[0], hsl[1], percent, alpha);
+        return new HSLColor(hsl[0], hsl[1], percent, alpha);
     }
 
     /**
@@ -122,9 +122,14 @@ public class HSLColor
      *  @param percent - the Saturation value between 0 - 100
      *  @return the RGB Color object
      */
-    public Color adjustSaturation(float percent)
+    public HSLColor adjustSaturation(float percent)
     {
-        return toRGB(hsl[0], percent, hsl[2], alpha);
+        return new HSLColor(hsl[0], percent, hsl[2], alpha);
+    }
+    
+    public HSLColor adjustAlpha(float alpha)
+    {
+        return new HSLColor(hsl[0], hsl[1], hsl[2], alpha);
     }
 
     /**

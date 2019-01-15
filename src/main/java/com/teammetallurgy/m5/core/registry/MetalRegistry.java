@@ -40,7 +40,7 @@ import net.minecraftforge.registries.IForgeRegistryModifiable;
 @Mod.EventBusSubscriber(modid = "metallurgy5core")
 public class MetalRegistry {
 
-    private static List<MetalDefinition> registry = new ArrayList<>();
+    public static List<MetalDefinition> registry = new ArrayList<>();
 
     public static Map<String, Block> oreBlocks = new HashMap<>();
     public static Map<String, Block> metalBlocks = new HashMap<>();

@@ -42,7 +42,7 @@ public class MetallurgyCore {
     public void preInit(FMLPreInitializationEvent event) {
         MinecraftForge.EVENT_BUS.post(new RegisterMetallurgySubmodEvent(event.getModConfigurationDirectory() + "/.."));
         List<IResourcePack> defaultResourcePacks = ObfuscationReflectionHelper.getPrivateValue(Minecraft.class, Minecraft.getMinecraft(), "field_110449_ao");
-        defaultResourcePacks.add(0, MetalResourceLoader.instance);
+        defaultResourcePacks.add(MetalResourceLoader.instance);
         Minecraft.getMinecraft().refreshResources();
         //FMLClientHandler.instance().refreshResources(VanillaResourceType.TEXTURES);
         //FMLClientHandler.instance().refreshResources(VanillaResourceType.MODELS);

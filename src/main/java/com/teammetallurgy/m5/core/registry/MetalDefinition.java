@@ -94,6 +94,9 @@ public class MetalDefinition {
     public String alloyCatalyst;
     public Map<String, Integer> ingredients = new HashMap<>();
     
+    public int hue = -1;
+    public int saturation = -1;
+    
     public MetalDefinition(String name, MetallurgySubmod mod) {
         this.name = name;
         this.mod = mod;
@@ -147,6 +150,11 @@ public class MetalDefinition {
                 ingredients.put(entry.getKey(), entry.getValue().getAsInt());
             }
             this.alloyCatalyst = root.getAsJsonObject("alloy").get("catalyst").getAsString();
+        }
+        
+        if(root.has("color")) {
+            hue = root.getAsJsonObject("color").get("h").getAsInt();
+            saturation = root.getAsJsonObject("color").get("s").getAsInt();
         }
         
         createItems();

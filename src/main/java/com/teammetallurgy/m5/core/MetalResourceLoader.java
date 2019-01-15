@@ -15,6 +15,8 @@ import java.util.Set;
 import javax.imageio.ImageIO;
 
 import com.teammetallurgy.m5.core.registry.HSLColor;
+import com.teammetallurgy.m5.core.registry.MetalDefinition;
+import com.teammetallurgy.m5.core.registry.MetalRegistry;
 import com.teammetallurgy.m5.core.utils.JSONMaker;
 
 import net.minecraft.client.Minecraft;
@@ -76,38 +78,45 @@ public class MetalResourceLoader implements IResourcePack {
             
             if(type == Type.PNG)
             {
-                String[] path = location.getPath().split("\\.");
-                ResourceLocation new_location = new ResourceLocation(location.getNamespace(), path[0] + "_." + path[1]);
-                System.out.println(new_location);
-                
-                InputStream image = Minecraft.getMinecraft().defaultResourcePack.getInputStream(new_location);
-                
-                BufferedImage bimage = ImageIO.read(image);
-                System.out.println();
-                int pixel = bimage.getRGB(0, 0);
-                System.out.println(pixel);
-                for(int x = 0; x < 16; x++)
-                {
-                    for(int y = 0; y < 16; y++)
-                    {
-                        
-                        int c = bimage.getRGB(x, y);
-                        int a = (c >> 24) & 0xFF;
-                        int r = (c >> 16) & 0xFF;
-                        int g = (c >>  8) & 0xFF;
-                        int b = (c >>  0) & 0xFF;
-                        HSLColor hsl = new HSLColor(new Color(c));
-                        c = hsl.adjustHue(0).getRGB();
-                        c = (a << 24) | (c & 0x00FFFFFF);
-                        bimage.setRGB(x, y, c);
+                MetalDefinition metal = null;
+                for(MetalDefinition metalDefinition : MetalRegistry.registry) {
+                    if(location.getPath().contains(metalDefinition.name)) {
+                        metal = metalDefinition;
+                        break;
                     }
                 }
                 
-                ByteArrayOutputStream os = new ByteArrayOutputStream();
-                ImageIO.write(bimage, "png", os);
-                InputStream is = new ByteArrayInputStream(os.toByteArray());
-                
-                return is;
+                if(metal != null && metal.hue != -1) {
+                    // TODO: This is proof of concept code and will should use the config to select a color to change to
+                    InputStream image = Minecraft.getMinecraft().defaultResourcePack.getInputStream(location);
+                    //String[] path = location.getPath().split("\\.");
+                    //ResourceLocation new_location = new ResourceLocation(location.getNamespace(), path[0] + "_." + path[1]);
+                    //InputStream image = Minecraft.getMinecraft().defaultResourcePack.getInputStream(new_location);
+                    
+                    BufferedImage bimage = ImageIO.read(image);
+                    int pixel = bimage.getRGB(0, 0);
+                    for(int x = 0; x < 16; x++) {
+                        for(int y = 0; y < 16; y++) {
+                            int c = bimage.getRGB(x, y);
+                            int a = (c >> 24) & 0xFF;
+                            int r = (c >> 16) & 0xFF;
+                            int g = (c >>  8) & 0xFF;
+                            int b = (c      ) & 0xFF;
+                            HSLColor hsl = new HSLColor(new Color(c));
+                            c = hsl.adjustHue(metal.hue).adjustSaturation(metal.saturation).getRGB().getRGB();
+                            //c = hsl.adjustHue(0).getRGB();
+                            //c = new HSLColor(metal.hue, metal.saturation, hsl.getLuminance()).getRGB().getRGB();
+                            c = (a << 24) | (c & 0x00FFFFFF);
+                            bimage.setRGB(x, y, c);
+                        }
+                    }
+                    
+                    ByteArrayOutputStream os = new ByteArrayOutputStream();
+                    ImageIO.write(bimage, "png", os);
+                    InputStream is = new ByteArrayInputStream(os.toByteArray());
+                    
+                    return is;
+                }
             }
         }
         try {
@@ -150,7 +159,12 @@ public class MetalResourceLoader implements IResourcePack {
                 return true;
             }
         }
-        
+
+        if (path.matches("textures/.*png"))
+        {
+            registry.put(location.toString(), Type.PNG);
+            return true;
+        }
         return false;
     }
     
