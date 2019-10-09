@@ -1,217 +1,75 @@
 buildscript {
     repositories {
+        mavenLocal()
+        maven {
+            name = 'Forge'
+            url = 'https://files.minecraftforge.net/maven'
+        }
+
         jcenter()
-        maven { url = "https://files.minecraftforge.net/maven" }
+        mavenCentral()
     }
+
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
     }
 }
 
-apply plugin: 'net.minecraftforge.gradle.forge'
+allprojects {
+    apply plugin: 'net.minecraftforge.gradle'
 
-core_version = "${minecraft_version}-${core_version}" + ".alpha" + getBuildNumber()
-base_version = "${minecraft_version}-${base_version}" + ".alpha" + getBuildNumber()
-ender_version = "${minecraft_version}-${ender_version}" + ".alpha" + getBuildNumber()
-fantasy_version = "${minecraft_version}-${fantasy_version}" + ".alpha" + getBuildNumber()
-nether_version = "${minecraft_version}-${nether_version}" + ".alpha" + getBuildNumber()
-precious_version = "${minecraft_version}-${precious_version}" + ".alpha" + getBuildNumber()
-utility_version = "${minecraft_version}-${utility_version}" + ".alpha" + getBuildNumber()
-group = "com.teammetallurgy.m5"
-archivesBaseName = "Metallurgy5"
+    sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 
-sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
-compileJava {
-    sourceCompatibility = targetCompatibility = '1.8'
+    minecraft {
+        mappings channel: 'snapshot', version: project.mappings_version + "-" + "1.14.3"
+    }
+
+    dependencies {
+        minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+    }
 }
 
 minecraft {
-    version = "${minecraft_version}-${forge_version}"
-    mappings = "${mappings_version}"
-    runDir = "run"
-    mappings = "stable_39"
-    
-    replace "@CORE_VERSION@", project.core_version
-    replaceIn "Constants.java"
-    
-    replace "@BASE_VERSION@", project.base_version
-    replaceIn "Constants.java"
-    
-    replace "@ENDER_VERSION@", project.ender_version
-    replaceIn "Constants.java"
-    
-    replace "@FANTASY_VERSION@", project.fantasy_version
-    replaceIn "Constants.java"
-    
-    replace "@NETHER_VERSION@", project.nether_version
-    replaceIn "Constants.java"
-    
-    replace "@PRECIOUS_VERSION@", project.precious_version
-    replaceIn "Constants.java"
-    
-    replace "@UTILITY_VERSION@", project.utility_version
-    replaceIn "Constants.java"
-  
-    // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
-}
+    runs {
+        client {
+            ideaModule "${project.name}.main"
+            workingDirectory project.file('run')
 
-dependencies {
-    deobfProvided "mezz.jei:jei_${minecraft_version}:${jei_version}:api"
-    runtime "mezz.jei:jei_${minecraft_version}:${jei_version}"
-    deobfProvided "mcp.mobius.waila:Hwyla:${hwyla_version}_${minecraft_version}"
-}
+            mods {
+                Metallurgy5Core {
+                    sources sourceSets.main
+                }
+            }
+        }
 
-processResources {
-    inputs.property "core_version", project.core_version
-    inputs.property "base_version", project.base_version
-    inputs.property "precious_version", project.precious_version
-    inputs.property "ender_version", project.ender_version
-    inputs.property "nether_version", project.nether_version
-    inputs.property "fantasy_version", project.fantasy_version
-    inputs.property "utility_version", project.utility_version
-    inputs.property "mcversion", project.minecraft.version
+        clientAllMods {
+            parent runs.client
 
-    from(sourceSets.main.resources.srcDirs) {
-        include 'core.info'
-        expand 'core_version': project.core_version, 'minecraft_version': project.minecraft.version
-    }
-    
-    from(sourceSets.main.resources.srcDirs) {
-        include 'base.info'
-        expand 'base_version': project.base_version, 'minecraft_version': project.minecraft.version
-    }
-    
-    from(sourceSets.main.resources.srcDirs) {
-        include 'precious.info'
-        expand 'precious_version': project.precious_version, 'minecraft_version': project.minecraft.version
-    }
-    
-    from(sourceSets.main.resources.srcDirs) {
-        include 'ender.info'
-        expand 'ender_version': project.ender_version, 'minecraft_version': project.minecraft.version
-    }
-
-    from(sourceSets.main.resources.srcDirs) {
-        include 'nether.info'
-        expand 'nether_version': project.nether_version, 'minecraft_version': project.minecraft.version
-    }
-
-    from(sourceSets.main.resources.srcDirs) {
-        include 'fantasy.info'
-        expand 'fantasy_version': project.fantasy_version, 'minecraft_version': project.minecraft.version
-    }
-
-    from(sourceSets.main.resources.srcDirs) {
-        include 'utility.info'
-        expand 'utility_version': project.utility_version, 'minecraft_version': project.minecraft.version
-    }
-    
-    from(sourceSets.main.resources.srcDirs) {
-        exclude 'core.info'
-        exclude 'base.info'
-        exclude 'precious.info'
-        exclude 'ender.info'
-        exclude 'nether.info'
-        exclude 'fantasy.info'
-        exclude 'utility.info'
+            project.subprojects.forEach { subProject ->
+                child subProject.path, 'client'
+            }
+        }
     }
 }
 
-repositories {
-    maven {
-        url "http://dvs1.progwml6.com/files/maven"
-    }
-    maven {
-        url "http://tehnut.info/maven"
-    }
-    maven { 
-        url "http://maven.blamejared.com" 
-    }
-}
-
-
-
-ext.jarFile = zipTree(jar.archivePath)
-
-task coreJar(type: Jar, dependsOn: reobfJar) {
-    version = "${minecraft_version}-${core_version}"
-    appendix = "Core"
-    from(project.ext.jarFile) {
-        includes.addAll(["assets/metallurgy5core/**", "com/teammetallurgy/m5/core/**", "LICENSE"])
-        include "core.info"
-        rename("core.info", 'mcmod.info')
+subprojects {
+    version = "${minecraft_version}-${mod_version}" + getBuildNumber()
+    minecraft {
+        runs {
+            client {
+                parent rootProject.path, 'client'
+                ideaModule "${rootProject.name}.${project.name}.main"
+                workingDirectory project.file('run')
+                mods {
+                    "${project.name}" {
+                        sources sourceSets.main
+                    }
+                }
+            }
+        }
     }
 }
 
-task baseJar(type: Jar, dependsOn: reobfJar) {
-    version = "${minecraft_version}-${base_version}"
-    appendix = "Base"
-    from(project.ext.jarFile) {
-        includes.addAll(["assets/metallurgy5base/**", "com/teammetallurgy/m5/base/**", "LICENSE"])
-        include "base.info"
-        rename("base.info", 'mcmod.info')
-    }
-}
-
-task preciousJar(type: Jar, dependsOn: reobfJar) {
-    version = "${minecraft_version}-${precious_version}"
-    appendix = "Precious"
-    from(project.ext.jarFile) {
-        includes.addAll(["assets/metallurgy5precious/**", "com/teammetallurgy/m5/precious/**", "LICENSE"])
-        include "precious.info"
-        rename("precious.info", 'mcmod.info')
-    }
-}
-
-task enderJar(type: Jar, dependsOn: reobfJar) {
-    version = "${minecraft_version}-${ender_version}"
-    appendix = "Ender"
-    from(project.ext.jarFile) {
-        includes.addAll(["assets/metallurgy5ender/**", "com/teammetallurgy/m5/ender/**", "LICENSE"])
-        include "ender.info"
-        rename("ender.info", 'mcmod.info')
-    }
-}
-
-task netherJar(type: Jar, dependsOn: reobfJar) {
-    version = "${minecraft_version}-${nether_version}"
-    appendix = "Nether"
-    from(project.ext.jarFile) {
-        includes.addAll(["assets/metallurgy5nether/**", "com/teammetallurgy/m5/nether/**", "LICENSE"])
-        include "nether.info"
-        rename("nether.info", 'mcmod.info')
-    }
-}
-
-task fantasyJar(type: Jar, dependsOn: reobfJar) {
-    version = "${minecraft_version}-${fantasy_version}"
-    appendix = "Fantasy"
-    from(project.ext.jarFile) {
-        includes.addAll(["assets/metallurgy5fantasy/**", "com/teammetallurgy/m5/fantasy/**", "LICENSE"])
-        include "fantasy.info"
-        rename("fantasy.info", 'mcmod.info')
-    }
-}
-
-task utilityJar(type: Jar, dependsOn: reobfJar) {
-    version = "${minecraft_version}-${utility_version}"
-    appendix = "Utility"
-    from(project.ext.jarFile) {
-        includes.addAll(["assets/metallurgy5utility/**", "com/teammetallurgy/m5/utility/**", "LICENSE"])
-        include "utility.info"
-        rename("utility.info", 'mcmod.info')
-    }
-}
-
-artifacts {
-    archives coreJar
-    archives baseJar
-    archives preciousJar
-    archives enderJar
-    archives netherJar
-    archives fantasyJar
-    archives utilityJar
-}
 
 String getBuildNumber() {
     return System.getenv('BUILD_NUMBER') ? System.getenv('BUILD_NUMBER') : '0';

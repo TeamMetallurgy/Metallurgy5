@@ -1,0 +1,59 @@
+{
+  "name": "damascus_steel",
+  "type": "ALLOY",
+  "tier": 4,
+  "harvest_level": 3,
+  "tools": {
+    "harvest_level": 4,
+    "durability": 1600,
+    "efficiency": 12,
+    "enchantability": 16,
+    "sword": {
+      "damage": 8,
+      "speed": 1.6
+    },
+    "axe": {
+      "damage": 11,
+      "speed": 1
+    },
+    "hoe": {
+      "damage": 1.25,
+      "speed": 4
+    },
+    "shovel": {
+      "damage": 5.5,
+      "speed": 5.5
+    },
+    "pickaxe": {
+      "damage": 5,
+      "speed": 1.2
+    }
+  },
+  "armor": {
+    "enchantability": 10,
+    "durability": [
+      642,
+      929,
+      872,
+      757
+    ],
+    "damage_reduction": [
+      3,
+      8,
+      6,
+      3
+    ],
+    "toughness": 2
+  },
+  "property": [
+    "striking"
+  ],
+  "alloy": {
+    "slag_alloy": 2,
+    "catalyst": "diamond",
+    "ingredients": {
+      "bronze": 3,
+      "iron": 1
+    }
+  }
+}

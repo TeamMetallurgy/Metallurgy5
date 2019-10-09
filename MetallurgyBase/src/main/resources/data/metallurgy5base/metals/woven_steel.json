@@ -1,0 +1,61 @@
+{
+  "name": "woven_steel",
+  "type": "ALLOY",
+  "tier": 5,
+  "harvest_level": 4,
+  "tools": {
+    "harvest_level": 5,
+    "durability": 3000,
+    "efficiency": 16,
+    "enchantability": 18,
+    "sword": {
+      "damage": 10,
+      "speed": 1.6
+    },
+    "axe": {
+      "damage": 13,
+      "speed": 1
+    },
+    "hoe": {
+      "damage": 1.5,
+      "speed": 4.5
+    },
+    "shovel": {
+      "damage": 6,
+      "speed": 6
+    },
+    "pickaxe": {
+      "damage": 6,
+      "speed": 1.2
+    }
+  },
+  "armor": {
+    "enchantability": 15,
+    "durability": [
+      1004,
+      1452,
+      1362,
+      1183
+    ],
+    "damage_reduction": [
+      4,
+      9,
+      7,
+      4
+    ],
+    "toughness": 4
+  },
+  "property": [
+    "masterwork"
+  ],
+  "alloy": {
+    "slag_alloy": 2,
+    "catalyst": "diamond_block",
+    "ingredients": {
+      "heavy_steel": 2,
+      "damascus_steel": 2,
+      "manganese_steel": 2,
+      "nickel_steel": 2
+    }
+  }
+}

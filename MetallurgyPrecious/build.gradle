@@ -1,0 +1,7 @@
+group = "com.teammetallurgy.m5.precious"
+archivesBaseName = "Metallurgy5Precious"
+
+dependencies {
+    compileOnly rootProject
+    compileOnly project(":MetallurgyBase")
+}

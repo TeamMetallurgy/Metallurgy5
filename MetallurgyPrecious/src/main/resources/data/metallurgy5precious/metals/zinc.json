@@ -1,0 +1,18 @@
+{
+  "name": "zinc",
+  "type": "SOLUTE",
+  "tier": 1,
+  "branch": 3,
+  "harvest_level": 1,
+  "tools": {
+    "harvest_level": 2,
+    "durability": 35,
+    "efficiency": 7
+  },
+  "world": {
+    "height_min": 32,
+    "height_max": 64,
+    "veins_per_chunk": 2,
+    "ore_per_vein": 8
+  }
+}

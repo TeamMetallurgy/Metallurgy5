@@ -1,0 +1,55 @@
+{
+  "name": "manganese",
+  "type": "SOLUTE",
+  "tier": 3,
+  "branch": 1,
+  "harvest_level": 3,
+  "tools": {
+    "harvest_level": 3,
+    "durability": 250,
+    "efficiency": 10,
+    "enchantability": 16,
+    "sword": {
+      "damage": 6,
+      "speed": 1.6
+    },
+    "axe": {
+      "damage": 9,
+      "speed": 0.9
+    },
+    "hoe": {
+      "damage": 1,
+      "speed": 3
+    },
+    "shovel": {
+      "damage": 5,
+      "speed": 5
+    },
+    "pickaxe": {
+      "damage": 4.5,
+      "speed": 1.2
+    }
+  },
+  "armor": {
+    "enchantability": 18,
+    "durability": [
+      100,
+      145,
+      136,
+      118
+    ],
+    "damage_reduction": [
+      3,
+      6,
+      5,
+      3
+    ],
+    "toughness": 0
+  },
+  "world": {
+    "height_min": 1,
+    "height_max": 48,
+    "veins_per_chunk": 4,
+    "ore_per_vein": 8
+  }
+}

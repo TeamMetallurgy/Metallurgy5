@@ -1,0 +1,54 @@
+{
+  "name": "copper",
+  "type": "ORE",
+  "tier": 1,
+  "harvest_level": 2,
+  "tools": {
+    "harvest_level": 2,
+    "durability": 180,
+    "efficiency": 5,
+    "enchantability": 8,
+    "sword": {
+      "damage": 4,
+      "speed": 1.6
+    },
+    "axe": {
+      "damage": 7,
+      "speed": 0.8
+    },
+    "hoe": {
+      "damage": 1,
+      "speed": 1
+    },
+    "shovel": {
+      "damage": 3.5,
+      "speed": 3.5
+    },
+    "pickaxe": {
+      "damage": 3,
+      "speed": 1.2
+    }
+  },
+  "armor": {
+    "enchantability": 15,
+    "durability": [
+      36,
+      52,
+      49,
+      43
+    ],
+    "damage_reduction": [
+      2,
+      4,
+      2,
+      2
+    ],
+    "toughness": 0
+  },
+  "world": {
+    "height_min": 52,
+    "height_max": 64,
+    "veins_per_chunk": 12,
+    "ore_per_vein": 10
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "metallurgy5base:damascus_steel_block",
+    "metallurgy5base:fungal_steel_block",
+    "metallurgy5base:heavy_steel_block",
+    "metallurgy5base:manganese_steel_block",
+    "metallurgy5base:meteoric_steel_block",
+    "metallurgy5base:nickel_steel_block"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "metallurgy5base:damascus_steel_nugget",
+    "metallurgy5base:fungal_steel_nugget",
+    "metallurgy5base:heavy_steel_nugget",
+    "metallurgy5base:manganese_steel_nugget",
+    "metallurgy5base:meteoric_steel_nugget",
+    "metallurgy5base:nickel_steel_nugget"
+  ]
+}

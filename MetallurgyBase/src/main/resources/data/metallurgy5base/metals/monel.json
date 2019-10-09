@@ -1,0 +1,59 @@
+{
+  "name": "monel",
+  "type": "ALLOY",
+  "tier": 2,
+  "harvest_level": 2,
+  "tools": {
+    "harvest_level": 3,
+    "durability": 500,
+    "efficiency": 9,
+    "enchantability": 14,
+    "sword": {
+      "damage": 7,
+      "speed": 1.6
+    },
+    "axe": {
+      "damage": 10,
+      "speed": 0.9
+    },
+    "hoe": {
+      "damage": 1,
+      "speed": 3
+    },
+    "shovel": {
+      "damage": 4.5,
+      "speed": 4.5
+    },
+    "pickaxe": {
+      "damage": 4,
+      "speed": 1.2
+    }
+  },
+  "armor": {
+    "enchantability": 11,
+    "durability": [
+      201,
+      290,
+      272,
+      166
+    ],
+    "damage_reduction": [
+      2,
+      6,
+      5,
+      2
+    ],
+    "toughness": 0
+  },
+  "property": [
+    "balanced"
+  ],
+  "alloy": {
+    "slag_alloy": 2,
+    "catalyst": "graphite",
+    "ingredients": {
+      "nickel": 3,
+      "copper": 1
+    }
+  }
+}

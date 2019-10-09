@@ -1,0 +1,59 @@
+{
+  "name": "pewter",
+  "type": "ALLOY",
+  "tier": 3,
+  "harvest_level": 2,
+  "tools": {
+    "harvest_level": 3,
+    "durability": 850,
+    "efficiency": 10,
+    "enchantability": 13,
+    "sword": {
+      "damage": 7,
+      "speed": 1.6
+    },
+    "axe": {
+      "damage": 10,
+      "speed": 0.9
+    },
+    "hoe": {
+      "damage": 1,
+      "speed": 3
+    },
+    "shovel": {
+      "damage": 5,
+      "speed": 5
+    },
+    "pickaxe": {
+      "damage": 4.5,
+      "speed": 1.2
+    }
+  },
+  "armor": {
+    "enchantability": 9,
+    "durability": [
+      341,
+      494,
+      463,
+      402
+    ],
+    "damage_reduction": [
+      3,
+      7,
+      5,
+      3
+    ],
+    "toughness": 0
+  },
+  "property": [
+    "heavy"
+  ],
+  "alloy": {
+    "slag_alloy": 2,
+    "catalyst": "graphite",
+    "ingredients": {
+      "tin": 2,
+      "lead": 2
+    }
+  }
+}

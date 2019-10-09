@@ -1,0 +1,60 @@
+{
+  "name": "white_gold",
+  "type": "ALLOY",
+  "tier": 3,
+  "harvest_level": 2,
+  "tools": {
+    "harvest_level": 3,
+    "durability": 300,
+    "efficiency": 13,
+    "enchantability": 24,
+    "sword": {
+      "damage": 6,
+      "speed": 1.6
+    },
+    "axe": {
+      "damage": 10,
+      "speed": 0.9
+    },
+    "hoe": {
+      "damage": 1,
+      "speed": 3
+    },
+    "shovel": {
+      "damage": 5,
+      "speed": 5
+    },
+    "pickaxe": {
+      "damage": 4.5,
+      "speed": 1.2
+    }
+  },
+  "armor": {
+    "enchantability": 280,
+    "durability": [
+      130,
+      189,
+      177,
+      154
+    ],
+    "damage_reduction": [
+      3,
+      7,
+      5,
+      3
+    ],
+    "toughness": 0
+  },
+  "property": [
+    "balanced",
+    "wealth"
+  ],
+  "alloy": {
+    "slag_alloy": 2,
+    "catalyst": "graphite",
+    "ingredients": {
+      "nickel": 1,
+      "gold": 3
+    }
+  }
+}

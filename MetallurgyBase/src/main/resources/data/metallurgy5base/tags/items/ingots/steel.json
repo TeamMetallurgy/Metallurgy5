@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "metallurgy5base:damascus_steel_ingot",
+    "metallurgy5base:fungal_steel_ingot",
+    "metallurgy5base:heavy_steel_ingot",
+    "metallurgy5base:manganese_steel_ingot",
+    "metallurgy5base:meteoric_steel_ingot",
+    "metallurgy5base:nickel_steel_ingot"
+  ]
+}

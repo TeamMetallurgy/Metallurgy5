@@ -1,0 +1,59 @@
+{
+  "name": "bronze",
+  "type": "ALLOY",
+  "tier": 2,
+  "harvest_level": 2,
+  "tools": {
+    "harvest_level": 3,
+    "durability": 250,
+    "efficiency": 6,
+    "enchantability": 14,
+    "sword": {
+      "damage": 6,
+      "speed": 1.6
+    },
+    "axe": {
+      "damage": 9,
+      "speed": 0.9
+    },
+    "hoe": {
+      "damage": 1,
+      "speed": 3
+    },
+    "shovel": {
+      "damage": 4.5,
+      "speed": 4.5
+    },
+    "pickaxe": {
+      "damage": 4,
+      "speed": 1.2
+    }
+  },
+  "armor": {
+    "enchantability": 9,
+    "durability": [
+      100,
+      145,
+      136,
+      118
+    ],
+    "damage_reduction": [
+      2,
+      6,
+      5,
+      2
+    ],
+    "toughness": 0
+  },
+  "property": [
+    "striking"
+  ],
+  "alloy": {
+    "slag_alloy": 2,
+    "catalyst": "graphite",
+    "ingredients": {
+      "copper": 3,
+      "tin": 1
+    }
+  }
+}

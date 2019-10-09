@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "metallurgy5base:damascus_steel_dust",
+    "metallurgy5base:fungal_steel_dust",
+    "metallurgy5base:heavy_steel_dust",
+    "metallurgy5base:manganese_steel_dust",
+    "metallurgy5base:meteoric_steel_dust",
+    "metallurgy5base:nickel_steel_dust"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "name": "graphite",
+  "type": "CATALYST",
+  "harvest_level": 2,
+  "world": {
+    "height_min": 64,
+    "height_max": 128,
+    "veins_per_chunk": 7,
+    "ore_per_vein": 6
+  }
+}

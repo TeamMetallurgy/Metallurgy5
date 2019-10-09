@@ -1,0 +1,28 @@
+{
+  "replace": false,
+  "values": [
+    "#forge:blocks/angmallen",
+    "#forge:blocks/copper",
+    "#forge:blocks/crown_gold",
+    "#forge:blocks/cupronickel",
+    "#forge:blocks/damascus_steel",
+    "#forge:blocks/fungal_steel",
+    "#forge:blocks/heavy_steel",
+    "#forge:blocks/hepatizon",
+    "#forge:blocks/lead",
+    "#forge:blocks/manganese",
+    "#forge:blocks/manganese_steel",
+    "#forge:blocks/meteoric_steel",
+    "#forge:blocks/molybdochalkos",
+    "#forge:blocks/monel",
+    "#forge:blocks/mycelite",
+    "#forge:blocks/nickel",
+    "#forge:blocks/nickel_steel",
+    "#forge:blocks/pewter",
+    "#forge:blocks/steel",
+    "#forge:blocks/thokcha",
+    "#forge:blocks/tin",
+    "#forge:blocks/white_gold",
+    "#forge:blocks/woven_steel"
+  ]
+}

@@ -1,0 +1,13 @@
+modLoader="javafml"
+loaderVersion="[27,)"
+
+[[mods]]
+    modId="metallurgy5precious"
+    displayName="Metallurgy 5 Precious"
+    version="${file.jarVersion}"
+    displayURL="https://www.curseforge.com/minecraft/mc-mods/metallurgy"
+    issueTrackerURL="https://github.com/TeamMetallurgy/Metallurgy5/issues"
+    authors="Shadowclaimer, lclc98"
+    description='''
+    Metals
+    '''

@@ -1,0 +1,11 @@
+{
+  "name": "slag",
+  "type": "OTHER",
+  "tier": 1,
+  "harvest_level": 1,
+  "tools": {
+    "harvest_level": 2,
+    "durability": 150,
+    "efficiency": 5
+  }
+}

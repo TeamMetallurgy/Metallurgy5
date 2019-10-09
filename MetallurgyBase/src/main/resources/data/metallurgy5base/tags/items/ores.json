@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "#forge:ores/copper",
+    "#forge:ores/graphite",
+    "#forge:ores/lead",
+    "#forge:ores/manganese",
+    "#forge:ores/mycelite",
+    "#forge:ores/nickel",
+    "#forge:ores/thokcha",
+    "#forge:ores/tin"
+  ]
+}

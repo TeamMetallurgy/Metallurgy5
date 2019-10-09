@@ -1,0 +1,55 @@
+{
+  "name": "tin",
+  "type": "SOLUTE",
+  "tier": 1,
+  "branch": 2,
+  "harvest_level": 2,
+  "tools": {
+    "harvest_level": 2,
+    "durability": 132,
+    "efficiency": 5,
+    "enchantability": 9,
+    "sword": {
+      "damage": 4,
+      "speed": 1.6
+    },
+    "axe": {
+      "damage": 6,
+      "speed": 0.8
+    },
+    "hoe": {
+      "damage": 1,
+      "speed": 1
+    },
+    "shovel": {
+      "damage": 3,
+      "speed": 3
+    },
+    "pickaxe": {
+      "damage": 3,
+      "speed": 1.2
+    }
+  },
+  "armor": {
+    "enchantability": 15,
+    "durability": [
+      26,
+      38,
+      36,
+      31
+    ],
+    "damage_reduction": [
+      2,
+      4,
+      2,
+      2
+    ],
+    "toughness": 0
+  },
+  "world": {
+    "height_min": 52,
+    "height_max": 96,
+    "veins_per_chunk": 10,
+    "ore_per_vein": 8
+  }
+}

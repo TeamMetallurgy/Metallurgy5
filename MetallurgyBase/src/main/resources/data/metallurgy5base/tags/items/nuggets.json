@@ -1,0 +1,28 @@
+{
+  "replace": false,
+  "values": [
+    "#forge:nuggets/angmallen",
+    "#forge:nuggets/copper",
+    "#forge:nuggets/crown_gold",
+    "#forge:nuggets/cupronickel",
+    "#forge:nuggets/damascus_steel",
+    "#forge:nuggets/fungal_steel",
+    "#forge:nuggets/heavy_steel",
+    "#forge:nuggets/hepatizon",
+    "#forge:nuggets/lead",
+    "#forge:nuggets/manganese",
+    "#forge:nuggets/manganese_steel",
+    "#forge:nuggets/meteoric_steel",
+    "#forge:nuggets/molybdochalkos",
+    "#forge:nuggets/monel",
+    "#forge:nuggets/mycelite",
+    "#forge:nuggets/nickel",
+    "#forge:nuggets/nickel_steel",
+    "#forge:nuggets/pewter",
+    "#forge:nuggets/steel",
+    "#forge:nuggets/thokcha",
+    "#forge:nuggets/tin",
+    "#forge:nuggets/white_gold",
+    "#forge:nuggets/woven_steel"
+  ]
+}
