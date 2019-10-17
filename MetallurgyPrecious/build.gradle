@@ -3,5 +3,4 @@ archivesBaseName = "Metallurgy5Precious"
 
 dependencies {
     compileOnly rootProject
-    compileOnly project(":MetallurgyBase")
 }

@@ -1,0 +1,28 @@
+{
+  "replace": false,
+  "values": [
+    "#metallurgy5base:dusts/angmallen",
+    "#metallurgy5base:dusts/copper",
+    "#metallurgy5base:dusts/crown_gold",
+    "#metallurgy5base:dusts/cupronickel",
+    "#metallurgy5base:dusts/damascus_steel",
+    "#metallurgy5base:dusts/fungal_steel",
+    "#metallurgy5base:dusts/heavy_steel",
+    "#metallurgy5base:dusts/hepatizon",
+    "#metallurgy5base:dusts/lead",
+    "#metallurgy5base:dusts/manganese",
+    "#metallurgy5base:dusts/manganese_steel",
+    "#metallurgy5base:dusts/meteoric_steel",
+    "#metallurgy5base:dusts/molybdochalkos",
+    "#metallurgy5base:dusts/monel",
+    "#metallurgy5base:dusts/mycelite",
+    "#metallurgy5base:dusts/nickel",
+    "#metallurgy5base:dusts/nickel_steel",
+    "#metallurgy5base:dusts/pewter",
+    "#metallurgy5base:dusts/steel",
+    "#metallurgy5base:dusts/thokcha",
+    "#metallurgy5base:dusts/tin",
+    "#metallurgy5base:dusts/white_gold",
+    "#metallurgy5base:dusts/woven_steel"
+  ]
+}

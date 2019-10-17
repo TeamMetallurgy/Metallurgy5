@@ -1,0 +1,8 @@
+{
+  "type": "metallurgy5base:slag_pot",
+  "meltTime": 100,
+  "ingredient": {
+    "item": "metallurgy5base:copper_ingot"
+  },
+  "points": 10
+}

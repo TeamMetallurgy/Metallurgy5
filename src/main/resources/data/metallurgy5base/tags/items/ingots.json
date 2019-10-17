@@ -1,0 +1,29 @@
+{
+  "replace": false,
+  "values": [
+    "#metallurgy5base:ingots/angmallen",
+    "#metallurgy5base:ingots/copper",
+    "#metallurgy5base:ingots/crown_gold",
+    "#metallurgy5base:ingots/cupronickel",
+    "#metallurgy5base:ingots/damascus_steel",
+    "#metallurgy5base:ingots/fungal_steel",
+    "#metallurgy5base:ingots/heavy_steel",
+    "#metallurgy5base:ingots/hepatizon",
+    "#metallurgy5base:ingots/lead",
+    "#metallurgy5base:ingots/manganese",
+    "#metallurgy5base:ingots/manganese_steel",
+    "#metallurgy5base:ingots/meteoric_steel",
+    "#metallurgy5base:ingots/molybdochalkos",
+    "#metallurgy5base:ingots/monel",
+    "#metallurgy5base:ingots/mycelite",
+    "#metallurgy5base:ingots/nickel",
+    "#metallurgy5base:ingots/nickel_steel",
+    "#metallurgy5base:ingots/pewter",
+    "#metallurgy5base:ingots/slag",
+    "#metallurgy5base:ingots/steel",
+    "#metallurgy5base:ingots/thokcha",
+    "#metallurgy5base:ingots/tin",
+    "#metallurgy5base:ingots/white_gold",
+    "#metallurgy5base:ingots/woven_steel"
+  ]
+}

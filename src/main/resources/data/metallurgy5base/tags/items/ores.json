@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "#metallurgy5base:ores/copper",
+    "#metallurgy5base:ores/graphite",
+    "#metallurgy5base:ores/lead",
+    "#metallurgy5base:ores/manganese",
+    "#metallurgy5base:ores/mycelite",
+    "#metallurgy5base:ores/nickel",
+    "#metallurgy5base:ores/thokcha",
+    "#metallurgy5base:ores/tin"
+  ]
+}

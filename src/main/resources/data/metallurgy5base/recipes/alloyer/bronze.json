@@ -1,0 +1,20 @@
+{
+  "type": "metallurgy5base:alloyer",
+  "result": {
+    "item": "metallurgy5base:bronze_ingot",
+    "count": 2
+  },
+  "catalyst": {
+    "item": "metallurgy5base:graphite_item"
+  },
+  "ingredients": [
+    {
+      "item": "metallurgy5base:copper_ingot",
+      "count": 2
+    },
+    {
+      "item": "metallurgy5base:tin_ingot",
+      "count": 2
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "replace": false,
+  "values": [
+    "#metallurgy5base:blocks/angmallen",
+    "#metallurgy5base:blocks/copper",
+    "#metallurgy5base:blocks/crown_gold",
+    "#metallurgy5base:blocks/cupronickel",
+    "#metallurgy5base:blocks/damascus_steel",
+    "#metallurgy5base:blocks/fungal_steel",
+    "#metallurgy5base:blocks/heavy_steel",
+    "#metallurgy5base:blocks/hepatizon",
+    "#metallurgy5base:blocks/lead",
+    "#metallurgy5base:blocks/manganese",
+    "#metallurgy5base:blocks/manganese_steel",
+    "#metallurgy5base:blocks/meteoric_steel",
+    "#metallurgy5base:blocks/molybdochalkos",
+    "#metallurgy5base:blocks/monel",
+    "#metallurgy5base:blocks/mycelite",
+    "#metallurgy5base:blocks/nickel",
+    "#metallurgy5base:blocks/nickel_steel",
+    "#metallurgy5base:blocks/pewter",
+    "#metallurgy5base:blocks/steel",
+    "#metallurgy5base:blocks/thokcha",
+    "#metallurgy5base:blocks/tin",
+    "#metallurgy5base:blocks/white_gold",
+    "#metallurgy5base:blocks/woven_steel"
+  ]
+}

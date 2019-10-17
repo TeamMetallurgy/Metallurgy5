@@ -1,7 +1,7 @@
 //package com.teammetallurgy.m5.precious;
 //
 //import com.teammetallurgy.m5.core.MetallurgyMetalPack;
-//import com.teammetallurgy.m5.core.utils.MetallurgyConfig;
+//import com.teammetallurgy.m5.base.utils.MetallurgyConfig;
 //import cpw.mods.modlauncher.Environment;
 //import cpw.mods.modlauncher.Launcher;
 //import net.minecraft.block.Block;

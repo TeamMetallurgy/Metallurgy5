@@ -1,0 +1,28 @@
+{
+  "replace": false,
+  "values": [
+    "#metallurgy5base:nuggets/angmallen",
+    "#metallurgy5base:nuggets/copper",
+    "#metallurgy5base:nuggets/crown_gold",
+    "#metallurgy5base:nuggets/cupronickel",
+    "#metallurgy5base:nuggets/damascus_steel",
+    "#metallurgy5base:nuggets/fungal_steel",
+    "#metallurgy5base:nuggets/heavy_steel",
+    "#metallurgy5base:nuggets/hepatizon",
+    "#metallurgy5base:nuggets/lead",
+    "#metallurgy5base:nuggets/manganese",
+    "#metallurgy5base:nuggets/manganese_steel",
+    "#metallurgy5base:nuggets/meteoric_steel",
+    "#metallurgy5base:nuggets/molybdochalkos",
+    "#metallurgy5base:nuggets/monel",
+    "#metallurgy5base:nuggets/mycelite",
+    "#metallurgy5base:nuggets/nickel",
+    "#metallurgy5base:nuggets/nickel_steel",
+    "#metallurgy5base:nuggets/pewter",
+    "#metallurgy5base:nuggets/steel",
+    "#metallurgy5base:nuggets/thokcha",
+    "#metallurgy5base:nuggets/tin",
+    "#metallurgy5base:nuggets/white_gold",
+    "#metallurgy5base:nuggets/woven_steel"
+  ]
+}

@@ -55,6 +55,7 @@ local.properties
 [Rr]elease/
 x64/
 build/
+out/
 [Bb]in/
 [Oo]bj/
 
