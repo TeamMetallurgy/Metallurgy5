@@ -49,7 +49,7 @@ public class SlagPotOutputSlot extends Slot {
     @Override
     protected void onCrafting(@Nonnull ItemStack stack) {
         stack.onCrafting(this.player.world, this.player, this.removeCount);
-        if (!this.player.world.isRemote && this.inventory instanceof AbstractFurnaceTileEntity) {
+        if (!this.player.world.isRemote && this.inventory instanceof SlagPotTileEntity) {
             ((SlagPotTileEntity) this.inventory).func_213995_d(this.player);
         }
 

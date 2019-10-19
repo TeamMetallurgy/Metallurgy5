@@ -1,8 +1,18 @@
 {
   "type": "metallurgy5base:blending_furnace",
-  "ingredient": {
-    "item": "minecraft:rotten_flesh"
+  "result": {
+    "item": "metallurgy5base:bronze_ingot",
+    "count": 2
   },
-  "result": "minecraft:beef",
-  "count": 1
+  "catalyst": {
+    "item": "metallurgy5base:graphite_item"
+  },
+  "ingredients": [
+    {
+      "item": "metallurgy5base:copper_ingot"
+    },
+    {
+      "item": "metallurgy5base:tin_ingot"
+    }
+  ]
 }

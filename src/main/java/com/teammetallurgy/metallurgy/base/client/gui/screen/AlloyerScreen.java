@@ -24,18 +24,20 @@ public class AlloyerScreen extends ContainerScreen<AlloyerContainer> {
     }
 
     @Override
-    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-    }
-
-    @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
         GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         if (this.minecraft != null) {
             this.minecraft.getTextureManager().bindTexture(ALLOYER_GUI);
         }
-        int x = (this.width - this.xSize) / 2;
-        int y = (this.height - this.ySize) / 2;
-        this.blit(x, y, 0, 0, this.xSize, this.ySize);
+        int i = this.guiLeft;
+        int j = this.guiTop;
+        this.blit(i, j, 0, 0, this.xSize, this.ySize);
+        if (this.container.isBurning()) {
+            int k = this.container.getBurnLeftScaled();
+            this.blit(i + 90, j + 42 + 12 - k, 176, 12 - k, 14, k + 1);
+        }
 
+        int l = this.container.getCookProgressionScaled();
+        this.blit(i + 83, j + 21, 176, 14, l + 1, 16);
     }
 }

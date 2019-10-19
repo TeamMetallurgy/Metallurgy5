@@ -1,7 +1,7 @@
 package com.teammetallurgy.metallurgy.base.inventory.container;
 
 import com.teammetallurgy.metallurgy.base.block.machine.tileentity.OreCrusherTileEntity;
-import com.teammetallurgy.metallurgy.base.init.MetallurgyBlock;
+import com.teammetallurgy.metallurgy.base.init.MetallurgyBaseBlock;
 import com.teammetallurgy.metallurgy.base.init.MetallurgyGuis;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -21,6 +21,6 @@ public class OreCrusherContainer extends Container {
 
     @Override
     public boolean canInteractWith(PlayerEntity player) {
-        return isWithinUsableDistance(IWorldPosCallable.of(Objects.requireNonNull(oreCrusher.getWorld()), oreCrusher.getPos()), player, MetallurgyBlock.ORE_CRUSHER);
+        return isWithinUsableDistance(IWorldPosCallable.of(Objects.requireNonNull(oreCrusher.getWorld()), oreCrusher.getPos()), player, MetallurgyBaseBlock.ORE_CRUSHER);
     }
 }

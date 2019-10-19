@@ -10,6 +10,9 @@ import net.minecraft.util.text.ITextComponent;
 
 public class SlagPotScreen extends ContainerScreen<SlagPotContainer> {
     private static final ResourceLocation SLAG_POT_GUI = new ResourceLocation(MetallurgyBase.MOD_ID, "textures/gui/container/slag_pot.png");
+    private final int top = 31;
+    private final int bottom = 87;
+    private final int size = bottom - top;
 
     public SlagPotScreen(SlagPotContainer slagPotContainer, PlayerInventory playerInventory, ITextComponent title) {
         super(slagPotContainer, playerInventory, title);
@@ -39,5 +42,11 @@ public class SlagPotScreen extends ContainerScreen<SlagPotContainer> {
 
         int l = this.container.getCookProgressionScaled();
         this.blit(i + 62, j + 34, 176, 14, l + 1, 16);
+
+        int p = this.container.getPoints();
+        float x = p / 1000f;
+        final float sizePercentage = bottom - (size) * x;
+        final int offset = (int) (bottom - sizePercentage);
+        this.blit(i + 92, j + 70 - offset, 176, (int) sizePercentage, 11, offset);
     }
 }

@@ -25,7 +25,7 @@ public class SlagPotContainer extends RecipeBookContainer<IInventory> {
     private final IIntArray furnaceData;
 
     public SlagPotContainer(int windowID, BlockPos pos, PlayerInventory playerInventory) {
-        this(windowID, pos, playerInventory, new IntArray(4));
+        this(windowID, pos, playerInventory, new IntArray(5));
     }
 
     public SlagPotContainer(int windowID, BlockPos pos, PlayerInventory playerInventory, IIntArray furnaceData) {
@@ -122,4 +122,8 @@ public class SlagPotContainer extends RecipeBookContainer<IInventory> {
         return this.furnaceData.get(0) > 0;
     }
 
+    @OnlyIn(Dist.CLIENT)
+    public int getPoints() {
+        return this.furnaceData.get(4);
+    }
 }

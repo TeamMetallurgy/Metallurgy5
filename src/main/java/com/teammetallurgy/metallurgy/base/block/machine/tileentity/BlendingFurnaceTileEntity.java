@@ -1,23 +1,23 @@
 package com.teammetallurgy.metallurgy.base.block.machine.tileentity;
 
 import com.google.common.collect.Maps;
+import com.teammetallurgy.metallurgy.base.block.machine.BlendingFurnaceBlock;
 import com.teammetallurgy.metallurgy.base.crafting.RecipeTypes;
 import com.teammetallurgy.metallurgy.base.crafting.recipe.BlendingFurnaceRecipe;
 import com.teammetallurgy.metallurgy.base.init.MetallurgyTileEntities;
 import com.teammetallurgy.metallurgy.base.inventory.container.BlendingFurnaceContainer;
+import com.teammetallurgy.metallurgy.base.utils.RecipeUtils;
 import net.minecraft.block.AbstractFurnaceBlock;
-import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.IRecipeHelperPopulator;
 import net.minecraft.inventory.IRecipeHolder;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.inventory.container.Container;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.RecipeItemHelper;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.LockableTileEntity;
 import net.minecraft.util.IIntArray;
@@ -163,9 +163,9 @@ public class BlendingFurnaceTileEntity extends LockableTileEntity implements IRe
     @Override
     public void setRecipeUsed(@Nullable IRecipe<?> recipe) {
         if (recipe != null) {
-//            this.field_214022_n.compute(recipe.getId(), ((resourceLocation, integer) -> {
-//                return 1 + (p_214004_1_ == null ? 0 : p_214004_1_);
-//            });
+            this.field_214022_n.compute(recipe.getId(), ((resourceLocation, p_214004_1_) -> {
+                return 1 + (p_214004_1_ == null ? 0 : p_214004_1_);
+            }));
         }
     }
 
@@ -184,21 +184,20 @@ public class BlendingFurnaceTileEntity extends LockableTileEntity implements IRe
         }
 
         if (!this.world.isRemote) {
-            ItemStack itemstack = this.items.get(1);
-            if (this.isBurning() || !itemstack.isEmpty() && !this.items.get(0).isEmpty()) {
+            ItemStack fuelSlot = this.items.get(3);
+            if (this.isBurning() || !fuelSlot.isEmpty()) {
                 IRecipe<?> irecipe = this.world.getRecipeManager().getRecipe(RecipeTypes.BLENDING_FURNACE, this, this.world).orElse(null);
                 if (!this.isBurning() && this.canSmelt(irecipe)) {
-                    this.burnTime = this.getBurnTime(itemstack);
+                    this.burnTime = this.getBurnTime(fuelSlot);
                     this.recipesUsed = this.burnTime;
                     if (this.isBurning()) {
                         flag1 = true;
-                        if (itemstack.hasContainerItem())
-                            this.items.set(1, itemstack.getContainerItem());
-                        else if (!itemstack.isEmpty()) {
-                            Item item = itemstack.getItem();
-                            itemstack.shrink(1);
-                            if (itemstack.isEmpty()) {
-                                this.items.set(1, itemstack.getContainerItem());
+                        if (fuelSlot.hasContainerItem())
+                            this.items.set(1, fuelSlot.getContainerItem());
+                        else if (!fuelSlot.isEmpty()) {
+                            fuelSlot.shrink(1);
+                            if (fuelSlot.isEmpty()) {
+                                this.items.set(1, fuelSlot.getContainerItem());
                             }
                         }
                     }
@@ -209,7 +208,7 @@ public class BlendingFurnaceTileEntity extends LockableTileEntity implements IRe
                     if (this.cookTime == this.cookTimeTotal) {
                         this.cookTime = 0;
                         this.cookTimeTotal = this.getCookTime();
-                        this.func_214007_c(irecipe);
+                        this.setOutput(irecipe);
                         flag1 = true;
                     }
                 } else {
@@ -221,7 +220,7 @@ public class BlendingFurnaceTileEntity extends LockableTileEntity implements IRe
 
             if (flag != this.isBurning()) {
                 flag1 = true;
-                this.world.setBlockState(this.pos, this.world.getBlockState(this.pos).with(AbstractFurnaceBlock.LIT, this.isBurning()), 3);
+                this.world.setBlockState(this.pos, this.world.getBlockState(this.pos).with(BlendingFurnaceBlock.LIT, this.isBurning()), 3);
             }
         }
 
@@ -231,47 +230,32 @@ public class BlendingFurnaceTileEntity extends LockableTileEntity implements IRe
     }
 
     protected boolean canSmelt(@Nullable IRecipe<?> recipeIn) {
-        if (!this.items.get(0).isEmpty() && recipeIn != null) {
-            ItemStack itemstack = recipeIn.getRecipeOutput();
-            if (itemstack.isEmpty()) {
-                return false;
-            } else {
-                ItemStack itemstack1 = this.items.get(2);
-                if (itemstack1.isEmpty()) {
-                    return true;
-                } else if (!itemstack1.isItemEqual(itemstack)) {
-                    return false;
-                } else if (itemstack1.getCount() + itemstack.getCount() <= this.getInventoryStackLimit() && itemstack1.getCount() + itemstack.getCount() <= itemstack1.getMaxStackSize()) { // Forge fix: make furnace respect stack sizes in furnace recipes
-                    return true;
-                } else {
-                    return itemstack1.getCount() + itemstack.getCount() <= itemstack.getMaxStackSize(); // Forge fix: make furnace respect stack sizes in furnace recipes
-                }
-            }
+        if (recipeIn != null) {
+            return RecipeUtils.canSmelt(this.items.get(4), recipeIn.getRecipeOutput());
         } else {
             return false;
         }
     }
 
-    private void func_214007_c(@Nullable IRecipe<?> recipe) {
+    private void setOutput(@Nullable IRecipe<?> recipe) {
         if (recipe != null && this.canSmelt(recipe)) {
-            ItemStack itemstack = this.items.get(0);
-            ItemStack itemstack1 = recipe.getRecipeOutput();
-            ItemStack itemstack2 = this.items.get(2);
-            if (itemstack2.isEmpty()) {
-                this.items.set(2, itemstack1.copy());
-            } else if (itemstack2.getItem() == itemstack1.getItem()) {
-                itemstack2.grow(itemstack1.getCount());
+            ItemStack output = recipe.getRecipeOutput();
+            ItemStack outputSlot = this.items.get(4);
+
+            for (int i = 0; i < 3; i++) {
+                ItemStack itemStack = this.items.get(i);
+                if (!itemStack.isEmpty()) {
+                    itemStack.shrink(1);
+                }
             }
 
-            if (!this.world.isRemote) {
-                this.setRecipeUsed(recipe);
+            if (outputSlot.isEmpty()) {
+                this.items.set(4, output.copy());
+            } else if (outputSlot.getItem() == output.getItem()) {
+                outputSlot.grow(output.getCount());
             }
 
-            if (itemstack.getItem() == Blocks.WET_SPONGE.asItem() && !this.items.get(1).isEmpty() && this.items.get(1).getItem() == Items.BUCKET) {
-                this.items.set(1, new ItemStack(Items.WATER_BUCKET));
-            }
-
-            itemstack.shrink(1);
+            this.setRecipeUsed(recipe);
         }
     }
 
@@ -289,5 +273,42 @@ public class BlendingFurnaceTileEntity extends LockableTileEntity implements IRe
 
     protected int getCookTime() {
         return this.world.getRecipeManager().getRecipe(RecipeTypes.BLENDING_FURNACE, this, this.world).map(BlendingFurnaceRecipe::getCookTime).orElse(200);
+    }
+
+    @Override
+    public void read(CompoundNBT compound) {
+        super.read(compound);
+        this.items = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
+        ItemStackHelper.loadAllItems(compound, this.items);
+        this.burnTime = compound.getInt("BurnTime");
+        this.cookTime = compound.getInt("CookTime");
+        this.cookTimeTotal = compound.getInt("CookTimeTotal");
+        this.recipesUsed = this.getBurnTime(this.items.get(1));
+        int i = compound.getShort("RecipesUsedSize");
+
+        for (int j = 0; j < i; ++j) {
+            ResourceLocation resourcelocation = new ResourceLocation(compound.getString("RecipeLocation" + j));
+            int k = compound.getInt("RecipeAmount" + j);
+            this.field_214022_n.put(resourcelocation, k);
+        }
+    }
+
+    @Override
+    public CompoundNBT write(CompoundNBT compound) {
+        super.write(compound);
+        compound.putInt("BurnTime", this.burnTime);
+        compound.putInt("CookTime", this.cookTime);
+        compound.putInt("CookTimeTotal", this.cookTimeTotal);
+        ItemStackHelper.saveAllItems(compound, this.items);
+        compound.putShort("RecipesUsedSize", (short) this.field_214022_n.size());
+        int i = 0;
+
+        for (Map.Entry<ResourceLocation, Integer> entry : this.field_214022_n.entrySet()) {
+            compound.putString("RecipeLocation" + i, entry.getKey().toString());
+            compound.putInt("RecipeAmount" + i, entry.getValue());
+            ++i;
+        }
+
+        return compound;
     }
 }

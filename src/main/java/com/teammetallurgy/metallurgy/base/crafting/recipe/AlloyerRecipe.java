@@ -7,7 +7,9 @@ import com.teammetallurgy.metallurgy.base.crafting.RecipeSerializers;
 import com.teammetallurgy.metallurgy.base.crafting.RecipeTypes;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.*;
+import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.item.crafting.ShapedRecipe;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.NonNullList;
@@ -17,34 +19,25 @@ import net.minecraftforge.common.util.RecipeMatcher;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 
-public class AlloyerRecipe implements IRecipe<IInventory> {
-    private final IRecipeType<?> type;
-    private final IRecipeSerializer<?> serializer;
-    private final ResourceLocation id;
-    protected final String group;
-    protected final int cookTime;
-    protected final NonNullList<Ingredient> ingredients;
-    protected final ItemStack catalyst;
-    protected final ItemStack result;
+public class AlloyerRecipe extends BlendingFurnaceRecipe {
 
     public AlloyerRecipe(ResourceLocation id, String group, int cookTime, NonNullList<Ingredient> ingredients, ItemStack catalyst, ItemStack result) {
-        this.type = RecipeTypes.ALLOYER;
-        this.serializer = RecipeSerializers.ALLOYER;
-        this.id = id;
-        this.group = group;
-        this.cookTime = cookTime;
-        this.ingredients = ingredients;
-        this.catalyst = catalyst;
-        this.result = result;
+        super(RecipeTypes.ALLOYER, RecipeSerializers.ALLOYER, id, group, cookTime, ingredients, catalyst, result);
     }
 
     @Override
     public boolean matches(IInventory inv, World worldIn) {
-        java.util.List<ItemStack> inputs = new java.util.ArrayList<>();
+        List<ItemStack> inputs = new ArrayList<>();
         int i = 0;
 
-        for (int j = 0; j < inv.getSizeInventory(); ++j) {
+        ItemStack catalyst = inv.getStackInSlot(4);
+        if (!this.catalyst.isItemEqual(catalyst)) {
+            return false;
+        }
+        for (int j = 0; j < 4; ++j) {
             ItemStack itemstack = inv.getStackInSlot(j);
             if (!itemstack.isEmpty()) {
                 ++i;
@@ -53,45 +46,6 @@ public class AlloyerRecipe implements IRecipe<IInventory> {
         }
 
         return i == this.ingredients.size() && (RecipeMatcher.findMatches(inputs, this.ingredients) != null);
-    }
-
-    @Override
-    public ItemStack getCraftingResult(IInventory inv) {
-        return this.result.copy();
-    }
-
-    @Override
-    public boolean canFit(int width, int height) {
-        return true;
-    }
-
-    @Override
-    public ItemStack getRecipeOutput() {
-        return this.result;
-    }
-
-    @Override
-    public ResourceLocation getId() {
-        return this.id;
-    }
-
-    @Override
-    public IRecipeSerializer<?> getSerializer() {
-        return this.serializer;
-    }
-
-    @Override
-    public NonNullList<Ingredient> getIngredients() {
-        return this.ingredients;
-    }
-
-    @Override
-    public IRecipeType<?> getType() {
-        return this.type;
-    }
-
-    public int getCookTime() {
-        return this.cookTime;
     }
 
     public static class Serializer<T extends AlloyerRecipe> extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<T> {
@@ -159,7 +113,4 @@ public class AlloyerRecipe implements IRecipe<IInventory> {
         }
     }
 
-    public interface IRecipeFactory<T extends AlloyerRecipe> {
-        T create(ResourceLocation id, String group, int cookTime, NonNullList<Ingredient> ingredient, ItemStack catalyst, ItemStack result);
-    }
 }

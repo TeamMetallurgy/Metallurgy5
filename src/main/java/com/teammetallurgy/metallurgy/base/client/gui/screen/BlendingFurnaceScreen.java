@@ -13,7 +13,7 @@ public class BlendingFurnaceScreen extends ContainerScreen<BlendingFurnaceContai
 
     public BlendingFurnaceScreen(BlendingFurnaceContainer blendingFurnaceContainer, PlayerInventory playerInventory, ITextComponent title) {
         super(blendingFurnaceContainer, playerInventory, title);
-        this.ySize = 172;
+        this.ySize = 162;
     }
 
     @Override
@@ -32,13 +32,12 @@ public class BlendingFurnaceScreen extends ContainerScreen<BlendingFurnaceContai
         int i = this.guiLeft;
         int j = this.guiTop;
         this.blit(i, j, 0, 0, this.xSize, this.ySize);
-
         if (this.container.isBurning()) {
             int k = this.container.getBurnLeftScaled();
-            this.blit(i + 56, j + 36 + 12 - k, 176, 12 - k, 14, k + 1);
+            this.blit(i + 88, j + 43 + 12 - k, 176, 12 - k, 14, k + 1);
         }
 
         int l = this.container.getCookProgressionScaled();
-        this.blit(i + 79, j + 34, 176, 14, l + 1, 16);
+        this.blit(i + 83, j + 20, 176, 14, l + 1, 16);
     }
 }

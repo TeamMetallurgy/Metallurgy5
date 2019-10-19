@@ -85,6 +85,10 @@ public class SlagPotRecipe implements IRecipe<IInventory> {
         return this.meltTime;
     }
 
+    public int getPoints() {
+        return this.points;
+    }
+
     public static class Serializer<T extends SlagPotRecipe> extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<T> {
         final IRecipeFactory<T> factory;
 

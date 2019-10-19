@@ -2,7 +2,6 @@ package com.teammetallurgy.metallurgy.base.init;
 
 import com.google.common.collect.Lists;
 import com.teammetallurgy.metallurgy.base.MetallurgyBase;
-import com.teammetallurgy.metallurgy.base.MetallurgyBaseMetalPack;
 import com.teammetallurgy.metallurgy.base.block.machine.*;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
@@ -19,7 +18,7 @@ import java.util.List;
 
 @Mod.EventBusSubscriber(modid = MetallurgyBase.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 @ObjectHolder(MetallurgyBase.MOD_ID)
-public class MetallurgyBlock {
+public class MetallurgyBaseBlock {
 
     public static List<Block> BLOCKS = Lists.newArrayList();
 
@@ -36,11 +35,11 @@ public class MetallurgyBlock {
     public static final Block WATER_PUMP = register(new WaterPumpBlock(), "water_pump");
     public static final Block WELL = register(new WellBlock(), "well");
 
-    private MetallurgyBlock() {
+    private MetallurgyBaseBlock() {
     }
 
     /**
-     * Same as {@link MetallurgyBlock#register(Block, String, Item.Properties)}, but have group set by default
+     * Same as {@link MetallurgyBaseBlock#register(Block, String, Item.Properties)}, but have group set by default
      */
     public static Block register(@Nonnull Block block, @Nonnull String name) {
         return register(block, name, new Item.Properties());
@@ -55,7 +54,7 @@ public class MetallurgyBlock {
      */
     public static Block register(@Nonnull Block block, @Nonnull String name, @Nullable Item.Properties properties) {
         registerBaseBlock(block, name);
-        MetallurgyItem.register(new BlockItem(block, properties == null ? new Item.Properties() : properties.group(MetallurgyBaseMetalPack.getInstance().getItemGroup())), name);
+        MetallurgyItem.register(new BlockItem(block, properties == null ? new Item.Properties() : properties.group(MetallurgyBase.METAL_SET.get(MetallurgyBase.MOD_ID).getItemGroup())), name);
         return block;
     }
 

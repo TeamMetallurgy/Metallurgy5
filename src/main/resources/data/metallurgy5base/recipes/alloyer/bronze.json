@@ -9,12 +9,16 @@
   },
   "ingredients": [
     {
-      "item": "metallurgy5base:copper_ingot",
-      "count": 2
+      "item": "metallurgy5base:copper_ingot"
     },
     {
-      "item": "metallurgy5base:tin_ingot",
-      "count": 2
+      "item": "metallurgy5base:copper_ingot"
+    },
+    {
+      "item": "metallurgy5base:tin_ingot"
+    },
+    {
+      "item": "metallurgy5base:tin_ingot"
     }
   ]
 }
